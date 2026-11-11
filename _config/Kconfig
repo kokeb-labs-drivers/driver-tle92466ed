@@ -1,0 +1,59 @@
+# Kconfig for the TLE92466ED driver. The root CMakeLists.txt registers it with ESP-IDF
+# (idf_component_register(... KCONFIG _config/Kconfig)), so `idf.py menuconfig` shows
+# "TLE92466ED solenoid driver". The values reach the code only through
+# inc/tle92466ed_kconfig.hpp; no public driver signature uses them.
+menuconfig TLE92466ED
+    bool "TLE92466ED solenoid driver"
+    default y
+    help
+      Defaults for tle92466ed::KconfigDefaults(). The driver itself does not
+      need Kconfig; outside ESP-IDF the same defaults come from Config{}.
+
+if TLE92466ED
+
+config TLE92466ED_VIO_3V3
+    bool "VIO is 3.3 V"
+    default n
+    help
+      GLOBAL_CONFIG.VIO_SEL. Off selects 5.0 V, the reset value. It must match the
+      board's VIO, or the VIO monitor keeps the chip in Config Mode.
+
+config TLE92466ED_CRC_CHECK_DISABLE
+    bool "Turn the chip's check of the driver's frame CRCs off"
+    default n
+    help
+      Clears GLOBAL_CONFIG.CRC_EN (set after reset). The driver still sends a
+      CRC with every frame and checks the CRC of every reply.
+
+config TLE92466ED_SPI_WATCHDOG
+    bool "SPI watchdog"
+    default n
+    help
+      GLOBAL_CONFIG.SPI_WD_EN. Call ReloadWatchdog() more often than the timeout.
+
+config TLE92466ED_WATCHDOG_TIMEOUT_MS
+    int "SPI watchdog timeout (ms)"
+    depends on TLE92466ED_SPI_WATCHDOG
+    range 1 1198
+    default 100
+    help
+      WD_RELOAD.WD_TIME = timeout * f_SYS / 2^14, at most 2047 counts (1.198 s at 28 MHz).
+
+config TLE92466ED_EXTERNAL_CLOCK_KHZ
+    int "External clock on the CLK pin (kHz, 0 = internal oscillator)"
+    range 0 8000
+    default 0
+    help
+      CLK_DIV. 1000 to 8000 kHz in 500 kHz steps (datasheet Table 10).
+
+config TLE92466ED_INIT_TIMEOUT_US
+    int "Longest wait for INIT_DONE (us)"
+    range 100 100000
+    default 10000
+
+config TLE92466ED_MAX_RETRIES
+    int "Retries of a read whose reply failed its checks"
+    range 0 3
+    default 2
+
+endif

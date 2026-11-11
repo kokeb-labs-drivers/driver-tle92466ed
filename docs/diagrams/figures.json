@@ -1,0 +1,50 @@
+{
+  "chip-blocks": {
+    "title": "Inside the TLE92466ED",
+    "alt": "Block diagram of the TLE92466ED: its function blocks, how they connect and which package pins reach each block.",
+    "description": "The TLE92466ED's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.",
+    "profile": "detail",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/tle92466ed_spi_interface.hpp"
+    ]
+  },
+  "chip-circuit-typical": {
+    "title": "TLE92466ED: Simplified application circuit",
+    "alt": "Schematic of the TLE92466ED simplified application circuit: the chip with U2 MCU, C1 polarized-capacitor 100 µF, C2 capacitor 100 nF, C3 capacitor 100 nF, C4 capacitor 100 nF, C5 capacitor 100 nF, R1 resistor 10 kΩ, L0 solenoid, L1 solenoid, L2 solenoid, L3 solenoid, L4 solenoid, L5 solenoid, D0 diode, D1 diode, D2 diode, D3 diode, D4 diode, D5 diode, C10 capacitor 4.7 nF to 10 nF, C11 capacitor 4.7 nF to 10 nF, C12 capacitor 4.7 nF to 10 nF, C13 capacitor 4.7 nF to 10 nF, C14 capacitor 4.7 nF to 10 nF, C15 capacitor 4.7 nF to 10 nF, C20 capacitor 4.7 nF to 10 nF, C21 capacitor 4.7 nF to 10 nF, C22 capacitor 4.7 nF to 10 nF, C23 capacitor 4.7 nF to 10 nF, C24 capacitor 4.7 nF to 10 nF, C25 capacitor 4.7 nF to 10 nF; the MCU wires carry the port hooks GpioRead(CtrlPin::Fault), GpioSet(CtrlPin::Drv0), GpioSet(CtrlPin::Drv1), GpioSet(CtrlPin::Enable), GpioSet(CtrlPin::Reset), Transfer().",
+    "description": "A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.",
+    "profile": "detail",
+    "width": 1496,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/tle92466ed_spi_interface.hpp"
+    ]
+  },
+  "chip-pinout": {
+    "title": "TLE92466ED pinout, PG-DSO-36",
+    "alt": "Pinout of the TLE92466ED in PG-DSO-36, top view: 36 pins and an exposed pad, each with its name, its electrical type as a colour and the driver hook that uses it.",
+    "description": "The TLE92466ED seen from the top, in its PG-DSO-36 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.",
+    "profile": "detail",
+    "width": 990,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/tle92466ed_spi_interface.hpp"
+    ]
+  },
+  "driver-layers": {
+    "title": "The layers, one of them yours",
+    "alt": "Layer diagram: your application calls the TLE92466ED core, which sends register reads and writes through the SPI port contract to the port class you write, which drives the chip; the core and the contract are the same on every MCU.",
+    "description": "Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/diagrams/figures/driver-layers.py",
+    "sources": [
+      "inc/tle92466ed.hpp:public calls",
+      "inc/tle92466ed_spi_interface.hpp:SpiInterface"
+    ]
+  }
+}

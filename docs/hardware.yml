@@ -1,0 +1,228 @@
+---
+# The chip's hardware in one file: package, pins, the driver hook of each pin, the blocks inside, and the reference
+# circuit. `kokeb-docs figures` draws the pinout, the block diagram and the circuit from it, `kokeb-docs gen` writes
+# the pin and parts tables on docs/hardware.md, `kokeb-docs hardware --check` validates it and
+# `kokeb-docs hardware --kicad-netlist OUT --circuit typical` exports the circuit for a schematic or PCB tool.
+# Schema: docs/chip-diagrams.md in kokeb-labs/ci-tools.
+#
+# Every fact cites the TLE92466ED data sheet (Rev. 1.2), listed in docs/datasheets.yml.
+schema: 1
+chip: TLE92466ED
+
+refs:
+  blocks: {doc: ds, section: "1 Block diagram", page: 6}
+  pinout: {doc: ds, section: "2 Pin configuration, Figure 2", page: 7}
+  pins: {doc: ds, section: "2 Pin configuration, Table 1", page: 7}
+  pins2: {doc: ds, section: "2 Pin configuration, Table 1 (continued)", page: 8}
+  range: {doc: ds, section: "3.2.1 Functional range, Table 6", page: 11}
+  supply: {doc: ds, section: "4.1.1 TDS_Power Supply", page: 14}
+  io: {doc: ds, section: "4.2.3 TDS_I/O Pins", page: 17}
+  channel: {doc: ds, section: "4.5.1 TDS_Channel overview, Figure 5", page: 21}
+  spi: {doc: ds, section: "5.1.4 Electrical characteristics SPI interface, Table 18", page: 48}
+  app: {doc: ds, section: "6.1 TDS_Application information, Figure 26", page: 105}
+
+package:
+  type: PG-DSO-36
+  layout: dual
+  pins: 36
+  exposed_pad: true
+  ref: pinout
+
+hooks:
+  - {id: transfer, call: "Transfer()", kind: spi, source: inc/tle92466ed_spi_interface.hpp, symbol: Transfer}
+  - {id: reset, call: "GpioSet(CtrlPin::Reset)", kind: gpio-out, source: inc/tle92466ed_spi_interface.hpp,
+     symbol: Reset}
+  - {id: enable, call: "GpioSet(CtrlPin::Enable)", kind: gpio-out, source: inc/tle92466ed_spi_interface.hpp,
+     symbol: Enable}
+  - {id: drv0, call: "GpioSet(CtrlPin::Drv0)", kind: gpio-out, source: inc/tle92466ed_spi_interface.hpp,
+     symbol: Drv0}
+  - {id: drv1, call: "GpioSet(CtrlPin::Drv1)", kind: gpio-out, source: inc/tle92466ed_spi_interface.hpp,
+     symbol: Drv1}
+  - {id: fault, call: "GpioRead(CtrlPin::Fault)", kind: gpio-in, source: inc/tle92466ed_spi_interface.hpp,
+     symbol: Fault}
+
+pins:
+  - {number: 1, name: LOAD0, type: power-out, domain: VBAT, function: "Low-side output, channel 0",
+     unused: Leave open, ref: pins}
+  - {number: 2, name: FWD0, type: analog, domain: VBAT, function: "Freewheeling diode of channel 0",
+     unused: Leave open, ref: pins}
+  - {number: 3, name: GNDP0, type: ground, domain: GND, function: "Power-stage ground, channel 0", ref: pins}
+  - {number: 4, name: GND, type: ground, domain: GND, function: "Signal ground; connected to the cooling tab",
+     ref: pins}
+  - {number: 5, name: CSN, type: bus, domain: VIO, function: "SPI chip select, active low; internal pull-up",
+     hook: transfer, ref: pins}
+  - {number: 6, name: SCK, type: bus, domain: VIO, function: "SPI clock, up to 8 MHz; internal pull-down",
+     hook: transfer, ref: spi}
+  - {number: 7, name: SI, type: bus, domain: VIO, function: "SPI data in (MOSI); internal pull-down",
+     hook: transfer, ref: pins}
+  - {number: 8, name: VIO, type: power, domain: VIO, function: "Supply of SO, 3.3 V or 5 V (3.0 V to 5.5 V)",
+     ref: range}
+  - {number: 9, name: SO, type: bus, domain: VIO, function: "SPI data out (MISO), push-pull from VIO",
+     hook: transfer, ref: pins}
+  - {number: 10, name: GND, type: ground, domain: GND, function: "Signal ground; connected to the cooling tab",
+     ref: pins}
+  - {number: 11, name: FAULTN, type: open-drain, domain: VIO, function: "Fault output, low on a critical fault,
+     RESN low or an unmasked fault", hook: fault, unused: Leave open, ref: io}
+  - {number: 12, name: GND, type: ground, domain: GND, function: "Signal ground; connected to the cooling tab",
+     ref: pins}
+  - {number: 13, name: LOAD5, type: power-out, domain: VBAT, function: "Low-side output, channel 5",
+     unused: Leave open, ref: pins}
+  - {number: 14, name: FWD5, type: analog, domain: VBAT, function: "Freewheeling diode of channel 5",
+     unused: Leave open, ref: pins}
+  - {number: 15, name: GNDP5, type: ground, domain: GND, function: "Power-stage ground, channel 5", ref: pins}
+  - {number: 16, name: GNDP1, type: ground, domain: GND, function: "Power-stage ground, channel 1", ref: pins}
+  - {number: 17, name: FWD1, type: analog, domain: VBAT, function: "Freewheeling diode of channel 1",
+     unused: Leave open, ref: pins}
+  - {number: 18, name: LOAD1, type: power-out, domain: VBAT, function: "Low-side output, channel 1",
+     unused: Leave open, ref: pins2}
+  - {number: 19, name: LOAD2, type: power-out, domain: VBAT, function: "Low-side output, channel 2",
+     unused: Leave open, ref: pins2}
+  - {number: 20, name: FWD2, type: analog, domain: VBAT, function: "Freewheeling diode of channel 2",
+     unused: Leave open, ref: pins2}
+  - {number: 21, name: GNDP2, type: ground, domain: GND, function: "Power-stage ground, channel 2", ref: pins2}
+  - {number: 22, name: VBAT, type: power, domain: VBAT,
+     function: "Battery supply through reverse protection and filter, 6 V to 18 V", ref: range}
+  - {number: 23, name: GND, type: ground, domain: GND, function: "Signal ground; connected to the cooling tab",
+     ref: pins2}
+  - {number: 24, name: CLK, type: digital-in, domain: VIO, function: "External clock,
+     1 MHz to 8 MHz; internal pull-down", unused: Connect to GND, ref: io}
+  - {number: 25, name: DRV0, type: digital-in, domain: VIO, function: "Direct-drive input 0; internal pull-down",
+     hook: drv0, unused: Connect to GND, ref: io}
+  - {number: 26, name: RESN, type: digital-in, domain: VIO, function: "Reset, active low; internal pull-down",
+     hook: reset, ref: io}
+  - {number: 27, name: EN, type: digital-in, domain: VIO, function: "Enable,
+     active high: low turns every channel off; internal pull-down", hook: enable, ref: io}
+  - {number: 28, name: DRV1, type: digital-in, domain: VIO, function: "Direct-drive input 1; internal pull-down",
+     hook: drv1, unused: Connect to GND, ref: io}
+  - {number: 29, name: VDD, type: power, domain: VDD,
+     function: "5 V supply of the digital circuits (4.5 V to 5.5 V)", ref: range}
+  - {number: 30, name: GND, type: ground, domain: GND, function: "Signal ground; connected to the cooling tab",
+     ref: pins2}
+  - {number: 31, name: LOAD4, type: power-out, domain: VBAT, function: "Low-side output, channel 4",
+     unused: Leave open, ref: pins2}
+  - {number: 32, name: FWD4, type: analog, domain: VBAT, function: "Freewheeling diode of channel 4",
+     unused: Leave open, ref: pins2}
+  - {number: 33, name: GNDP4, type: ground, domain: GND, function: "Power-stage ground, channel 4", ref: pins2}
+  - {number: 34, name: GNDP3, type: ground, domain: GND, function: "Power-stage ground, channel 3", ref: pins2}
+  - {number: 35, name: FWD3, type: analog, domain: VBAT, function: "Freewheeling diode of channel 3",
+     unused: Leave open, ref: pins2}
+  - {number: 36, name: LOAD3, type: power-out, domain: VBAT, function: "Low-side output, channel 3",
+     unused: Leave open, ref: pins2}
+  - {number: EP, name: TAB, type: ground, domain: GND,
+     function: "Cooling tab; connect to GND and the heat sink area", ref: pins2}
+
+block_diagram:
+  ref: blocks
+  blocks:
+    - {id: psu, label: Power supply, detail: "undervoltage and overvoltage detection", at: [0, 1], tone: slate,
+       pins: [VBAT, VDD, GND, TAB], ref: supply}
+    - {id: pll, label: PLL, detail: "with clock watchdog", at: [1, 0], side: left, tone: slate, pins: [CLK]}
+    - {id: logic, label: Central logic, detail: "states, faults, direct drive", at: [0, 2], tone: teal,
+       pins: [RESN, EN, FAULTN, DRV0, DRV1], ref: io}
+    - {id: spi, label: SPI, detail: "with SPI watchdog", at: [0, 3], tone: blue, pins: [VIO, SCK, CSN, SI, SO],
+       ref: spi}
+    - {id: ch, label: 6 channels, at: [1, 2], tone: violet, ref: channel,
+       detail: "channel logic, current control, dither, diagnosis, current sense, OC and temperature",
+       side: right}
+    - {id: out, label: Power stages, detail: "low-side DMOS and shunt per channel", at: [2, 2], tone: violet,
+       side: right, ref: channel,
+       pins: [LOAD0, FWD0, GNDP0, LOAD1, FWD1, GNDP1, LOAD2, FWD2, GNDP2, LOAD3, FWD3, GNDP3, LOAD4, FWD4, GNDP4,
+              LOAD5, FWD5, GNDP5]}
+  links:
+    - {from: psu, to: logic}
+    - {from: pll, to: logic, label: f_SYS}
+    - {from: spi, to: logic, label: registers, both: true}
+    - {from: logic, to: ch, label: "setpoints, status", both: true}
+    - {from: ch, to: out, label: "gate, sense", both: true}
+
+circuits:
+  - id: typical
+    title: Simplified application circuit
+    description: >-
+      Figure 26 of the data sheet with all six channels: each solenoid hangs from the switched load supply to its
+      LOAD pin, with its freewheeling diode from the FWD pin back to that supply and 4.7 to 10 nF on LOAD and FWD.
+      The MCU drives SPI, RESN, EN, DRV0, DRV1 and CLK and reads FAULTN through a 10 kΩ pull-up to VIO.
+    ref: app
+    parts:
+      - {id: U1, kind: chip}
+      - id: U2
+        kind: mcu
+        label: MCU
+        pins:
+          - {name: SCK, label: SPI SCK}
+          - {name: MOSI, label: SPI MOSI}
+          - {name: MISO, label: SPI MISO}
+          - {name: CS, label: SPI CS}
+          - {name: RST, label: GPIO}
+          - {name: EN, label: GPIO}
+          - {name: FLT, label: GPIO (IRQ)}
+          - {name: D0, label: GPIO}
+          - {name: D1, label: GPIO}
+          - {name: CLKO, label: clock out}
+          - VDD
+          - GND
+      - {id: C1, kind: polarized-capacitor, value: 100 µF, ref: app}
+      - {id: C2, kind: capacitor, value: 100 nF, ref: app}
+      - {id: C3, kind: capacitor, value: 100 nF, ref: app}
+      - {id: C4, kind: capacitor, value: 100 nF, ref: app}
+      - {id: C5, kind: capacitor, value: 100 nF, ref: app}
+      - {id: R1, kind: resistor, value: 10 kΩ, ref: app}
+      - {id: L0, kind: solenoid, ref: app}
+      - {id: L1, kind: solenoid, ref: app}
+      - {id: L2, kind: solenoid, ref: app}
+      - {id: L3, kind: solenoid, ref: app}
+      - {id: L4, kind: solenoid, ref: app}
+      - {id: L5, kind: solenoid, ref: app}
+      - {id: D0, kind: diode, ref: app}
+      - {id: D1, kind: diode, ref: app}
+      - {id: D2, kind: diode, ref: app}
+      - {id: D3, kind: diode, ref: app}
+      - {id: D4, kind: diode, ref: app}
+      - {id: D5, kind: diode, ref: app}
+      - {id: C10, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C11, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C12, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C13, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C14, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C15, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C20, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C21, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C22, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C23, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C24, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+      - {id: C25, kind: capacitor, value: 4.7 nF to 10 nF, ref: app}
+    nets:
+      - {name: VBAT, kind: supply, nodes: [U1.VBAT, C1.+, C2.1]}
+      - name: VBAT_SW
+        kind: supply
+        nodes: [C5.1, L0.1, L1.1, L2.1, L3.1, L4.1, L5.1,
+                D0.K, D1.K, D2.K, D3.K, D4.K, D5.K]
+      - {name: "+5V", kind: supply, nodes: [U1.VDD, C3.1]}
+      - {name: VIO, kind: supply, nodes: [U1.VIO, C4.1, R1.1, U2.VDD]}
+      - name: GND
+        kind: ground
+        nodes: [U1.GND, U1.TAB, U1.GNDP0, U1.GNDP1, U1.GNDP2, U1.GNDP3, U1.GNDP4, U1.GNDP5,
+                U2.GND, C1.-, C2.2, C3.2, C4.2, C5.2, C10.2, C11.2,
+                C12.2, C13.2, C14.2, C15.2, C20.2, C21.2, C22.2, C23.2, C24.2, C25.2]
+      - {name: SCK, nodes: [U1.SCK, U2.SCK]}
+      - {name: SI, nodes: [U1.SI, U2.MOSI]}
+      - {name: SO, nodes: [U1.SO, U2.MISO]}
+      - {name: CSN, nodes: [U1.CSN, U2.CS]}
+      - {name: RESN, nodes: [U1.RESN, U2.RST]}
+      - {name: EN, nodes: [U1.EN, U2.EN]}
+      - {name: FAULTN, nodes: [U1.FAULTN, U2.FLT, R1.2]}
+      - {name: DRV0, nodes: [U1.DRV0, U2.D0]}
+      - {name: DRV1, nodes: [U1.DRV1, U2.D1]}
+      - {name: CLK, nodes: [U1.CLK, U2.CLKO]}
+      - {name: LOAD0, nodes: [U1.LOAD0, L0.2, C10.1]}
+      - {name: FWD0, nodes: [U1.FWD0, D0.A, C20.1]}
+      - {name: LOAD1, nodes: [U1.LOAD1, L1.2, C11.1]}
+      - {name: FWD1, nodes: [U1.FWD1, D1.A, C21.1]}
+      - {name: LOAD2, nodes: [U1.LOAD2, L2.2, C12.1]}
+      - {name: FWD2, nodes: [U1.FWD2, D2.A, C22.1]}
+      - {name: LOAD3, nodes: [U1.LOAD3, L3.2, C13.1]}
+      - {name: FWD3, nodes: [U1.FWD3, D3.A, C23.1]}
+      - {name: LOAD4, nodes: [U1.LOAD4, L4.2, C14.1]}
+      - {name: FWD4, nodes: [U1.FWD4, D4.A, C24.1]}
+      - {name: LOAD5, nodes: [U1.LOAD5, L5.2, C15.1]}
+      - {name: FWD5, nodes: [U1.FWD5, D5.A, C25.1]}

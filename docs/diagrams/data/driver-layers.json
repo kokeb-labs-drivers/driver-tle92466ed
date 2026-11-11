@@ -1,0 +1,44 @@
+{
+  "name": "tle92466ed",
+  "cls": "TLE92466ED",
+  "calls": [
+    "EnsureInitialized",
+    "Deinitialize",
+    "HardwareReset",
+    "ApplyConfig",
+    "ConfigureChannel",
+    "SetParallel",
+    "EnterMissionMode",
+    "EnterConfigMode",
+    "ReadChannelControl",
+    "SetEnabledChannels",
+    "EnableChannel",
+    "DisableChannel",
+    "SetCurrent",
+    "SetDither",
+    "StartOvercurrentCheck",
+    "SetDrivePin",
+    "ReloadWatchdog",
+    "ReadStatus",
+    "ReadFaults",
+    "ClearFaults",
+    "ClearChannelFaults",
+    "ReadFaultPin",
+    "ReadPinStatus",
+    "ReadSupply",
+    "ReadChannelFeedback",
+    "RunBist",
+    "ReadChipId",
+    "ReadRegister"
+  ],
+  "sources": [
+    "inc/tle92466ed.hpp:public calls",
+    "inc/tle92466ed_spi_interface.hpp:SpiInterface"
+  ],
+  "bus": "SPI",
+  "base": "SpiInterface",
+  "hooks": [
+    "EnsureInitialized",
+    "Transfer"
+  ]
+}
