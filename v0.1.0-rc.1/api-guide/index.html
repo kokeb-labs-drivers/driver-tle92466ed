@@ -1,0 +1,1755 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="C++20 driver for the Infineon TLE92466ED six-channel low-side solenoid driver with integrated current control (SPI).">
+      
+      
+      
+        <link rel="canonical" href="https://kokeb-labs-drivers.github.io/driver-tle92466ed/latest/api-guide/">
+      
+      
+        <link rel="prev" href="../limitations/">
+      
+      
+        <link rel="next" href="../configuration/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/kokeb/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>API guide - TLE92466ED Driver</title>
+      
+    
+    
+  
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M0%208a8%208%200%201%201%2016%200A8%208%200%200%201%200%208m8-6.5a6.5%206.5%200%201%200%200%2013%206.5%206.5%200%200%200%200-13M6.5%207.75A.75.75%200%200%201%207.25%207h1a.75.75%200%200%201%20.75.75v2.75h.25a.75.75%200%200%201%200%201.5h-2a.75.75%200%200%201%200-1.5h.25v-2h-.25a.75.75%200%200%201-.75-.75M8%206a1%201%200%201%201%200-2%201%201%200%200%201%200%202%22/%3E%3C/svg%3E');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%201.5c-2.363%200-4%201.69-4%203.75%200%20.984.424%201.625.984%202.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621%201.49a.75.75%200%200%201-1.484.211c-.04-.282-.163-.547-.37-.847a9%209%200%200%200-.542-.68q-.126-.149-.268-.32C3.201%207.75%202.5%206.766%202.5%205.25%202.5%202.31%204.863%200%208%200s5.5%202.31%205.5%205.25c0%201.516-.701%202.5-1.328%203.259q-.142.172-.268.319c-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751%200%200%201-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848q.113-.133.213-.253c.561-.679.985-1.32.985-2.304%200-2.06-1.637-3.75-4-3.75M5.75%2012h4.5a.75.75%200%200%201%200%201.5h-4.5a.75.75%200%200%201%200-1.5M6%2015.25a.75.75%200%200%201%20.75-.75h2.5a.75.75%200%200%201%200%201.5h-2.5a.75.75%200%200%201-.75-.75%22/%3E%3C/svg%3E');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M6.457%201.047c.659-1.234%202.427-1.234%203.086%200l6.082%2011.378A1.75%201.75%200%200%201%2014.082%2015H1.918a1.75%201.75%200%200%201-1.543-2.575Zm1.763.707a.25.25%200%200%200-.44%200L1.698%2013.132a.25.25%200%200%200%20.22.368h12.164a.25.25%200%200%200%20.22-.368Zm.53%203.996v2.5a.75.75%200%200%201-1.5%200v-2.5a.75.75%200%200%201%201.5%200M9%2011a1%201%200%201%201-2%200%201%201%200%200%201%202%200%22/%3E%3C/svg%3E');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M9.504.43a1.516%201.516%200%200%201%202.437%201.713L10.415%205.5h2.123c1.57%200%202.346%201.909%201.22%203.004l-7.34%207.142a1.25%201.25%200%200%201-.871.354h-.302a1.25%201.25%200%200%201-1.157-1.723L5.633%2010.5H3.462c-1.57%200-2.346-1.909-1.22-3.004zm1.047%201.074L3.286%208.571A.25.25%200%200%200%203.462%209H6.75a.75.75%200%200%201%20.694%201.034l-1.713%204.188%206.982-6.793A.25.25%200%200%200%2012.538%207H9.25a.75.75%200%200%201-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005%200-.009.004%22/%3E%3C/svg%3E');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M5%205.782V2.5h-.25a.75.75%200%200%201%200-1.5h6.5a.75.75%200%200%201%200%201.5H11v3.282l3.666%205.76C15.619%2013.04%2014.543%2015%2012.767%2015H3.233c-1.776%200-2.852-1.96-1.899-3.458Zm-2.4%206.565a.75.75%200%200%200%20.633%201.153h9.534a.75.75%200%200%200%20.633-1.153L12.225%2010.5h-8.45ZM9.5%202.5h-3V6c0%20.143-.04.283-.117.403L4.73%209h6.54L9.617%206.403A.75.75%200%200%201%209.5%206Z%22/%3E%3C/svg%3E');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M1.75%202.5h10.5a.75.75%200%200%201%200%201.5H1.75a.75.75%200%200%201%200-1.5m4%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5m0%205h8.5a.75.75%200%200%201%200%201.5h-8.5a.75.75%200%200%201%200-1.5M2.5%207.75v6a.75.75%200%200%201-1.5%200v-6a.75.75%200%200%201%201.5%200%22/%3E%3C/svg%3E');}</style>
+
+
+
+    
+  <link rel="stylesheet" href="../assets/kokeb/kokeb.css">
+
+    
+      
+    
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/kokeb/fonts.css">
+  <noscript><link rel="stylesheet" href="../assets/kokeb/fonts.css"></noscript>
+
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  
+  
+  <meta name="theme-color" content="#0e1726" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b2140" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kokeb Labs">
+  <meta property="og:title" content="API guide - TLE92466ED Driver">
+  <meta property="og:description" content="C++20 driver for the Infineon TLE92466ED six-channel low-side solenoid driver with integrated current control (SPI).">
+  <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-tle92466ed/latest/api-guide/">
+  <meta name="twitter:card" content="summary">
+  <script>
+(function () {
+  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
+  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
+      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
+  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
+  var stub = {
+    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
+    render: function (id, text) {
+      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
+      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
+      if (el) el.setAttribute("data-kb-mermaid", "");
+      return near(el).then(load).then(function (m) { return m.render(id, text); });
+    }
+  };
+  function load() {
+    return loading || (loading = new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = SRC;
+      s.integrity = SRI;
+      s.crossOrigin = "anonymous";
+      s.onload = function () {
+        real = window.mermaid;
+        window.mermaid = stub;
+        real.initialize(config);
+        resolve(real);
+      };
+      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
+      document.head.appendChild(s);
+    }));
+  }
+  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
+  function watch() {
+    if (io) io.disconnect();
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
+      });
+    }, { rootMargin: ahead ? "100% 0px" : "0px" });
+    waiting.forEach(function (w) { io.observe(w.el); });
+  }
+  function release(which) {
+    waiting = waiting.filter(function (w) {
+      if (!which(w)) return true;
+      io.unobserve(w.el);
+      w.go();
+      return false;
+    });
+  }
+  function near(el) {
+    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
+    return new Promise(function (resolve) {
+      waiting.push({ el: el, go: resolve });
+      if (io) io.observe(el); else watch();
+    });
+  }
+  function engaged() {
+    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
+    ahead = true;
+    if (io) watch();
+  }
+  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
+  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
+  window.mermaid = stub;
+})();
+</script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You are reading the documentation of an older version.
+  <a href="https://kokeb-labs-drivers.github.io/driver-tle92466ed/"><strong>Go to the latest version.</strong></a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="TLE92466ED Driver" class="md-header__button md-logo" aria-label="TLE92466ED Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          
+          <a class="kb-org" href="https://kokeb-labs.github.io/" title="All Kokeb Labs documentation">Kokeb Labs</a>
+          <span class="kb-org__sep" aria-hidden="true">/</span>
+          <span class="md-ellipsis">
+            TLE92466ED Driver
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Follow the system theme"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Follow the system theme" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-tle92466ed
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../quickstart/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Get started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="TLE92466ED Driver" class="md-nav__button md-logo" aria-label="TLE92466ED Driver" data-md-component="logo">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" focusable="false" class="kb-mark">
+    <g transform="translate(1.28 1.28) scale(0.12000)"><path d="M232,66 Q265.29,246.71 446,280 Q265.29,313.29 232,494 Q198.71,313.29 18,280 Q198.71,246.71 232,66 Z" fill="#F4B942"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#0E1726" stroke="#0E1726" stroke-width="24" stroke-linejoin="round"/><path d="M386,38 Q399.69,112.31 474,126 Q399.69,139.69 386,214 Q372.31,139.69 298,126 Q372.31,112.31 386,38 Z" fill="#D9773B"/></g>
+  </svg>
+
+    </a>
+    TLE92466ED Driver
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kokeb-labs-drivers/driver-tle92466ed
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../quickstart/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get started
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../architecture/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-shape-of-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The shape of the API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-and-enter-mission-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start and enter Mission Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drive-a-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drive a channel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the feedback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-spi-watchdog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The SPI watchdog
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handle errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raw-access-and-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raw access and counters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shut-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shut down
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../porting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Porting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../api-reference/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-shape-of-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The shape of the API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-and-enter-mission-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start and enter Mission Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drive-a-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drive a channel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the feedback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faults
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-spi-watchdog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The SPI watchdog
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handle-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handle errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raw-access-and-counters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raw access and counters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shut-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shut down
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/edit/main/docs/api-guide.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="api-guide">API guide<a class="headerlink" href="#api-guide" title="Permanent link">&para;</a></h1>
+<p>The driver's API by task, with code that compiles: start, operation states, channels, feedback, faults, the
+watchdog, errors and shut-down. Section numbers refer to the datasheet, Rev. 1.2.</p>
+<!-- generated: datasheet-refs -->
+<details class="abstract">
+<summary>Datasheet sections this page relies on</summary>
+<p>From Infineon IFX-ntz1491827137291 1.2:</p>
+<ul>
+<li>Reset State, Config Mode, Mission Mode and Critical Fault: 4.3.1 TDS_IC Operation states; Figure 4, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=19">p. 19</a></li>
+<li>Channel modes and the measurement period: 4.4 Channel modes, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=21">p. 21</a></li>
+<li>Parallel channel pairs: 4.5.2 TDS_Parallel channel operation, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=22">p. 22</a></li>
+<li>Integrating current controller, Autolimit and the PWM frequency controller: 4.6.2 Integrating Current Controller (ICC); Equations 4, 5, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=24">p. 24</a></li>
+<li>Setpoint range and accuracy: 4.6.3 Electrical characteristics current control, Table 14, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=28">p. 28</a></li>
+<li>Dither waveform and its update: 4.7.1 TDS_Dither configuration; 4.7.2 TDS_Dither parameter update; Equations 6 to 9, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=29">p. 29</a></li>
+<li>ON-state and OFF-state diagnosis: 4.9.1 TDS_Overview; Figures 14, 15, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=32">p. 32</a></li>
+<li>Open load or short to ground, thresholds and warning: 4.9.2 TDS_Open Load/Short to Ground (OLSG); 4.9.3 TDS_OLSG Warning, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=34">p. 34</a></li>
+<li>Overcurrent and the OFF-state overcurrent check: 4.9.6 TDS_Overcurrent (OC); Equation 17, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=38">p. 38</a></li>
+<li>Register and OTP ECC, the self-test: 4.9.7 TDS_Register/OTP ECC; 4.9.8 TDS_Built in Self Test (BIST), <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=39">p. 39</a></li>
+<li>Average current, duty cycle and VBAT feedback: 4.10.2 TDS_Average feedback values; Equations 18 to 22, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=41">p. 41</a></li>
+<li>Feedback freeze and update: 4.10.5 TDS_Update/Freeze Mechanism; Figure 22, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=43">p. 43</a></li>
+<li>Overtemperature and the temperature feedback: 4.11.1 TDS_Overtemperature protection; Equation 32, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=45">p. 45</a></li>
+<li>SPI watchdog: 5.2.2 TDS_SPI watchdog; Equation 33, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=50">p. 50</a></li>
+<li>FB_STAT, the status summary: 5.3.2.21 Feedback Status Register, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=77">p. 77</a></li>
+</ul>
+<p>All of them, with the driver API for each: <a href="../datasheet/">Datasheet map</a>.</p>
+</details>
+<!-- /generated -->
+
+<h2 id="the-shape-of-the-api">The shape of the API<a class="headerlink" href="#the-shape-of-the-api" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Calls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lifecycle</td>
+<td><code>EnsureInitialized()</code>, <code>IsInitialized()</code>, <code>Deinitialize()</code>, <code>HardwareReset()</code></td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td><code>ApplyConfig()</code>, <code>GetConfig()</code>, <code>ConfigureChannel()</code>, <code>SetParallel()</code></td>
+</tr>
+<tr>
+<td>Operation state</td>
+<td><code>EnterMissionMode()</code>, <code>EnterConfigMode()</code>, <code>IsMissionMode()</code>, <code>ReadChannelControl()</code></td>
+</tr>
+<tr>
+<td>Channels</td>
+<td><code>SetCurrent()</code>, <code>GetCurrentSetpoint()</code>, <code>EnableChannel()</code>, <code>DisableChannel()</code>, <code>SetEnabledChannels()</code>, <code>GetEnabledChannels()</code>, <code>SetDither()</code>, <code>StartOvercurrentCheck()</code>, <code>SetDrivePin()</code></td>
+</tr>
+<tr>
+<td>Feedback</td>
+<td><code>ReadChannelFeedback()</code>, <code>ReadSupply()</code></td>
+</tr>
+<tr>
+<td>Diagnosis</td>
+<td><code>ReadStatus()</code>, <code>ReadFaults()</code>, <code>ClearFaults()</code>, <code>ClearChannelFaults()</code>, <code>GetLatchedFaults()</code>, <code>ClearLatchedFaults()</code>, <code>GetStartupFaults()</code>, <code>ReadFaultPin()</code>, <code>ReadPinStatus()</code>, <code>RunBist()</code></td>
+</tr>
+<tr>
+<td>Watchdog</td>
+<td><code>ReloadWatchdog()</code></td>
+</tr>
+<tr>
+<td>Identification</td>
+<td><code>GetIcVersion()</code>, <code>ReadChipId()</code>, <code>tle92466ed::GetDriverVersion()</code></td>
+</tr>
+<tr>
+<td>Raw access</td>
+<td><code>ReadRegister()</code>, <code>GetLastReply()</code>, <code>GetLastCriticalFault()</code>, <code>GetBusDiagnostics()</code>, <code>IsResetWatchArmed()</code></td>
+</tr>
+</tbody>
+</table>
+<p>Every call that touches the chip returns <code>Result&lt;T&gt;</code>: check <code>ok()</code> (or the <code>bool</code> conversion) and read <code>value</code>, or
+read <code>error</code>. <code>Result</code> is <code>[[nodiscard]]</code>, so an unchecked call is a compiler warning. Setters take a trailing
+<code>Verify verify = Verify::None</code>: <code>Verify::ReadBack</code> reads the written register back (two more frames each) and
+returns <code>WriteMismatch</code> when the chip did not take the value.</p>
+<h2 id="start-and-enter-mission-mode">Start and enter Mission Mode<a class="headerlink" href="#start-and-enter-mission-mode" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">tle92466ed</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="nf">BringUp</span><span class="p">(</span><span class="n">Driver</span><span class="o">&amp;</span><span class="w"> </span><span class="n">driver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="c1">// The one entry point: starts the chip on the first call, then returns Ok with no I/O. After a</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="c1">// failure the next call starts again from the beginning. It ends in Config Mode.</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">EnsureInitialized</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"TLE92466ED init: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">ToString</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">));</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">EnterMissionMode</span><span class="p">().</span><span class="n">error</span><span class="p">;</span><span class="w"> </span><span class="c1">// MissionBlocked: a supply, clock or watchdog fault</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>The constructor stores the port and the configuration (<code>Config{}</code> unless you pass one) and does no I/O.
+<code>EnsureInitialized()</code> is the one way to start the chip (<a href="../contract/#promises">Contract</a> lists its steps); it ends
+in Config Mode with every channel off. Once it has succeeded it returns <code>Ok</code> at once with no I/O, so a caller can
+call it before every use. After a failure the driver stays uninitialised and the next call starts again.</p>
+<p>The chip has four operation states (section 4.3.1, Figure 4):</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>What works</th>
+<th>The driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reset</td>
+<td>Nothing; registers return to their reset values</td>
+<td>RESN low in <code>EnsureInitialized()</code> and <code>HardwareReset()</code></td>
+</tr>
+<tr>
+<td>Config Mode</td>
+<td>Registers; every channel off; MODE, GLOBAL_CONFIG, CLK_DIV, CH_PAR and SFF_BIST writable only here</td>
+<td><code>EnsureInitialized()</code> ends here; <code>EnterConfigMode()</code>; <code>ApplyConfig()</code>, <code>ConfigureChannel()</code>, <code>SetParallel()</code>, <code>RunBist()</code></td>
+</tr>
+<tr>
+<td>Mission Mode</td>
+<td>Channels switch; their diagnosis runs; EN_CH settable only here</td>
+<td><code>EnterMissionMode()</code>; <code>EnableChannel()</code>, <code>StartOvercurrentCheck()</code></td>
+</tr>
+<tr>
+<td>Critical Fault</td>
+<td>Every reply is a critical fault frame; FAULTN low</td>
+<td>A critical fault frame confirmed by a second one is <code>CriticalFault</code>: EN low, the driver uninitialised; <code>EnsureInitialized()</code> (with RESN) or a power cycle leaves it</td>
+</tr>
+</tbody>
+</table>
+<p><code>EnterMissionMode()</code> checks the entry conditions of Figure 4 first and returns <code>MissionBlocked</code>, writing nothing,
+while INIT_DONE is 0 or one fails: FB_STAT (SPI watchdog, clock, central temperature, VDD, VIO, VBAT or an internal
+supply), the DIAG_ERR_CHGR and DIAG_WARN_CHGR groups FB_STAT flags (a channel OTE or OTW) and GLOBAL_DIAG2
+(REG_ECC_ERR). VPRE_OV blocks entry too, a fail-safe choice beyond Figure 4. Then it drives EN high, sets OP_MODE
+and reads CH_CTRL back, always: a chip that refused is <code>MissionBlocked</code>, and <code>IsMissionMode()</code> says what the chip
+did. A supply, clock or watchdog fault later drops the chip back to Config Mode on its own and clears every EN_CH
+(sections 4.1.2, 4.2.2, 5.2.2); a channel fault clears that channel's EN_CH (4.9.2 to 4.9.6). The driver never
+writes CH_CTRL from a copy the chip may have changed: every enable change reads CH_CTRL first.</p>
+<h2 id="drive-a-channel">Drive a channel<a class="headerlink" href="#drive-a-channel" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">tle92466ed</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="nf">Energise</span><span class="p">(</span><span class="n">Driver</span><span class="o">&amp;</span><span class="w"> </span><span class="n">driver</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">microamps</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">SetCurrent</span><span class="p">(</span><span class="n">Channel</span><span class="o">::</span><span class="n">Ch0</span><span class="p">,</span><span class="w"> </span><span class="n">microamps</span><span class="p">);</span><span class="w"> </span><span class="c1">// checked, never clamped</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">set</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">set</span><span class="p">.</span><span class="n">error</span><span class="p">;</span><span class="w"> </span><span class="c1">// InvalidArgument above 1.5 A, or with dither above 1.8 A</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"programmed %lu uA</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="p">(</span><span class="n">set</span><span class="p">.</span><span class="n">value</span><span class="p">));</span><span class="w"> </span><span class="c1">// TARGET rounding</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">EnableChannel</span><span class="p">(</span><span class="n">Channel</span><span class="o">::</span><span class="n">Ch0</span><span class="p">,</span><span class="w"> </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">Verify</span><span class="o">::</span><span class="n">ReadBack</span><span class="p">).</span><span class="n">error</span><span class="p">;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>SetCurrent()</code> sets the average current of the integrating current controller (sections 4.6.1, 4.6.2). The value
+is checked against the operating range of Table 14 and refused, never clamped: up to 1.5 A, up to 1.8 A with the
+configured dither amplitude, and above the dither amplitude when it is not 0 (section 4.7.1). The master of a
+parallel pair takes up to 2.43 A with dither (<code>kMaxParallelSetpointUa</code>: Table 14's 2.7 A includes the overshoot,
+and the driver keeps the single channel's 90 % headroom), and its TARGET step doubles to 122 µA (section 4.5.2).
+<code>SetParallel()</code> sets the master's setpoint to 0 when it joins a pair. The call
+returns the current actually programmed, rounded to the TARGET step; <code>GetCurrentSetpoint()</code> returns it with no
+I/O. Setpoints may be written in either state: the channel switches once it is enabled in Mission Mode.</p>
+<p><code>EnableChannel()</code>, <code>DisableChannel()</code> and <code>SetEnabledChannels()</code> read CH_CTRL, then write it whole with only the
+EN_CH bits they name changed: enabling one channel never switches another off, a channel a fault switched off is
+never switched back on, and OP_MODE is never set (only <code>EnterMissionMode()</code> sets it). An enable that finds the chip
+back in Config Mode is <code>MissionBlocked</code>. Switching off never depends on that read: when it fails, a disable (or
+any mask that only clears) still writes CH_CTRL from the copy with the channels cleared and returns the read's
+error, and <code>EnterConfigMode()</code> drives EN low whatever the SPI result. Section 5.2.1 does not say whether a write's reply
+carries CH_CTRL before or after the write, so the copy holds an EN_CH or OP_MODE bit only when both the value
+written and the reply have it: <code>GetEnabledChannels()</code> can under-report a channel that is on until the next read,
+never report one that is off. Channels the driver wrote on that a validated read of CH_CTRL (the read before every
+channel call, or <code>Verify::ReadBack</code>) finds off are logged and kept in <code>GetDroppedChannels()</code> until
+<code>ClearDroppedChannels()</code> or the next start; a refused <code>EnterMissionMode()</code> drives EN low again. A
+channel must be declared <code>loaded</code> in its <code>ChannelConfig</code> and must not be a slave. The chip keeps a channel
+switched off by a fault off until its flags are cleared and EN_CH is set again (sections 4.9.2 to 4.9.6);
+<code>Verify::ReadBack</code> finds such a channel as <code>WriteMismatch</code>, and the driver's copy then shows it off.</p>
+<p><code>SetDither()</code> changes a channel's dither while it runs: DITHER_CLK_DIV takes effect at once, DITHER_STEP and
+DITHER_CTRL at the next dither period after the DITHER_CTRL write (section 4.7.2). The dither period is also the
+feedback measurement period in current control and direct drive (section 4.4.2).</p>
+<h2 id="read-the-feedback">Read the feedback<a class="headerlink" href="#read-the-feedback" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">SampleCurrent</span><span class="p">(</span><span class="n">Driver</span><span class="o">&amp;</span><span class="w"> </span><span class="n">driver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">fb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">ReadChannelFeedback</span><span class="p">(</span><span class="n">Channel</span><span class="o">::</span><span class="n">Ch0</span><span class="p">);</span><span class="w"> </span><span class="c1">// freeze, read, release (4.10.5)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fb</span><span class="p">.</span><span class="n">error</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">Error</span><span class="o">::</span><span class="n">NotReady</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="c1">// no new measurement period yet: never a 0 mA reading</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"%ld uA, duty %lu/10000</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fb</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">average_current_ua</span><span class="p">),</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">                </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fb</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">duty_permyriad</span><span class="p">));</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>ReadChannelFeedback()</code> reads one measurement period under the freeze of section 4.10.5: average current (signed,
+the pair's sum on a master), duty cycle, VBAT, the measurement period, the minimum and maximum current and PWM
+period, and the fast-feedback counters. With no new values since the last read it returns <code>NotReady</code> after two
+frames; with no measurement period at all (TP_MANT = 0, as with a dither clock of 0) it returns <code>NotReady</code> too,
+never a current of 0. The conversions use f_SYS of the configuration. <code>ReadSupply()</code> reads VIO, VDD, VBAT and the
+central temperature (±20 °C uncalibrated, Table 16).</p>
+<h2 id="faults">Faults<a class="headerlink" href="#faults" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ServiceFaults</span><span class="p">(</span><span class="n">Driver</span><span class="o">&amp;</span><span class="w"> </span><span class="n">driver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">ReadFaults</span><span class="p">();</span><span class="w"> </span><span class="c1">// every diagnosis register, ORed into the latch</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">f</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">f</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">Any</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">ChannelFaults</span><span class="w"> </span><span class="n">ch0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">Of</span><span class="p">(</span><span class="n">Channel</span><span class="o">::</span><span class="n">Ch0</span><span class="p">);</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ch0</span><span class="p">.</span><span class="n">open_load</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ch0</span><span class="p">.</span><span class="n">short_to_ground</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ch0</span><span class="p">.</span><span class="n">olsg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"CH0 load fault</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="c1">// The chip keeps a faulted channel off until its flags are cleared and EN_CH is set again.</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">ClearChannelFaults</span><span class="p">(</span><span class="n">Channel</span><span class="o">::</span><span class="n">Ch0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">driver</span><span class="p">.</span><span class="n">EnableChannel</span><span class="p">(</span><span class="n">Channel</span><span class="o">::</span><span class="n">Ch0</span><span class="p">);</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>I/O</th>
+<th>What it gives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ReadStatus()</code></td>
+<td>2 frames</td>
+<td>FB_STAT: INIT_DONE, the global faults, and a bit per channel group with an error or warning</td>
+</tr>
+<tr>
+<td><code>ReadFaults()</code></td>
+<td>18 frames</td>
+<td>GLOBAL_DIAG0..2, DIAG_ERR_CHGR0..2, DIAG_WARN_CHGR0..2 as <code>Faults</code>; <code>Has()</code> and <code>Of()</code> decode them</td>
+</tr>
+<tr>
+<td><code>ClearFaults()</code></td>
+<td>18 frames, 2 more per register with a flag (4 with OC or OTP_ECC_ERR)</td>
+<td>Every register read and latched, then exactly the flags read cleared: rwh flags by a 1, rw flags by a 0, OC and OTP_ECC_ERR twice; OTP_VIRGIN never</td>
+</tr>
+<tr>
+<td><code>ClearChannelFaults(ch)</code></td>
+<td>4 frames, 2 more per write</td>
+<td>The group read and latched (both channels), then this channel's flags that read 1 cleared</td>
+</tr>
+<tr>
+<td><code>GetLatchedFaults()</code></td>
+<td>none</td>
+<td>Every flag any read of a diagnosis register saw since <code>ClearLatchedFaults()</code></td>
+</tr>
+<tr>
+<td><code>GetStartupFaults()</code></td>
+<td>none</td>
+<td>The diagnosis registers as the start-up found them, before it cleared them</td>
+</tr>
+<tr>
+<td><code>ReadFaultPin()</code></td>
+<td><code>GpioRead()</code></td>
+<td>FAULTN: low on Critical Fault, RESN low or an unmasked fault</td>
+</tr>
+<tr>
+<td><code>ReadPinStatus()</code></td>
+<td>2 frames</td>
+<td>PIN_STAT: DRV0, DRV1, EN, the internal fault state and the FAULTN level</td>
+</tr>
+</tbody>
+</table>
+<p>The diagnosis runs only in Mission Mode (section 4.9.1). In ON state the shunt current shows an open load or a
+short to ground only together, as OLSG, below the open-load threshold; in OFF state (EN_CH set with setpoint 0, or
+a setpoint with EN_CH cleared) the current sources of Figure 14 tell OL from SG. Use both. OLSG_WARN_CHK_NOK is
+cleared by reading DIAG_WARN_CHGR (section 4.9.3): the latch keeps it. <code>StartOvercurrentCheck()</code> runs the
+OFF-state overcurrent check of section 4.9.6 once, on a channel that is off with setpoint 0 and not asked on since
+the last read of CH_CTRL (after a refused enable, call <code>ReadChannelControl()</code> first); read the result with
+<code>ReadFaults()</code> after t_OCon. The channel then stays enabled with setpoint 0, the OFF-state diagnosis condition.
+<code>RunBist()</code> runs the safety flip-flop self-test in Config Mode (section 4.9.8) and clears the REG_ECC_ERR it sets
+on purpose.</p>
+<h2 id="the-spi-watchdog">The SPI watchdog<a class="headerlink" href="#the-spi-watchdog" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ControlTick</span><span class="p">(</span><span class="n">Driver</span><span class="o">&amp;</span><span class="w"> </span><span class="n">driver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="c1">// With Config::spi_watchdog, a missed reload ends Mission Mode and turns every channel off.</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">ReloadWatchdog</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"watchdog reload: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">ToString</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">));</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>With <code>Config::spi_watchdog</code>, the chip counts WD_TIME down at f_SYS / 2^14 (0.585 ms per count) and, at 0, sets
+SPI_WD_ERR, ends Mission Mode and switches every channel off (section 5.2.2). <code>EnsureInitialized()</code> writes
+<code>Config::watchdog_reload</code> to WD_RELOAD before it enables the watchdog, since the reset value of 1 would expire at
+once. <code>ReloadWatchdog()</code> writes it again; call it faster than the timeout. WD_TIME is 11 bits: at most 2047 counts,
+1.198 s. After an expiry, a reload clears SPI_WD_ERR, <code>ClearFaults()</code> the latched flag, and <code>EnterMissionMode()</code>
+works again.</p>
+<h2 id="handle-errors">Handle errors<a class="headerlink" href="#handle-errors" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="nf">Describe</span><span class="p">(</span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">Error</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">tle92466ed</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Bus</span><span class="p">:</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">tle92466ed</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">NoDevice</span><span class="p">:</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"check SPI wiring, VIO and the chip select"</span><span class="p">;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">tle92466ed</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">CriticalFault</span><span class="p">:</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"internal supply or clock fault: reset the chip"</span><span class="p">;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">tle92466ed</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">Crc</span><span class="p">:</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="no">tle92466ed</span><span class="o">::</span><span class="no">Error</span><span class="o">::</span><span class="no">ReplyMismatch</span><span class="p">:</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">"signal integrity: lower SCK, check CSN high time"</span><span class="p">;</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="k">default</span><span class="o">:</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">ToString</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Meaning</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Error::Bus</code></td>
+<td>The port failed a transfer, a pin write or the bus bring-up</td>
+<td>Check the port and the wiring; retry</td>
+</tr>
+<tr>
+<td><code>Error::NoDevice</code></td>
+<td>MISO stuck low or high, or MOSI looped back</td>
+<td>VIO, SO, CSN and the chip's supplies</td>
+</tr>
+<tr>
+<td><code>Error::Crc</code>, <code>ReplyMismatch</code>, <code>FrameRejected</code></td>
+<td>A frame was corrupted, lost or ignored</td>
+<td>SPI mode 1, the clock, CSN high time; a shared bus lock</td>
+</tr>
+<tr>
+<td><code>Error::Timeout</code></td>
+<td>INIT_DONE never read 1, or the self-test did not finish</td>
+<td>VDD, RESN, the clock source</td>
+</tr>
+<tr>
+<td><code>Error::DeviceIdMismatch</code></td>
+<td>ICVID is not a TLE92466ED</td>
+<td>The part, the chip select</td>
+</tr>
+<tr>
+<td><code>Error::DeviceFault</code></td>
+<td>OTP not programmed, or an internal bus fault</td>
+<td>Replace the part</td>
+</tr>
+<tr>
+<td><code>Error::CriticalFault</code></td>
+<td>Internal supply or clock fault, confirmed by a second frame; EN is low</td>
+<td><code>GetLastCriticalFault()</code>, then <code>EnsureInitialized()</code> (RESN)</td>
+</tr>
+<tr>
+<td><code>Error::MissionBlocked</code></td>
+<td>A fault holds the chip in Config Mode, or it left Mission Mode on its own</td>
+<td><code>ReadFaults()</code>, fix the cause, <code>ClearFaults()</code>, <code>EnterMissionMode()</code></td>
+</tr>
+<tr>
+<td><code>Error::WrongState</code></td>
+<td>The call needs the other state, the channel is a slave, or an earlier write failed and the chip may hold either value (see the contract, "Ambiguous writes")</td>
+<td>Change state first; after a failed write, repeat it or <code>ReadChannelControl()</code></td>
+</tr>
+<tr>
+<td><code>Error::WriteMismatch</code></td>
+<td>The chip did not take a write</td>
+<td>A latched fault, the state, or a lost frame: read the faults</td>
+</tr>
+<tr>
+<td><code>Error::NotReady</code></td>
+<td>No feedback to report</td>
+<td>Wait one measurement period; configure the dither clock</td>
+</tr>
+<tr>
+<td><code>Error::UnexpectedReset</code></td>
+<td>The chip reset behind the driver's back; EN is low</td>
+<td><code>EnsureInitialized()</code> configures it again</td>
+</tr>
+<tr>
+<td><code>Error::Unsupported</code></td>
+<td>The port lacks the hook</td>
+<td>Add <code>GpioSet()</code> or <code>GpioRead()</code></td>
+</tr>
+</tbody>
+</table>
+<p>Every value is on the <a href="../contract/#errors">Contract</a> page. <code>tle92466ed::ToString()</code> names an error for a log.</p>
+<h2 id="raw-access-and-counters">Raw access and counters<a class="headerlink" href="#raw-access-and-counters" title="Permanent link">&para;</a></h2>
+<p>For bring-up and fault finding (handbook KB-CPP-129):</p>
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>I/O</th>
+<th>What it gives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ReadRegister(address)</code></td>
+<td>2 frames, no retry</td>
+<td>The 16 or 22 data bits of any register of Tables 19 and 24; a diagnosis register read here feeds the latch, and DIAG_WARN_CHGR clears OLSG_WARN_CHK_NOK on the chip</td>
+</tr>
+<tr>
+<td><code>GetLastReply()</code></td>
+<td>none</td>
+<td>The last 32-bit word clocked in as a reply, by any call</td>
+</tr>
+<tr>
+<td><code>GetLastCriticalFault()</code></td>
+<td>none</td>
+<td>The flags byte of the last critical fault frame</td>
+</tr>
+<tr>
+<td><code>GetBusDiagnostics()</code></td>
+<td>none</td>
+<td>Frames sent, reads retried, replies rejected, resyncs</td>
+</tr>
+<tr>
+<td><code>GetDroppedChannels()</code></td>
+<td>none</td>
+<td>Channels the chip switched off on its own, bit x for channel x; <code>ClearDroppedChannels()</code> empties it</td>
+</tr>
+<tr>
+<td><code>IsResetWatchArmed()</code></td>
+<td>none</td>
+<td>Whether every FB_STAT anchor checks for a chip reset</td>
+</tr>
+</tbody>
+</table>
+<h2 id="shut-down">Shut down<a class="headerlink" href="#shut-down" title="Permanent link">&para;</a></h2>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">PowerDown</span><span class="p">(</span><span class="n">Driver</span><span class="o">&amp;</span><span class="w"> </span><span class="n">driver</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">Deinitialize</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Config Mode, every channel off, EN low</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">printf</span><span class="p">(</span><span class="s">"TLE92466ED shutdown write failed: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">ToString</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">));</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>After <code>Deinitialize()</code> every call returns <code>NotInitialized</code> until the next <code>EnsureInitialized()</code>, which starts the
+chip again from the beginning: <code>Deinitialize()</code> then <code>EnsureInitialized()</code> is also the recovery after a fault.</p>
+<p>Next: <a href="../configuration/">Configuration</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../limitations/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Status and limitations">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Status and limitations
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../configuration/" class="md-footer__link md-footer__link--next" aria-label="Next: Configuration">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Configuration
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      
+<div class="md-copyright kb-footer">
+  <nav class="kb-footer__links" aria-label="Kokeb Labs">
+    <a href="https://kokeb-labs.github.io/">Kokeb Labs docs</a>
+    <a href="https://github.com/kokeb-labs-drivers">GitHub organisation</a>
+    
+      <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed">Source</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/issues">Report an issue</a>
+      <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/main/LICENSE">License</a>
+    
+  </nav>
+  
+    <div class="md-copyright__highlight">Copyright (c) 2026 The driver-tle92466ed authors</div>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/kokeb-labs-drivers" target="_blank" rel="noopener" title="Kokeb Labs on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.prune", "navigation.top", "navigation.footer", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.action.edit", "content.tabs.link", "toc.follow"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../search/main.js"></script>
+      
+    
+  </body>
+</html>
