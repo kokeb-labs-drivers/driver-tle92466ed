@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1247" viewBox="0 0 1200 1247" role="img" aria-labelledby="chip-blocks-title chip-blocks-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-blocks-title">Inside the TLE92466ED</title>
+<desc id="chip-blocks-desc">Block diagram of the TLE92466ED: its function blocks, how they connect and which package pins reach each block.</desc>
+<defs><marker id="fk-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8893A2"/></marker></defs>
+<rect x="0.5" y="0.5" width="1199" height="1246" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="44" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#7A360E">HARDWARE</text>
+<text x="32" y="77.3" font-size="26" font-weight="700" fill="#0E1726">Inside the TLE92466ED</text>
+<text x="32" y="103.8" font-size="15" fill="#566070">Function blocks and their links, from the datasheet's block diagram (1 Block diagram, p. 6). Pins on the edge carry their package number.</text>
+<rect x="32" y="119.8" width="1136" height="1" fill="#E2E7EE"/>
+<rect x="240" y="137.8" width="824" height="1048" rx="14" fill="#F1F4F8" stroke="#CBD5E1" stroke-width="1.2"/>
+<path d="M247 241.8 L576 241.8" fill="none" stroke="#0B7A72" stroke-width="1.8"/>
+<path d="M247 377.8 L280 377.8" fill="none" stroke="#DB2752" stroke-width="1.8"/>
+<path d="M247 401.8 L280 401.8" fill="none" stroke="#DB2752" stroke-width="1.8"/>
+<path d="M247 425.8 L280 425.8" fill="none" stroke="#64748B" stroke-width="1.8"/>
+<path d="M247 449.8 L280 449.8" fill="none" stroke="#64748B" stroke-width="1.8"/>
+<path d="M247 705.8 L280 705.8" fill="none" stroke="#0B7A72" stroke-width="1.8"/>
+<path d="M247 729.8 L280 729.8" fill="none" stroke="#0B7A72" stroke-width="1.8"/>
+<path d="M247 753.8 L280 753.8" fill="none" stroke="#C26A05" stroke-width="1.8"/>
+<path d="M247 777.8 L280 777.8" fill="none" stroke="#0B7A72" stroke-width="1.8"/>
+<path d="M247 801.8 L280 801.8" fill="none" stroke="#0B7A72" stroke-width="1.8"/>
+<path d="M247 1041.8 L280 1041.8" fill="none" stroke="#DB2752" stroke-width="1.8"/>
+<path d="M247 1065.8 L280 1065.8" fill="none" stroke="#2563EB" stroke-width="1.8"/>
+<path d="M247 1089.8 L280 1089.8" fill="none" stroke="#2563EB" stroke-width="1.8"/>
+<path d="M247 1113.8 L280 1113.8" fill="none" stroke="#2563EB" stroke-width="1.8"/>
+<path d="M247 1137.8 L280 1137.8" fill="none" stroke="#2563EB" stroke-width="1.8"/>
+<path d="M1057 553.8 L1008 553.8" fill="none" stroke="#7C4A1E" stroke-width="1.8"/>
+<path d="M1057 577.8 L1008 577.8" fill="none" stroke="#A21CAF" stroke-width="1.8"/>
+<path d="M1057 601.8 L1008 601.8" fill="none" stroke="#64748B" stroke-width="1.8"/>
+<path d="M1057 625.8 L1008 625.8" fill="none" stroke="#7C4A1E" stroke-width="1.8"/>
+<path d="M1057 649.8 L1008 649.8" fill="none" stroke="#A21CAF" stroke-width="1.8"/>
+<path d="M1057 673.8 L1008 673.8" fill="none" stroke="#64748B" stroke-width="1.8"/>
+<path d="M1057 697.8 L1008 697.8" fill="none" stroke="#7C4A1E" stroke-width="1.8"/>
+<path d="M1057 721.8 L1008 721.8" fill="none" stroke="#A21CAF" stroke-width="1.8"/>
+<path d="M1057 745.8 L1008 745.8" fill="none" stroke="#64748B" stroke-width="1.8"/>
+<path d="M1057 769.8 L1008 769.8" fill="none" stroke="#7C4A1E" stroke-width="1.8"/>
+<path d="M1057 793.8 L1008 793.8" fill="none" stroke="#A21CAF" stroke-width="1.8"/>
+<path d="M1057 817.8 L1008 817.8" fill="none" stroke="#64748B" stroke-width="1.8"/>
+<path d="M1057 841.8 L1008 841.8" fill="none" stroke="#7C4A1E" stroke-width="1.8"/>
+<path d="M1057 865.8 L1008 865.8" fill="none" stroke="#A21CAF" stroke-width="1.8"/>
+<path d="M1057 889.8 L1008 889.8" fill="none" stroke="#64748B" stroke-width="1.8"/>
+<path d="M1057 913.8 L1008 913.8" fill="none" stroke="#7C4A1E" stroke-width="1.8"/>
+<path d="M1057 937.8 L1008 937.8" fill="none" stroke="#A21CAF" stroke-width="1.8"/>
+<path d="M1057 961.8 L1008 961.8" fill="none" stroke="#64748B" stroke-width="1.8"/>
+<path d="M344 493.8 L344 533.8" fill="none" stroke="#8893A2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M640 293.8 L640 513.8 Q640 521.8 632 521.8 L390 521.8 Q384 521.8 384 527.8 L384 533.8" fill="none" stroke="#8893A2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)"/>
+<path d="M344 1021.8 L344 981.8" fill="none" stroke="#8893A2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)" marker-start="url(#fk-arrow-rail)"/>
+<path d="M420 753.8 L572 753.8" fill="none" stroke="#8893A2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)" marker-start="url(#fk-arrow-rail)"/>
+<path d="M716 753.8 L868 753.8" fill="none" stroke="#8893A2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fk-arrow-rail)" marker-start="url(#fk-arrow-rail)"/>
+<rect x="280" y="337.8" width="136" height="152" rx="10" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="280" y="345.8" width="4" height="136" rx="2" fill="#64748B"/>
+<rect x="576" y="201.8" width="136" height="88" rx="10" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="576" y="209.8" width="4" height="72" rx="2" fill="#64748B"/>
+<rect x="280" y="537.8" width="136" height="440" rx="10" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="280" y="545.8" width="4" height="424" rx="2" fill="#0B7A72"/>
+<rect x="280" y="1025.8" width="136" height="128" rx="10" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="280" y="1033.8" width="4" height="112" rx="2" fill="#2563EB"/>
+<rect x="576" y="537.8" width="136" height="440" rx="10" fill="#F3EEFF" stroke="#7C3AED" stroke-width="1.4"/>
+<rect x="576" y="545.8" width="4" height="424" rx="2" fill="#7C3AED"/>
+<rect x="872" y="537.8" width="136" height="440" rx="10" fill="#F3EEFF" stroke="#7C3AED" stroke-width="1.4"/>
+<rect x="872" y="545.8" width="4" height="424" rx="2" fill="#7C3AED"/>
+<rect x="233" y="234.8" width="14" height="14" rx="3" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="233" y="370.8" width="14" height="14" rx="3" fill="#FFEEF2" stroke="#DB2752" stroke-width="1.4"/>
+<rect x="233" y="394.8" width="14" height="14" rx="3" fill="#FFEEF2" stroke="#DB2752" stroke-width="1.4"/>
+<rect x="233" y="418.8" width="14" height="14" rx="3" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="233" y="442.8" width="14" height="14" rx="3" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="233" y="698.8" width="14" height="14" rx="3" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="233" y="722.8" width="14" height="14" rx="3" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="233" y="746.8" width="14" height="14" rx="3" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<rect x="233" y="770.8" width="14" height="14" rx="3" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="233" y="794.8" width="14" height="14" rx="3" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<rect x="233" y="1034.8" width="14" height="14" rx="3" fill="#FFEEF2" stroke="#DB2752" stroke-width="1.4"/>
+<rect x="233" y="1058.8" width="14" height="14" rx="3" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="233" y="1082.8" width="14" height="14" rx="3" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="233" y="1106.8" width="14" height="14" rx="3" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="233" y="1130.8" width="14" height="14" rx="3" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<rect x="1057" y="546.8" width="14" height="14" rx="3" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<rect x="1057" y="570.8" width="14" height="14" rx="3" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="1057" y="594.8" width="14" height="14" rx="3" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="1057" y="618.8" width="14" height="14" rx="3" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<rect x="1057" y="642.8" width="14" height="14" rx="3" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="1057" y="666.8" width="14" height="14" rx="3" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="1057" y="690.8" width="14" height="14" rx="3" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<rect x="1057" y="714.8" width="14" height="14" rx="3" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="1057" y="738.8" width="14" height="14" rx="3" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="1057" y="762.8" width="14" height="14" rx="3" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<rect x="1057" y="786.8" width="14" height="14" rx="3" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="1057" y="810.8" width="14" height="14" rx="3" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="1057" y="834.8" width="14" height="14" rx="3" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<rect x="1057" y="858.8" width="14" height="14" rx="3" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="1057" y="882.8" width="14" height="14" rx="3" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<rect x="1057" y="906.8" width="14" height="14" rx="3" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<rect x="1057" y="930.8" width="14" height="14" rx="3" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="1057" y="954.8" width="14" height="14" rx="3" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<text x="256" y="162.8" font-size="13" font-weight="700" fill="#334155">TLE92466ED</text>
+<text x="356.5" y="162.8" font-size="12" fill="#334155">PG-DSO-36</text>
+<text x="300" y="364.6" font-size="15" font-weight="700" fill="#334155">Power</text>
+<text x="300" y="384.1" font-size="15" font-weight="700" fill="#334155">supply</text>
+<text x="300" y="408.9" font-size="13" fill="#2B3442">undervoltage</text>
+<text x="300" y="427.8" font-size="13" fill="#2B3442">and</text>
+<text x="300" y="446.6" font-size="13" fill="#2B3442">overvoltage</text>
+<text x="300" y="465.5" font-size="13" fill="#2B3442">detection</text>
+<text x="596" y="228.6" font-size="15" font-weight="700" fill="#334155">PLL</text>
+<text x="596" y="253.4" font-size="13" fill="#2B3442">with clock</text>
+<text x="596" y="272.2" font-size="13" fill="#2B3442">watchdog</text>
+<text x="300" y="564.5" font-size="15" font-weight="700" fill="#0B5F59">Central logic</text>
+<text x="300" y="589.4" font-size="13" fill="#2B3442">states, faults,</text>
+<text x="300" y="608.2" font-size="13" fill="#2B3442">direct drive</text>
+<text x="300" y="1052.5" font-size="15" font-weight="700" fill="#1E429F">SPI</text>
+<text x="300" y="1077.4" font-size="13" fill="#2B3442">with SPI</text>
+<text x="300" y="1096.2" font-size="13" fill="#2B3442">watchdog</text>
+<text x="596" y="564.5" font-size="15" font-weight="700" fill="#5B21B6">6 channels</text>
+<text x="596" y="589.4" font-size="13" fill="#2B3442">channel logic,</text>
+<text x="596" y="608.2" font-size="13" fill="#2B3442">current control,</text>
+<text x="596" y="627.1" font-size="13" fill="#2B3442">dither,</text>
+<text x="596" y="646" font-size="13" fill="#2B3442">diagnosis,</text>
+<text x="596" y="664.8" font-size="13" fill="#2B3442">current sense,</text>
+<text x="596" y="683.7" font-size="13" fill="#2B3442">OC and</text>
+<text x="596" y="702.5" font-size="13" fill="#2B3442">temperature</text>
+<text x="892" y="564.5" font-size="15" font-weight="700" fill="#5B21B6">Power</text>
+<text x="892" y="584" font-size="15" font-weight="700" fill="#5B21B6">stages</text>
+<text x="892" y="608.9" font-size="13" fill="#2B3442">low-side DMOS</text>
+<text x="892" y="627.8" font-size="13" fill="#2B3442">and shunt per</text>
+<text x="892" y="646.6" font-size="13" fill="#2B3442">channel</text>
+<text x="226" y="246.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">CLK  24</text>
+<text x="226" y="382.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">VBAT  22</text>
+<text x="226" y="406.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">VDD  29</text>
+<text x="226" y="430.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">GND  4, 10, 12, 23, 30</text>
+<text x="226" y="454.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">TAB  EP</text>
+<text x="226" y="710.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">RESN  26</text>
+<text x="226" y="734.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">EN  27</text>
+<text x="226" y="758.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">FAULTN  11</text>
+<text x="226" y="782.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">DRV0  25</text>
+<text x="226" y="806.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">DRV1  28</text>
+<text x="226" y="1046.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">VIO  8</text>
+<text x="226" y="1070.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">SCK  6</text>
+<text x="226" y="1094.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">CSN  5</text>
+<text x="226" y="1118.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">SI  7</text>
+<text x="226" y="1142.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" text-anchor="end" fill="#0E1726">SO  9</text>
+<text x="1078" y="558.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">LOAD0  1</text>
+<text x="1078" y="582.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">FWD0  2</text>
+<text x="1078" y="606.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">GNDP0  3</text>
+<text x="1078" y="630.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">LOAD1  18</text>
+<text x="1078" y="654.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">FWD1  17</text>
+<text x="1078" y="678.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">GNDP1  16</text>
+<text x="1078" y="702.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">LOAD2  19</text>
+<text x="1078" y="726.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">FWD2  20</text>
+<text x="1078" y="750.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">GNDP2  21</text>
+<text x="1078" y="774.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">LOAD3  36</text>
+<text x="1078" y="798.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">FWD3  35</text>
+<text x="1078" y="822.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">GNDP3  34</text>
+<text x="1078" y="846.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">LOAD4  31</text>
+<text x="1078" y="870.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">FWD4  32</text>
+<text x="1078" y="894.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">GNDP4  33</text>
+<text x="1078" y="918.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">LOAD5  13</text>
+<text x="1078" y="942.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">FWD5  14</text>
+<text x="1078" y="966.3" font-size="12.5" font-weight="600" font-family="'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0E1726">GNDP5  15</text>
+<circle cx="576" cy="241.8" r="3" fill="#0B7A72"/>
+<circle cx="280" cy="377.8" r="3" fill="#DB2752"/>
+<circle cx="280" cy="401.8" r="3" fill="#DB2752"/>
+<circle cx="280" cy="425.8" r="3" fill="#64748B"/>
+<circle cx="280" cy="449.8" r="3" fill="#64748B"/>
+<circle cx="280" cy="705.8" r="3" fill="#0B7A72"/>
+<circle cx="280" cy="729.8" r="3" fill="#0B7A72"/>
+<circle cx="280" cy="753.8" r="3" fill="#C26A05"/>
+<circle cx="280" cy="777.8" r="3" fill="#0B7A72"/>
+<circle cx="280" cy="801.8" r="3" fill="#0B7A72"/>
+<circle cx="280" cy="1041.8" r="3" fill="#DB2752"/>
+<circle cx="280" cy="1065.8" r="3" fill="#2563EB"/>
+<circle cx="280" cy="1089.8" r="3" fill="#2563EB"/>
+<circle cx="280" cy="1113.8" r="3" fill="#2563EB"/>
+<circle cx="280" cy="1137.8" r="3" fill="#2563EB"/>
+<circle cx="1008" cy="553.8" r="3" fill="#7C4A1E"/>
+<circle cx="1008" cy="577.8" r="3" fill="#A21CAF"/>
+<circle cx="1008" cy="601.8" r="3" fill="#64748B"/>
+<circle cx="1008" cy="625.8" r="3" fill="#7C4A1E"/>
+<circle cx="1008" cy="649.8" r="3" fill="#A21CAF"/>
+<circle cx="1008" cy="673.8" r="3" fill="#64748B"/>
+<circle cx="1008" cy="697.8" r="3" fill="#7C4A1E"/>
+<circle cx="1008" cy="721.8" r="3" fill="#A21CAF"/>
+<circle cx="1008" cy="745.8" r="3" fill="#64748B"/>
+<circle cx="1008" cy="769.8" r="3" fill="#7C4A1E"/>
+<circle cx="1008" cy="793.8" r="3" fill="#A21CAF"/>
+<circle cx="1008" cy="817.8" r="3" fill="#64748B"/>
+<circle cx="1008" cy="841.8" r="3" fill="#7C4A1E"/>
+<circle cx="1008" cy="865.8" r="3" fill="#A21CAF"/>
+<circle cx="1008" cy="889.8" r="3" fill="#64748B"/>
+<circle cx="1008" cy="913.8" r="3" fill="#7C4A1E"/>
+<circle cx="1008" cy="937.8" r="3" fill="#A21CAF"/>
+<circle cx="1008" cy="961.8" r="3" fill="#64748B"/>
+<rect x="488" y="511.8" width="48" height="20" rx="10" fill="#FFFFFF"/>
+<text x="512" y="526.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">f_SYS</text>
+<rect x="311.1" y="991.8" width="65.9" height="20" rx="10" fill="#FFFFFF"/>
+<text x="344" y="1006.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">registers</text>
+<rect x="439.6" y="743.8" width="112.7" height="20" rx="10" fill="#FFFFFF"/>
+<text x="496" y="758.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">setpoints, status</text>
+<rect x="750.8" y="743.8" width="82.5" height="20" rx="10" fill="#FFFFFF"/>
+<text x="792" y="758.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">gate, sense</text>
+<rect x="32" y="1201.2" width="14" height="14" rx="4" fill="#FFEEF2" stroke="#DB2752" stroke-width="1.4"/>
+<text x="54" y="1212.8" font-size="12.5" fill="#566070">power</text>
+<rect x="117.6" y="1201.2" width="14" height="14" rx="4" fill="#F1F4F8" stroke="#64748B" stroke-width="1.4"/>
+<text x="139.6" y="1212.8" font-size="12.5" fill="#566070">ground</text>
+<rect x="208.5" y="1201.2" width="14" height="14" rx="4" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="230.5" y="1212.8" font-size="12.5" fill="#566070">bus</text>
+<rect x="277.4" y="1201.2" width="14" height="14" rx="4" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
+<text x="299.4" y="1212.8" font-size="12.5" fill="#566070">digital in</text>
+<rect x="375.8" y="1201.2" width="14" height="14" rx="4" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<text x="397.8" y="1212.8" font-size="12.5" fill="#566070">open drain</text>
+<rect x="488.7" y="1201.2" width="14" height="14" rx="4" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<text x="510.7" y="1212.8" font-size="12.5" fill="#566070">analog</text>
+<rect x="576.7" y="1201.2" width="14" height="14" rx="4" fill="#F8F1EA" stroke="#7C4A1E" stroke-width="1.4"/>
+<text x="598.7" y="1212.8" font-size="12.5" fill="#566070">power output</text>
+<path d="M706.4 1207.4L736.4 1207.4" fill="none" stroke="#8893A2" stroke-width="1.6" marker-end="url(#fk-arrow-rail)"/>
+<text x="750.4" y="1212.8" font-size="12.5" fill="#566070">signal or data between blocks</text>
+</svg>
