@@ -330,7 +330,8 @@ void RunLifecycle(Driver& d, Input& in, uint8_t op, bool was_up, int sent_before
     break;
   }
   default: {
-    const auto r = d.ConfigureChannel(FuzzChannel(in), FuzzChannelConfig(in));
+    const Channel ch = FuzzChannel(in);
+    const auto r = d.ConfigureChannel(ch, FuzzChannelConfig(in));
     Check(KnownError(r.error));
     if (!was_up || (r.error == Error::InvalidArgument) || (r.error == Error::WrongState)) {
       Check(port.Transfers() == sent_before);
@@ -360,7 +361,8 @@ void RunControl(Driver& d, Input& in, uint8_t op, bool was_up, int before,
     break;
   }
   case 7: {
-    const auto r = d.SetEnabledChannels(in.Byte(), static_cast<tle92466ed::Verify>(in.Byte() % 3U));
+    const uint8_t mask = in.Byte();
+    const auto r = d.SetEnabledChannels(mask, static_cast<tle92466ed::Verify>(in.Byte() % 3U));
     Done(d, r, was_up, sent());
     break;
   }
@@ -371,14 +373,15 @@ void RunControl(Driver& d, Input& in, uint8_t op, bool was_up, int before,
   }
   case 9: {
     const Channel ch = FuzzChannel(in);
-    const auto r =
-        d.SetCurrent(ch, 12'000U * in.Byte(), static_cast<tle92466ed::Verify>(in.Byte() % 3U));
+    const uint32_t microamps = 12'000U * in.Byte();
+    const auto r = d.SetCurrent(ch, microamps, static_cast<tle92466ed::Verify>(in.Byte() % 3U));
     Done(d, r, was_up, sent());
     CheckSetpoint(d, ch, r);
     break;
   }
   case 10: {
-    const auto r = d.SetDither(FuzzChannel(in), FuzzChannelConfig(in).dither);
+    const Channel ch = FuzzChannel(in);
+    const auto r = d.SetDither(ch, FuzzChannelConfig(in).dither);
     Done(d, r, was_up, sent());
     break;
   }
@@ -388,8 +391,8 @@ void RunControl(Driver& d, Input& in, uint8_t op, bool was_up, int before,
     break;
   }
   case 12: {
-    const auto r = d.SetParallel(static_cast<tle92466ed::ParallelPair>(in.Byte() % 4U),
-                                 (in.Byte() & 1U) != 0U);
+    const auto pair = static_cast<tle92466ed::ParallelPair>(in.Byte() % 4U);
+    const auto r = d.SetParallel(pair, (in.Byte() & 1U) != 0U);
     Done(d, r, was_up, sent());
     break;
   }
@@ -471,8 +474,8 @@ void RunDiagnostics(Driver& d, Input& in, uint8_t op, bool was_up, int before,
     break;
   }
   case 26: {
-    const auto r =
-        d.SetDrivePin(static_cast<tle92466ed::CtrlPin>(in.Byte() % 5U), (in.Byte() & 1U) != 0U);
+    const auto pin = static_cast<tle92466ed::CtrlPin>(in.Byte() % 5U);
+    const auto r = d.SetDrivePin(pin, (in.Byte() & 1U) != 0U);
     Done(d, r, was_up, sent());
     break;
   }
