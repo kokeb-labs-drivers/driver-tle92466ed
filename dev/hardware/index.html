@@ -1209,7 +1209,7 @@ datasheet, Rev. 1.2.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The TLE92466ED seen from the top, in its PG-DSO-36 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-pins -->
 <p>PG-DSO-36, 36 pins and an exposed pad (2 Pin configuration, Figure 2, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=7">p. 7</a>).</p>
@@ -1581,7 +1581,7 @@ central logic; the PLL makes the system clock f_SYS.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The TLE92466ED's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <h2 id="control-pins">Control pins<a class="headerlink" href="#control-pins" title="Permanent link">&para;</a></h2>
 <p>The driver drives RESN, EN, DRV0 and DRV1 only through the optional <code>GpioSet()</code> hook of your port, with logical
@@ -1815,7 +1815,7 @@ power-supply chip; here the MCU drives them through <code>GpioSet()</code>, as t
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-parts -->
 <table>
@@ -2113,11 +2113,11 @@ of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
 <td>The register map as the driver uses it, with datasheet section numbers</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
 <td>The bus requirements and the frame codec</td>
 </tr>
 </tbody>

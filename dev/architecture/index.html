@@ -1132,7 +1132,7 @@ reply is checked before it is used.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
 <h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
 <table>
@@ -1146,17 +1146,17 @@ reply is checked before it is used.</p>
 <tbody>
 <tr>
 <td>Core</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/src/tle92466ed.ipp"><code>src/tle92466ed.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/src/tle92466ed.ipp"><code>src/tle92466ed.ipp</code></a></td>
 <td>Start-up, operation states, channels, feedback, diagnosis, the driver's copies and latch</td>
 </tr>
 <tr>
 <td>Types and registers</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_types.hpp"><code>inc/tle92466ed_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_types.hpp"><code>inc/tle92466ed_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
 <td><code>Error</code>, <code>Result&lt;T&gt;</code>, <code>Config</code> and <code>Validate()</code>, decoded values, conversions; the register map and CRC</td>
 </tr>
 <tr>
 <td>Port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
 <td>The CRTP base, <code>CtrlPin</code> and <code>GpioSignal</code>, the <code>SpiPort</code> concept, the bus requirements, the frame codec and the pipeline (<code>detail::Transport</code>)</td>
 </tr>
 <tr>
@@ -1166,7 +1166,7 @@ reply is checked before it is used.</p>
 </tr>
 <tr>
 <td>Kconfig layer</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_kconfig.hpp"><code>inc/tle92466ed_kconfig.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_kconfig.hpp"><code>inc/tle92466ed_kconfig.hpp</code></a></td>
 <td>Optional: a <code>Config</code> from ESP-IDF menuconfig</td>
 </tr>
 </tbody>
@@ -1317,19 +1317,19 @@ a dither clock of 0, section 4.4.2) is <code>NotReady</code>, never a current of
 <tbody>
 <tr>
 <td>The public API</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a></td>
 </tr>
 <tr>
 <td>How a call is implemented</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/src/tle92466ed.ipp"><code>src/tle92466ed.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/src/tle92466ed.ipp"><code>src/tle92466ed.ipp</code></a></td>
 </tr>
 <tr>
 <td>Register addresses, bits and the CRC</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
 </tr>
 <tr>
 <td>The port contract, the frames and the pipeline</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/411dec9adf62d14ecb9e0003a5ddb4068c372ea3/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/bacdc36f5fc9caee99a700a51d5c065e1e31f9a8/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
 </tr>
 </tbody>
 </table>
