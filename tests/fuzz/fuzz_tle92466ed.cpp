@@ -330,7 +330,8 @@ void RunLifecycle(Driver& d, Input& in, uint8_t op, bool was_up, int sent_before
     break;
   }
   default: {
-    const auto r = d.ConfigureChannel(FuzzChannel(in), FuzzChannelConfig(in));
+    const Channel ch = FuzzChannel(in);
+    const auto r = d.ConfigureChannel(ch, FuzzChannelConfig(in));
     Check(KnownError(r.error));
     if (!was_up || (r.error == Error::InvalidArgument) || (r.error == Error::WrongState)) {
       Check(port.Transfers() == sent_before);
@@ -349,42 +350,57 @@ void RunControl(Driver& d, Input& in, uint8_t op, bool was_up, int before,
                 FuzzPort& port) noexcept {
   const auto sent = [&port, before]() { return port.Transfers() - before; };
   switch (op) {
-  case 5:
-    Done(d, d.EnterMissionMode(), was_up, sent());
+  case 5: {
+    const auto r = d.EnterMissionMode();
+    Done(d, r, was_up, sent());
     break;
-  case 6:
-    Done(d, d.EnterConfigMode(), was_up, sent());
+  }
+  case 6: {
+    const auto r = d.EnterConfigMode();
+    Done(d, r, was_up, sent());
     break;
-  case 7:
-    Done(d, d.SetEnabledChannels(in.Byte(), static_cast<tle92466ed::Verify>(in.Byte() % 3U)),
-         was_up, sent());
+  }
+  case 7: {
+    const uint8_t mask = in.Byte();
+    const auto r = d.SetEnabledChannels(mask, static_cast<tle92466ed::Verify>(in.Byte() % 3U));
+    Done(d, r, was_up, sent());
     break;
-  case 8:
-    Done(d, d.DisableChannel(FuzzChannel(in)), was_up, sent());
+  }
+  case 8: {
+    const auto r = d.DisableChannel(FuzzChannel(in));
+    Done(d, r, was_up, sent());
     break;
+  }
   case 9: {
     const Channel ch = FuzzChannel(in);
-    const auto r =
-        d.SetCurrent(ch, 12'000U * in.Byte(), static_cast<tle92466ed::Verify>(in.Byte() % 3U));
+    const uint32_t microamps = 12'000U * in.Byte();
+    const auto r = d.SetCurrent(ch, microamps, static_cast<tle92466ed::Verify>(in.Byte() % 3U));
     Done(d, r, was_up, sent());
     CheckSetpoint(d, ch, r);
     break;
   }
-  case 10:
-    Done(d, d.SetDither(FuzzChannel(in), FuzzChannelConfig(in).dither), was_up, sent());
+  case 10: {
+    const Channel ch = FuzzChannel(in);
+    const auto r = d.SetDither(ch, FuzzChannelConfig(in).dither);
+    Done(d, r, was_up, sent());
     break;
-  case 11:
-    Done(d, d.StartOvercurrentCheck(FuzzChannel(in)), was_up, sent());
+  }
+  case 11: {
+    const auto r = d.StartOvercurrentCheck(FuzzChannel(in));
+    Done(d, r, was_up, sent());
     break;
-  case 12:
-    Done(d,
-         d.SetParallel(static_cast<tle92466ed::ParallelPair>(in.Byte() % 4U),
-                       (in.Byte() & 1U) != 0U),
-         was_up, sent());
+  }
+  case 12: {
+    const auto pair = static_cast<tle92466ed::ParallelPair>(in.Byte() % 4U);
+    const auto r = d.SetParallel(pair, (in.Byte() & 1U) != 0U);
+    Done(d, r, was_up, sent());
     break;
-  case 13:
-    Done(d, d.ReloadWatchdog(), was_up, sent());
+  }
+  case 13: {
+    const auto r = d.ReloadWatchdog();
+    Done(d, r, was_up, sent());
     break;
+  }
   default: {
     const auto r = d.ReadChannelControl();
     Done(d, r, was_up, sent());
@@ -398,36 +414,48 @@ void RunDiagnostics(Driver& d, Input& in, uint8_t op, bool was_up, int before,
                     FuzzPort& port) noexcept {
   const auto sent = [&port, before]() { return port.Transfers() - before; };
   switch (op) {
-  case 15:
-    Done(d, d.ReadStatus(), was_up, sent());
+  case 15: {
+    const auto r = d.ReadStatus();
+    Done(d, r, was_up, sent());
     break;
+  }
   case 16: {
     const auto r = d.ReadFaults();
     Done(d, r, was_up, sent());
     CheckEmpty(r);
     break;
   }
-  case 17:
-    Done(d, d.ClearFaults(), was_up, sent());
+  case 17: {
+    const auto r = d.ClearFaults();
+    Done(d, r, was_up, sent());
     break;
-  case 18:
-    Done(d, d.ClearChannelFaults(FuzzChannel(in)), was_up, sent());
+  }
+  case 18: {
+    const auto r = d.ClearChannelFaults(FuzzChannel(in));
+    Done(d, r, was_up, sent());
     break;
+  }
   case 19: {
     const auto r = d.ReadChannelFeedback(FuzzChannel(in));
     Done(d, r, was_up, sent());
     CheckFeedback(r);
     break;
   }
-  case 20:
-    Done(d, d.ReadSupply(), was_up, sent());
+  case 20: {
+    const auto r = d.ReadSupply();
+    Done(d, r, was_up, sent());
     break;
-  case 21:
-    Done(d, d.ReadPinStatus(), was_up, sent());
+  }
+  case 21: {
+    const auto r = d.ReadPinStatus();
+    Done(d, r, was_up, sent());
     break;
-  case 22:
-    Done(d, d.RunBist(), was_up, sent());
+  }
+  case 22: {
+    const auto r = d.RunBist();
+    Done(d, r, was_up, sent());
     break;
+  }
   case 23: {
     const auto r = d.ReadChipId();
     Done(d, r, was_up, sent());
@@ -440,13 +468,17 @@ void RunDiagnostics(Driver& d, Input& in, uint8_t op, bool was_up, int before,
     CheckEmpty(r);
     break;
   }
-  case 25:
-    Done(d, d.ReadFaultPin(), was_up, sent());
+  case 25: {
+    const auto r = d.ReadFaultPin();
+    Done(d, r, was_up, sent());
     break;
-  case 26:
-    Done(d, d.SetDrivePin(static_cast<tle92466ed::CtrlPin>(in.Byte() % 5U), (in.Byte() & 1U) != 0U),
-         was_up, sent());
+  }
+  case 26: {
+    const auto pin = static_cast<tle92466ed::CtrlPin>(in.Byte() % 5U);
+    const auto r = d.SetDrivePin(pin, (in.Byte() & 1U) != 0U);
+    Done(d, r, was_up, sent());
     break;
+  }
   default:
     FuzzChip(port.Chip(), in);
     port.SetBusUp((in.Byte() & 0x07U) != 0U);
