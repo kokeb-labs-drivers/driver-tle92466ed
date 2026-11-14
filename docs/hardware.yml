@@ -61,6 +61,8 @@ overview:
     - {value: "6 x 1.5 A", label: "regulated current setpoint per channel", ref: cover}
     - {value: "15 bit", label: current setpoint resolution, ref: cover}
     - {value: "< 1 %", label: current control accuracy, ref: cover}
+    # The functional range is the right headline: Table 6 specifies the parameters there; 4 V to 38 V only "with
+    # deviations" (docs/hardware.md, Power and supervision).
     - {value: "6 to 18 V", label: "load supply VBAT, functional range", ref: range}
     - {value: "8 MHz", label: "SPI clock, 32-bit frames with CRC-8", ref: spi}
   system:

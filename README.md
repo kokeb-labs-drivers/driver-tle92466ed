@@ -60,7 +60,8 @@ The site at <https://kokeb-labs-drivers.github.io/driver-tle92466ed/> opens when
 - Suspension control
 - Other constant-current solenoids
 
-Uses named by the datasheet (Features, [p. 1](https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=1)).
+Uses named by the datasheet (Features, [p.
+1](https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=1)).
 <!-- /generated -->
 
 ## Inside the chip

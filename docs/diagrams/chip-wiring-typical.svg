@@ -76,8 +76,8 @@
 <rect x="708.1" y="1044.7" width="14" height="12" rx="2" fill="#E6F6F4" stroke="#0B7A72" stroke-width="1.4"/>
 <text x="573" y="1040.7" font-size="16" font-weight="600" text-anchor="middle" fill="#2B3442">CLK  pin 24</text>
 <text x="50" y="1174.5" font-size="20" font-weight="700" fill="#9F1239">Supplies and ground</text>
-<text x="50" y="1198" font-size="17" fill="#9F1239">VBAT: VBAT · VBAT_SW:  · +5V: VDD · VIO: VIO; also U2.VDD · GND: GND, GNDP0, GNDP1, GNDP2, GNDP3, GNDP4, GNDP5,</text>
-<text x="50" y="1222.6" font-size="17" fill="#9F1239">TAB; also U2.GND</text>
+<text x="50" y="1198" font-size="17" fill="#9F1239">VBAT: VBAT · VBAT_SW (no TLE92466ED pin): C5, D0, D1, D2, D3, D4, D5, L0, L1, L2, L3, L4, L5 · +5V: VDD · VIO: VIO; also</text>
+<text x="50" y="1222.6" font-size="17" fill="#9F1239">U2.VDD · GND: GND, GNDP0, GNDP1, GNDP2, GNDP3, GNDP4, GNDP5, TAB; also U2.GND</text>
 <text x="50" y="1292.2" font-size="20" font-weight="700" fill="#334155">Also on the board</text>
 <text x="50" y="1315.6" font-size="17" fill="#334155">Support parts: 16 capacitors, 1 resistor, 13 other parts around the supplies (values in the full schematic).</text>
 <rect x="32" y="1348.6" width="14" height="14" rx="4" fill="#EAF2FF" stroke="#2563EB" stroke-width="1.4"/>

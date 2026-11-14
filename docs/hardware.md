@@ -173,6 +173,10 @@ next one (section 5.2.1):
 | VIO | 3.0 V to 5.5 V | Against the 3.3 V or the 5 V thresholds that VIO_SEL selects |
 | VBAT | 6 V to 18 V (4 V to 38 V with deviations) | `Config::vbat_uv_code` and `vbat_ov_code`, 162 mV per count |
 
+The VBAT figure in the README's headline numbers is this functional range, 6 V to 18 V: Table 6 specifies the
+chip's parameters there. From 4 V to 38 V the chip keeps working but its parameters may deviate, so that wider range
+is not a headline figure, and neither are the absolute maximum ratings.
+
 A VDD or VIO fault ends Mission Mode and clears every EN_CH; a VBAT fault is reported only. With VIO_SEL on the
 wrong level (the reset value is 5 V), a 3.3 V VIO reads as undervoltage and `EnterMissionMode()` returns
 `MissionBlocked`. VDD draws up to 40 mA; VBAT up to 1 mA in normal mode and 10 µA with VDD and VIO off (Table 9).
