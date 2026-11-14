@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1070" viewBox="0 0 1200 1070" role="img" aria-labelledby="chip-capabilities-title chip-capabilities-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="chip-capabilities-title">What the TLE92466ED does</title>
+<desc id="chip-capabilities-desc">Capability map of the TLE92466ED: Integrating current controller (supported): Holds each coil at a current setpoint from 0 to 1.5 A, with the PWM frequency regulated to a target; Dither (supported): Adds a triangular or trapezoidal ripple to the setpoint to keep a valve spool moving freely; Parallel channels (supported): Joins channels 0/3, 1/2 or 4/5 into one output for a larger load current; Direct drive (supported): Switches a channel without current control: a fixed on-time set over SPI, or following DRV0 or DRV1; Current feedback (supported): Reports each channel's average current, minimum and maximum, duty cycle and VBAT; Load diagnosis (supported): Detects open load, short to ground and overcurrent per channel, in the on and the off state; Supply and temperature monitoring (supported): Measures VBAT, VDD, VIO and the die temperature and flags under- and overvoltage and overtemperature; Operation states and watchdogs (supported): Config and Mission Mode, the SPI and clock watchdogs, CRC-checked frames and the built-in self-test; Monitor test modes (not covered): Test bits that fake a supply or overtemperature fault; two of them reset the chip, so they stay 0.</desc>
+<rect x="0.5" y="0.5" width="1199" height="1069" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="46.8" font-size="16" font-weight="700" letter-spacing="1.2" fill="#F8D27A">CAPABILITIES</text>
+<text x="32" y="85.6" font-size="32" font-weight="700" fill="#E8EDF3">What the TLE92466ED does</text>
+<text x="32" y="115.4" font-size="18" fill="#9AA6B5">One card per function of the chip, with how this driver covers it and the registers behind it.</text>
+<rect x="32" y="131.4" width="1136" height="1" fill="#252F3C"/>
+<rect x="32" y="149.4" width="365.3" height="249.9" rx="12" fill="#151C26" stroke="#3A4657" stroke-width="1"/>
+<rect x="417.3" y="149.4" width="365.3" height="249.9" rx="12" fill="#151C26" stroke="#3A4657" stroke-width="1"/>
+<rect x="802.7" y="149.4" width="365.3" height="249.9" rx="12" fill="#151C26" stroke="#3A4657" stroke-width="1"/>
+<rect x="32" y="419.3" width="365.3" height="283.9" rx="12" fill="#151C26" stroke="#3A4657" stroke-width="1"/>
+<rect x="417.3" y="419.3" width="365.3" height="283.9" rx="12" fill="#151C26" stroke="#3A4657" stroke-width="1"/>
+<rect x="802.7" y="419.3" width="365.3" height="283.9" rx="12" fill="#151C26" stroke="#3A4657" stroke-width="1"/>
+<rect x="32" y="723.3" width="365.3" height="283.9" rx="12" fill="#151C26" stroke="#3A4657" stroke-width="1"/>
+<rect x="417.3" y="723.3" width="365.3" height="283.9" rx="12" fill="#151C26" stroke="#3A4657" stroke-width="1"/>
+<rect x="802.7" y="723.3" width="365.3" height="283.9" rx="12" fill="#151C26" stroke="#3A4657" stroke-width="1"/>
+<circle cx="78" cy="195.4" r="28" fill="#2A2113" stroke="#6B5424" stroke-width="1.2"/>
+<path d="M65 195.4 L91 195.4" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M65 195.4 L66.1 193.2 L67.2 191.1 L68.2 189.3 L69.3 187.9 L70.4 187 L71.5 186.7 L72.6 187 L73.7 187.9 L74.7 189.3 L75.8 191.1 L76.9 193.2 L78 195.4 L79.1 197.6 L80.2 199.7 L81.3 201.5 L82.3 202.9 L83.4 203.8 L84.5 204.1 L85.6 203.8 L86.7 202.9 L87.8 201.5 L88.8 199.7 L89.9 197.6 L91 195.4" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="120" y="188.4" font-size="20" font-weight="700" fill="#E8EDF3">Integrating current</text>
+<text x="120" y="214.4" font-size="20" font-weight="700" fill="#E8EDF3">controller</text>
+<text x="50" y="249.8" font-size="17" fill="#D2DAE4">Holds each coil at a current setpoint</text>
+<text x="50" y="274.5" font-size="17" fill="#D2DAE4">from 0 to 1.5 A, with the PWM</text>
+<text x="50" y="299.1" font-size="17" fill="#D2DAE4">frequency regulated to a target</text>
+<rect x="50" y="317.7" width="103.4" height="26" rx="13" fill="#BBF7D0"/>
+<text x="58" y="335.8" font-size="16" font-weight="700" fill="#0E131A">Supported</text>
+<rect x="161.4" y="317.7" width="101.8" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="169.4" y="335.8" font-size="16" font-weight="700" fill="#E2E8F0">SETPOINT</text>
+<rect x="271.2" y="317.7" width="60.6" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="279.2" y="335.8" font-size="16" font-weight="700" fill="#E2E8F0">CTRL</text>
+<rect x="50" y="351.7" width="78.5" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="58" y="369.8" font-size="16" font-weight="700" fill="#E2E8F0">PERIOD</text>
+<rect x="136.5" y="351.7" width="85.4" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="144.5" y="369.8" font-size="16" font-weight="700" fill="#E2E8F0">+3 more</text>
+<circle cx="463.3" cy="195.4" r="28" fill="#2A2113" stroke="#6B5424" stroke-width="1.2"/>
+<path d="M450.3 183.8 L450.3 207 L476.4 207" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M453.2 195.4 L454.2 193.5 L455.1 191.8 L456.1 190.3 L457.1 189.1 L458 188.4 L459 188.2 L460 188.4 L460.9 189.1 L461.9 190.3 L462.9 191.8 L463.8 193.5 L464.8 195.4 L465.7 197.3 L466.7 199 L467.7 200.5 L468.6 201.7 L469.6 202.4 L470.6 202.6 L471.5 202.4 L472.5 201.7 L473.5 200.5 L474.4 199 L475.4 197.3 L476.4 195.4" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="505.3" y="201.4" font-size="20" font-weight="700" fill="#E8EDF3">Dither</text>
+<text x="435.3" y="249.8" font-size="17" fill="#D2DAE4">Adds a triangular or trapezoidal ripple</text>
+<text x="435.3" y="274.5" font-size="17" fill="#D2DAE4">to the setpoint to keep a valve spool</text>
+<text x="435.3" y="299.1" font-size="17" fill="#D2DAE4">moving freely</text>
+<rect x="435.3" y="317.7" width="103.4" height="26" rx="13" fill="#BBF7D0"/>
+<text x="443.3" y="335.8" font-size="16" font-weight="700" fill="#0E131A">Supported</text>
+<rect x="546.7" y="317.7" width="158.6" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="554.7" y="335.8" font-size="16" font-weight="700" fill="#E2E8F0">DITHER_CLK_DIV</text>
+<rect x="435.3" y="351.7" width="130.2" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="443.3" y="369.8" font-size="16" font-weight="700" fill="#E2E8F0">DITHER_STEP</text>
+<rect x="573.6" y="351.7" width="131.1" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="581.6" y="369.8" font-size="16" font-weight="700" fill="#E2E8F0">DITHER_CTRL</text>
+<circle cx="848.7" cy="195.4" r="28" fill="#2A2113" stroke="#6B5424" stroke-width="1.2"/>
+<path d="M834.2 191.1 L841.4 191.1 L841.4 199.7 L834.2 199.7 Z" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M845 191.1 L852.3 191.1 L852.3 199.7 L845 199.7 Z" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M855.9 191.1 L863.1 191.1 L863.1 199.7 L855.9 199.7 Z" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M841.4 195.4 L845 195.4" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M852.3 195.4 L855.9 195.4" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="890.7" y="201.4" font-size="20" font-weight="700" fill="#E8EDF3">Parallel channels</text>
+<text x="820.7" y="249.8" font-size="17" fill="#D2DAE4">Joins channels 0/3, 1/2 or 4/5 into one</text>
+<text x="820.7" y="274.5" font-size="17" fill="#D2DAE4">output for a larger load current</text>
+<rect x="820.7" y="293" width="103.4" height="26" rx="13" fill="#BBF7D0"/>
+<text x="828.7" y="311.2" font-size="16" font-weight="700" fill="#0E131A">Supported</text>
+<rect x="932" y="293" width="93.9" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="940" y="311.2" font-size="16" font-weight="700" fill="#E2E8F0">CH_CTRL</text>
+<circle cx="78" cy="465.3" r="28" fill="#2A2113" stroke="#6B5424" stroke-width="1.2"/>
+<path d="M63.5 469.7 L70.8 469.7" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="70.8" cy="469.7" r="2.3" fill="#F4B942"/>
+<path d="M70.8 469.7 L83.8 459.6" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="85.2" cy="469.7" r="2.3" fill="#F4B942"/>
+<path d="M85.2 469.7 L92.5 469.7" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="120" y="471.3" font-size="20" font-weight="700" fill="#E8EDF3">Direct drive</text>
+<text x="50" y="519.8" font-size="17" fill="#D2DAE4">Switches a channel without current</text>
+<text x="50" y="544.4" font-size="17" fill="#D2DAE4">control: a fixed on-time set over SPI,</text>
+<text x="50" y="569.1" font-size="17" fill="#D2DAE4">or following DRV0 or DRV1</text>
+<rect x="50" y="587.6" width="103.4" height="26" rx="13" fill="#BBF7D0"/>
+<text x="58" y="605.8" font-size="16" font-weight="700" fill="#0E131A">Supported</text>
+<rect x="161.4" y="587.6" width="67.4" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="169.4" y="605.8" font-size="16" font-weight="700" fill="#E2E8F0">MODE</text>
+<rect x="236.8" y="587.6" width="53.3" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="244.8" y="605.8" font-size="16" font-weight="700" fill="#E2E8F0">TON</text>
+<circle cx="463.3" cy="465.3" r="28" fill="#2A2113" stroke="#6B5424" stroke-width="1.2"/>
+<path d="M451.8 471.1 A11.6 11.6 0 0 1 474.9 471.1" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M463.3 471.1 L469.8 462.5" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="463.3" cy="471.1" r="2.6" fill="#F4B942"/>
+<path d="M450.3 476.2 L476.4 476.2" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="505.3" y="471.3" font-size="20" font-weight="700" fill="#E8EDF3">Current feedback</text>
+<text x="435.3" y="519.8" font-size="17" fill="#D2DAE4">Reports each channel's average</text>
+<text x="435.3" y="544.4" font-size="17" fill="#D2DAE4">current, minimum and maximum, duty</text>
+<text x="435.3" y="569.1" font-size="17" fill="#D2DAE4">cycle and VBAT</text>
+<rect x="435.3" y="587.6" width="103.4" height="26" rx="13" fill="#BBF7D0"/>
+<text x="443.3" y="605.8" font-size="16" font-weight="700" fill="#0E131A">Supported</text>
+<rect x="546.7" y="587.6" width="96.1" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="554.7" y="605.8" font-size="16" font-weight="700" fill="#E2E8F0">FB_I_AVG</text>
+<rect x="435.3" y="621.6" width="137.3" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="443.3" y="639.8" font-size="16" font-weight="700" fill="#E2E8F0">FB_IMIN_IMAX</text>
+<rect x="580.7" y="621.6" width="70" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="588.7" y="639.8" font-size="16" font-weight="700" fill="#E2E8F0">FB_DC</text>
+<rect x="658.7" y="621.6" width="85.4" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="666.7" y="639.8" font-size="16" font-weight="700" fill="#E2E8F0">+3 more</text>
+<circle cx="848.7" cy="465.3" r="28" fill="#2A2113" stroke="#6B5424" stroke-width="1.2"/>
+<path d="M848.7 453.1 L862.4 476.9 L834.9 476.9 Z" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M848.7 461.7 L848.7 468.2" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="848.7" cy="472.6" r="2" fill="#F4B942"/>
+<text x="890.7" y="471.3" font-size="20" font-weight="700" fill="#E8EDF3">Load diagnosis</text>
+<text x="820.7" y="519.8" font-size="17" fill="#D2DAE4">Detects open load, short to ground</text>
+<text x="820.7" y="544.4" font-size="17" fill="#D2DAE4">and overcurrent per channel, in the on</text>
+<text x="820.7" y="569.1" font-size="17" fill="#D2DAE4">and the off state</text>
+<rect x="820.7" y="587.6" width="103.4" height="26" rx="13" fill="#BBF7D0"/>
+<text x="828.7" y="605.8" font-size="16" font-weight="700" fill="#0E131A">Supported</text>
+<rect x="932" y="587.6" width="115.3" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="940" y="605.8" font-size="16" font-weight="700" fill="#E2E8F0">CH_CONFIG</text>
+<rect x="820.7" y="621.6" width="156.2" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="828.7" y="639.8" font-size="16" font-weight="700" fill="#E2E8F0">DIAG_ERR_CHGR</text>
+<rect x="820.7" y="655.6" width="178" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="828.7" y="673.8" font-size="16" font-weight="700" fill="#E2E8F0">DIAG_WARN_CHGR</text>
+<circle cx="78" cy="769.3" r="28" fill="#2A2113" stroke="#6B5424" stroke-width="1.2"/>
+<path d="M75.1 773.6 L75.1 759.2 L80.9 759.2 L80.9 773.6" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="78" cy="777.3" r="5.1" fill="none" stroke="#F4B942" stroke-width="2.5"/>
+<path d="M84.5 763.5 L88.1 763.5" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M84.5 767.9 L88.1 767.9" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="120" y="762.3" font-size="20" font-weight="700" fill="#E8EDF3">Supply and temperature</text>
+<text x="120" y="788.3" font-size="20" font-weight="700" fill="#E8EDF3">monitoring</text>
+<text x="50" y="823.8" font-size="17" fill="#D2DAE4">Measures VBAT, VDD, VIO and the die</text>
+<text x="50" y="848.4" font-size="17" fill="#D2DAE4">temperature and flags under- and</text>
+<text x="50" y="873" font-size="17" fill="#D2DAE4">overvoltage and overtemperature</text>
+<rect x="50" y="891.6" width="103.4" height="26" rx="13" fill="#BBF7D0"/>
+<text x="58" y="909.7" font-size="16" font-weight="700" fill="#0E131A">Supported</text>
+<rect x="161.4" y="891.6" width="134.9" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="169.4" y="909.7" font-size="16" font-weight="700" fill="#E2E8F0">FB_VOLTAGE1</text>
+<rect x="50" y="925.6" width="138.3" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="58" y="943.7" font-size="16" font-weight="700" fill="#E2E8F0">FB_VOLTAGE2</text>
+<rect x="196.3" y="925.6" width="95.9" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="204.3" y="943.7" font-size="16" font-weight="700" fill="#E2E8F0">VBAT_TH</text>
+<rect x="50" y="959.6" width="85.4" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="58" y="977.7" font-size="16" font-weight="700" fill="#E2E8F0">+3 more</text>
+<circle cx="463.3" cy="769.3" r="28" fill="#2A2113" stroke="#6B5424" stroke-width="1.2"/>
+<path d="M463.3 756.3 L474.2 760.6 L474.2 769.3 L463.3 782.3 L452.5 769.3 L452.5 760.6 Z" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M458.3 769.3 L461.9 772.9 L468.4 765.7" fill="none" stroke="#F4B942" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="505.3" y="762.3" font-size="20" font-weight="700" fill="#E8EDF3">Operation states and</text>
+<text x="505.3" y="788.3" font-size="20" font-weight="700" fill="#E8EDF3">watchdogs</text>
+<text x="435.3" y="823.8" font-size="17" fill="#D2DAE4">Config and Mission Mode, the SPI and</text>
+<text x="435.3" y="848.4" font-size="17" fill="#D2DAE4">clock watchdogs, CRC-checked</text>
+<text x="435.3" y="873" font-size="17" fill="#D2DAE4">frames and the built-in self-test</text>
+<rect x="435.3" y="891.6" width="103.4" height="26" rx="13" fill="#BBF7D0"/>
+<text x="443.3" y="909.7" font-size="16" font-weight="700" fill="#0E131A">Supported</text>
+<rect x="546.7" y="891.6" width="93.9" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="554.7" y="909.7" font-size="16" font-weight="700" fill="#E2E8F0">CH_CTRL</text>
+<rect x="435.3" y="925.6" width="158.9" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="443.3" y="943.7" font-size="16" font-weight="700" fill="#E2E8F0">GLOBAL_CONFIG</text>
+<rect x="602.3" y="925.6" width="122.9" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="610.3" y="943.7" font-size="16" font-weight="700" fill="#E2E8F0">WD_RELOAD</text>
+<rect x="435.3" y="959.6" width="85.1" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="443.3" y="977.7" font-size="16" font-weight="700" fill="#E2E8F0">+2 more</text>
+<circle cx="848.7" cy="769.3" r="28" fill="#1B232E" stroke="#3A4656" stroke-width="1.2"/>
+<path d="M837.1 762.1 L860.2 762.1" fill="none" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="844.3" cy="762.1" r="3.2" fill="none" stroke="#94A3B8" stroke-width="2.5"/>
+<path d="M837.1 769.3 L860.2 769.3" fill="none" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="853" cy="769.3" r="3.2" fill="none" stroke="#94A3B8" stroke-width="2.5"/>
+<path d="M837.1 776.5 L860.2 776.5" fill="none" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="842.2" cy="776.5" r="3.2" fill="none" stroke="#94A3B8" stroke-width="2.5"/>
+<text x="890.7" y="775.3" font-size="20" font-weight="700" fill="#E8EDF3">Monitor test modes</text>
+<text x="820.7" y="823.8" font-size="17" fill="#D2DAE4">Test bits that fake a supply or</text>
+<text x="820.7" y="848.4" font-size="17" fill="#D2DAE4">overtemperature fault; two of them</text>
+<text x="820.7" y="873" font-size="17" fill="#D2DAE4">reset the chip, so they stay 0</text>
+<rect x="820.7" y="891.6" width="117.9" height="26" rx="13" fill="#E2E8F0"/>
+<text x="828.7" y="909.7" font-size="16" font-weight="700" fill="#0E131A">Not covered</text>
+<rect x="946.6" y="891.6" width="158.9" height="26" rx="13" fill="#1B232E" stroke="#3A4656" stroke-width="1"/>
+<text x="954.6" y="909.7" font-size="16" font-weight="700" fill="#E2E8F0">GLOBAL_CONFIG</text>
+<rect x="32" y="1019.6" width="14" height="14" rx="4" fill="#11281A" stroke="#4ADE80" stroke-width="1.4"/>
+<text x="54" y="1034.2" font-size="16" fill="#9AA6B5">Supported: the driver covers it and a host test checks it</text>
+<rect x="522.3" y="1019.6" width="14" height="14" rx="4" fill="#1B232E" stroke="#94A3B8" stroke-width="1.4"/>
+<text x="544.3" y="1034.2" font-size="16" fill="#9AA6B5">Not covered: the chip has it and the driver leaves it alone</text>
+</svg>

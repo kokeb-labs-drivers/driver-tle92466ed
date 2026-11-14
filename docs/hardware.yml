@@ -20,6 +20,19 @@ refs:
   channel: {doc: ds, section: "4.5.1 TDS_Channel overview, Figure 5", page: 21}
   spi: {doc: ds, section: "5.1.4 Electrical characteristics SPI interface, Table 18", page: 48}
   app: {doc: ds, section: "6.1 TDS_Application information, Figure 26", page: 105}
+  cover: {doc: ds, section: "Features", page: 1}
+  voltmon: {doc: ds, section: "4.1.2 TDS_Voltage monitoring", page: 14}
+  states: {doc: ds, section: "4.3.1 TDS_IC Operation states", page: 19}
+  parallel: {doc: ds, section: "4.5.2 TDS_Parallel channel operation", page: 22}
+  icc: {doc: ds, section: "4.6.2 Integrating Current Controller (ICC)", page: 24}
+  dither: {doc: ds, section: "4.7.1 TDS_Dither configuration", page: 29}
+  direct: {doc: ds, section: "4.8.1 TDS_Direct Drive", page: 32}
+  diag: {doc: ds, section: "4.9.1 TDS_Overview", page: 32}
+  feedback: {doc: ds, section: "4.10.2 TDS_Average feedback values", page: 41}
+  spi_crc: {doc: ds, section: "5.1.2 TDS_Cyclic redundancy check (CRC)", page: 47}
+  frame: {doc: ds, section: "5.2.3 SPI frame definition", page: 50}
+  crit_frame: {doc: ds, section: "5.2.3.5 TDS_MISO - Critical fault reply frame", page: 52}
+  global_config: {doc: ds, section: "5.3.2.4 Global Configuration Register", page: 58}
 
 package:
   type: PG-DSO-36
@@ -27,6 +40,143 @@ package:
   pins: 36
   exposed_pad: true
   ref: pinout
+
+# The chip-first README: what the chip is and does, where it is used, how the driver covers it, what one SPI
+# transfer carries. `kokeb-docs figures` draws chip-hero, chip-capabilities and chip-frame-spi from it,
+# `kokeb-docs gen` the README's chip-summary, chip-uses and chip-coverage regions.
+overview:
+  summary: >-
+    a six-channel low-side driver for solenoids and valves: each channel switches its load through an integrated
+    MOSFET and regulates the coil current itself, with an optional dither on top
+  category: Six-channel low-side solenoid driver
+  ref: cover
+  applications:
+    - Variable force solenoids in automatic transmissions and e-axles
+    - Idle air control
+    - Exhaust gas recirculation
+    - Vapor management valves
+    - Suspension control
+    - Other constant-current solenoids
+  specs:
+    - {value: "6 x 1.5 A", label: "regulated current setpoint per channel", ref: cover}
+    - {value: "15 bit", label: current setpoint resolution, ref: cover}
+    - {value: "< 1 %", label: current control accuracy, ref: cover}
+    - {value: "6 to 18 V", label: "load supply VBAT, functional range", ref: range}
+    - {value: "8 MHz", label: "SPI clock, 32-bit frames with CRC-8", ref: spi}
+  system:
+    host: MCU
+    bus: SPI
+    drives:
+      - {label: Solenoids or valves, detail: "six low-side loads, a freewheeling diode each", ref: app}
+    senses:
+      - {label: Coil current, detail: "integrated shunt per channel", ref: channel}
+      - {label: "VBAT, VDD, VIO", detail: "and the die temperature", ref: voltmon}
+
+# Headers the capability `api` and `registers` names are checked against.
+driver:
+  api: [inc/tle92466ed.hpp, inc/tle92466ed_types.hpp]
+  registers: [inc/tle92466ed_registers.hpp]
+
+capabilities:
+  - {id: icc, title: Integrating current controller, icon: current, status: supported, ref: icc,
+     docs: api-guide.md,
+     what: "Holds each coil at a current setpoint from 0 to 1.5 A, with the PWM frequency regulated to a target",
+     api: [SetCurrent, ConfigureChannel, EnableChannel, DisableChannel],
+     registers: [SETPOINT, CTRL, PERIOD, INTEGRATOR_LIMIT, CTRL_INT_THRESH, CH_CTRL]}
+  - {id: dither, title: Dither, icon: analog, status: supported, ref: dither, docs: api-guide.md,
+     what: "Adds a triangular or trapezoidal ripple to the setpoint to keep a valve spool moving freely",
+     api: [SetDither], registers: [DITHER_CLK_DIV, DITHER_STEP, DITHER_CTRL]}
+  - {id: parallel, title: Parallel channels, icon: chain, status: supported, ref: parallel, docs: api-guide.md,
+     what: "Joins channels 0/3, 1/2 or 4/5 into one output for a larger load current",
+     api: [SetParallel], registers: [CH_CTRL]}
+  - {id: direct, title: Direct drive, icon: switch, status: supported, ref: direct, docs: api-guide.md,
+     what: "Switches a channel without current control: a fixed on-time set over SPI, or following DRV0 or DRV1",
+     api: ["ChannelMode::DirectDriveSpi", SetDrivePin], registers: [MODE, TON]}
+  - {id: feedback, title: Current feedback, icon: gauge, status: supported, ref: feedback, docs: api-guide.md,
+     what: "Reports each channel's average current, minimum and maximum, duty cycle and VBAT",
+     api: [ReadChannelFeedback], registers: [FB_I_AVG, FB_IMIN_IMAX, FB_DC, FB_VBAT, FB_FRZ, FB_UPD],
+     note: "FB_I_AVG_s16 and FB_INT_THRESH only through ReadRegister"}
+  - {id: diag, title: Load diagnosis, icon: alert, status: supported, ref: diag, docs: troubleshooting.md,
+     what: "Detects open load, short to ground and overcurrent per channel, in the on and the off state",
+     api: [ReadFaults, ClearChannelFaults, StartOvercurrentCheck], registers: [CH_CONFIG, DIAG_ERR_CHGR, DIAG_WARN_CHGR]}
+  - {id: monitor, title: Supply and temperature monitoring, icon: temperature, status: supported, ref: voltmon,
+     docs: api-guide.md,
+     what: "Measures VBAT, VDD, VIO and the die temperature and flags under- and overvoltage and overtemperature",
+     api: [ReadSupply, ReadFaults, ClearFaults],
+     registers: [FB_VOLTAGE1, FB_VOLTAGE2, VBAT_TH, GLOBAL_DIAG0, GLOBAL_DIAG1, GLOBAL_DIAG2]}
+  - {id: states, title: Operation states and watchdogs, icon: shield, status: supported, ref: states,
+     docs: api-guide.md,
+     what: "Config and Mission Mode, the SPI and clock watchdogs, CRC-checked frames and the built-in self-test",
+     api: [EnterMissionMode, EnterConfigMode, ReloadWatchdog, RunBist],
+     registers: [CH_CTRL, GLOBAL_CONFIG, WD_RELOAD, SFF_BIST, FB_STAT]}
+  - {id: test-modes, title: Monitor test modes, icon: settings, status: not-covered, ref: global_config,
+     docs: limitations.md,
+     what: "Test bits that fake a supply or overtemperature fault; two of them reset the chip, so they stay 0",
+     registers: [GLOBAL_CONFIG]}
+
+frames:
+  - id: spi
+    title: SPI frame
+    description: Every transfer is one 32-bit frame with CSN low; the reply comes one frame later and its CRC covers
+      the low 24 bits.
+    bits: 32
+    ref: frame
+    rows:
+      - label: Write
+        sub: "SI, R/W = 1"
+        fields:
+          - {name: CRC, bits: [31, 24], tone: violet}
+          - {name: address, bits: [23, 17], tone: blue}
+          - {name: R/W, bits: 16, tone: amber, short: W}
+          - {name: data, bits: [15, 0], tone: green}
+      - label: Read
+        sub: "SI, R/W = 0"
+        fields:
+          - {name: CRC, bits: [31, 24], tone: violet}
+          - {name: don't care, bits: [23, 17], tone: slate, short: "-"}
+          - {name: R/W, bits: 16, tone: amber, short: W}
+          - {name: address, bits: [15, 0], tone: blue}
+      - label: Reply, 16 bit
+        sub: "SO, mode 00"
+        fields:
+          - {name: CRC, bits: [31, 24], tone: violet}
+          - {name: reply mode, bits: [23, 22], tone: teal, short: mode}
+          - {name: status, bits: [21, 17], tone: amber}
+          - {name: R/W, bits: 16, tone: amber, short: W}
+          - {name: data, bits: [15, 0], tone: green}
+      - label: Reply, 22 bit
+        sub: "SO, mode 01"
+        fields:
+          - {name: CRC, bits: [31, 24], tone: violet}
+          - {name: reply mode, bits: [23, 22], tone: teal, short: mode}
+          - {name: feedback data, bits: [21, 0], tone: green}
+      - label: Critical fault
+        sub: "SO, mode 10, no CRC"
+        fields:
+          - {name: don't care, bits: [31, 24], tone: slate, short: "-"}
+          - {name: reply mode, bits: [23, 22], tone: teal, short: mode}
+          - {name: don't care, bits: [21, 8], tone: slate}
+          - {name: fault flags, bits: [7, 0], tone: rose, short: flags}
+    decode:
+      row: Critical fault
+      field: fault flags
+      ref: crit_frame
+      bits:
+        - {bit: 7, name: 1V5 ok}
+        - {bit: 6, name: 2V5 ok}
+        - {bit: 5, name: BG ok}
+        - {bit: 4, name: CLK_TOO_SLOW}
+        - {bit: 3, name: CLK_TOO_FAST}
+        - {bit: 2, name: DIG_CLK_TOO_SLOW}
+        - {bit: 1, name: DIG_CLK_TOO_FAST}
+        - {bit: 0, name: WD_REF_CLK}
+    waveform:
+      spi_mode: 1
+      select: CSN
+      clock: SCK
+      lanes:
+        - {name: SI, row: Write}
+        - {name: SO, row: "Reply, 16 bit"}
 
 hooks:
   - {id: transfer, call: "Transfer()", kind: spi, source: inc/tle92466ed_spi_interface.hpp, symbol: Transfer}

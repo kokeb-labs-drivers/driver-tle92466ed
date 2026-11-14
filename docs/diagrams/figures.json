@@ -11,6 +11,18 @@
       "inc/tle92466ed_spi_interface.hpp"
     ]
   },
+  "chip-capabilities": {
+    "title": "What the TLE92466ED does",
+    "alt": "Capability map of the TLE92466ED: Integrating current controller (supported): Holds each coil at a current setpoint from 0 to 1.5 A, with the PWM frequency regulated to a target; Dither (supported): Adds a triangular or trapezoidal ripple to the setpoint to keep a valve spool moving freely; Parallel channels (supported): Joins channels 0/3, 1/2 or 4/5 into one output for a larger load current; Direct drive (supported): Switches a channel without current control: a fixed on-time set over SPI, or following DRV0 or DRV1; Current feedback (supported): Reports each channel's average current, minimum and maximum, duty cycle and VBAT; Load diagnosis (supported): Detects open load, short to ground and overcurrent per channel, in the on and the off state; Supply and temperature monitoring (supported): Measures VBAT, VDD, VIO and the die temperature and flags under- and overvoltage and overtemperature; Operation states and watchdogs (supported): Config and Mission Mode, the SPI and clock watchdogs, CRC-checked frames and the built-in self-test; Monitor test modes (not covered): Test bits that fake a supply or overtemperature fault; two of them reset the chip, so they stay 0.",
+    "description": "Each card is one function of the TLE92466ED: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/tle92466ed_spi_interface.hpp"
+    ]
+  },
   "chip-circuit-typical": {
     "title": "TLE92466ED: Simplified application circuit",
     "alt": "Schematic of the TLE92466ED simplified application circuit: the chip with U2 MCU, C1 polarized-capacitor 100 µF, C2 capacitor 100 nF, C3 capacitor 100 nF, C4 capacitor 100 nF, C5 capacitor 100 nF, R1 resistor 10 kΩ, L0 solenoid, L1 solenoid, L2 solenoid, L3 solenoid, L4 solenoid, L5 solenoid, D0 diode, D1 diode, D2 diode, D3 diode, D4 diode, D5 diode, C10 capacitor 4.7 nF to 10 nF, C11 capacitor 4.7 nF to 10 nF, C12 capacitor 4.7 nF to 10 nF, C13 capacitor 4.7 nF to 10 nF, C14 capacitor 4.7 nF to 10 nF, C15 capacitor 4.7 nF to 10 nF, C20 capacitor 4.7 nF to 10 nF, C21 capacitor 4.7 nF to 10 nF, C22 capacitor 4.7 nF to 10 nF, C23 capacitor 4.7 nF to 10 nF, C24 capacitor 4.7 nF to 10 nF, C25 capacitor 4.7 nF to 10 nF; the MCU wires carry the port hooks GpioRead(CtrlPin::Fault), GpioSet(CtrlPin::Drv0), GpioSet(CtrlPin::Drv1), GpioSet(CtrlPin::Enable), GpioSet(CtrlPin::Reset), Transfer().",
@@ -23,12 +35,48 @@
       "inc/tle92466ed_spi_interface.hpp"
     ]
   },
+  "chip-frame-spi": {
+    "title": "TLE92466ED: SPI frame",
+    "alt": "SPI frame of the TLE92466ED, 32 bits, most significant bit first. Write: CRC (bits 31 to 24), address (bits 23 to 17), R/W (bit 16), data (bits 15 to 0); Read: CRC (bits 31 to 24), don't care (bits 23 to 17), R/W (bit 16), address (bits 15 to 0); Reply, 16 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), status (bits 21 to 17), R/W (bit 16), data (bits 15 to 0); Reply, 22 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), feedback data (bits 21 to 0); Critical fault: don't care (bits 31 to 24), reply mode (bits 23 to 22), don't care (bits 21 to 8), fault flags (bits 7 to 0). The fault flags field of the Critical fault row: bit 7 1V5 ok, bit 6 2V5 ok, bit 5 BG ok, bit 4 CLK_TOO_SLOW, bit 3 CLK_TOO_FAST, bit 2 DIG_CLK_TOO_SLOW, bit 1 DIG_CLK_TOO_FAST, bit 0 WD_REF_CLK. Below, the SPI mode 1 waveform of one transfer in the same bit grid.",
+    "description": "One SPI frame of the TLE92466ED, 32 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits. The table at the bottom names each bit of the fault flags field.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/tle92466ed_spi_interface.hpp"
+    ]
+  },
+  "chip-hero": {
+    "title": "TLE92466ED",
+    "alt": "Overview of the TLE92466ED, a six-channel low-side driver for solenoids and valves: each channel switches its load through an integrated MOSFET and regulates the coil current itself, with an optional dither on top. A MCU talks to it over SPI; it drives Solenoids or valves; it reads back Coil current, VBAT, VDD, VIO. Headline figures: 6 x 1.5 A regulated current setpoint per channel; 15 bit current setpoint resolution; < 1 % current control accuracy; 6 to 18 V load supply VBAT, functional range; 8 MHz SPI clock, 32-bit frames with CRC-8.",
+    "description": "The TLE92466ED in the middle, drawn as its PG-DSO-36 package. On the left the MCU that runs the driver, joined to it by SPI. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.",
+    "profile": "overview",
+    "width": 1200,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/tle92466ed_spi_interface.hpp"
+    ]
+  },
   "chip-pinout": {
     "title": "TLE92466ED pinout, PG-DSO-36",
     "alt": "Pinout of the TLE92466ED in PG-DSO-36, top view: 36 pins and an exposed pad, each with its name, its electrical type as a colour and the driver hook that uses it.",
     "description": "The TLE92466ED seen from the top, in its PG-DSO-36 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.",
     "profile": "detail",
     "width": 990,
+    "source": "docs/hardware.yml",
+    "sources": [
+      "docs/hardware.yml",
+      "inc/tle92466ed_spi_interface.hpp"
+    ]
+  },
+  "chip-wiring-typical": {
+    "title": "Wiring: Simplified application circuit",
+    "alt": "Wiring of the TLE92466ED for the Simplified application circuit: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SI (Transfer()); MCU SPI MISO to SO (Transfer()); MCU SPI CS to CSN (Transfer()); MCU GPIO to RESN (GpioSet(CtrlPin::Reset)); MCU GPIO to EN (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULTN (GpioRead(CtrlPin::Fault)); MCU GPIO to DRV0 (GpioSet(CtrlPin::Drv0)); MCU GPIO to DRV1 (GpioSet(CtrlPin::Drv1)); MCU clock out to CLK. Supplies, grounds and the support parts are listed under the drawing.",
+    "description": "The MCU on the left, the TLE92466ED in the middle. Each wire is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hook that uses it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.",
+    "profile": "overview",
+    "width": 1200,
     "source": "docs/hardware.yml",
     "sources": [
       "docs/hardware.yml",
