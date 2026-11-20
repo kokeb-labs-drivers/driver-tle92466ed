@@ -1132,7 +1132,7 @@ reply is checked before it is used.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
 <h2 id="layers">Layers<a class="headerlink" href="#layers" title="Permanent link">&para;</a></h2>
 <table>
@@ -1146,17 +1146,17 @@ reply is checked before it is used.</p>
 <tbody>
 <tr>
 <td>Core</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/src/tle92466ed.ipp"><code>src/tle92466ed.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/src/tle92466ed.ipp"><code>src/tle92466ed.ipp</code></a></td>
 <td>Start-up, operation states, channels, feedback, diagnosis, the driver's copies and latch</td>
 </tr>
 <tr>
 <td>Types and registers</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_types.hpp"><code>inc/tle92466ed_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_types.hpp"><code>inc/tle92466ed_types.hpp</code></a>, <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
 <td><code>Error</code>, <code>Result&lt;T&gt;</code>, <code>Config</code> and <code>Validate()</code>, decoded values, conversions; the register map and CRC</td>
 </tr>
 <tr>
 <td>Port contract</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
 <td>The CRTP base, <code>CtrlPin</code> and <code>GpioSignal</code>, the <code>SpiPort</code> concept, the bus requirements, the frame codec and the pipeline (<code>detail::Transport</code>)</td>
 </tr>
 <tr>
@@ -1166,29 +1166,22 @@ reply is checked before it is used.</p>
 </tr>
 <tr>
 <td>Kconfig layer</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_kconfig.hpp"><code>inc/tle92466ed_kconfig.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_kconfig.hpp"><code>inc/tle92466ed_kconfig.hpp</code></a></td>
 <td>Optional: a <code>Config</code> from ESP-IDF menuconfig</td>
 </tr>
 </tbody>
 </table>
 <h2 id="one-call-through-the-layers">One call through the layers<a class="headerlink" href="#one-call-through-the-layers" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>sequenceDiagram
-    participant App as Your code
-    participant Core as TLE92466ED&lt;Port&gt;
-    participant Bus as detail::Transport
-    participant Port as Your port
-    App-&gt;&gt;Core: SetCurrent(Ch0, 400000)
-    Note over Core: range check, TARGET = 6553
-    Core-&gt;&gt;Bus: Access(write SETPOINT of CH0)
-    Bus-&gt;&gt;Port: Transfer(write frame)
-    Port--&gt;&gt;Bus: reply to the previous anchor
-    Note over Bus: anchor check: CRC, width, ICVID or FB_STAT
-    Bus-&gt;&gt;Port: Transfer(anchor read of FB_STAT)
-    Port--&gt;&gt;Bus: reply to the write
-    Note over Bus: CRC, 16-bit, status 0, R/W echo 1
-    Bus--&gt;&gt;Core: Ok
-    Note over Core: copy updated after the chip took it
-    Core--&gt;&gt;App: Result&lt;uint32_t&gt;{399976, Ok}</code></pre>
+<figure class="kb-figure">
+<img src="../diagrams/one-call-through-the-layers.svg#only-light" alt="One SetCurrent call: the core range-checks and converts the target, the transport writes the set-point frame and checks the reply with an anchor read of the status register, and the core then updates its copy." width="887" height="727" loading="lazy"><img src="../diagrams/one-call-through-the-layers.dark.svg#only-dark" alt="One SetCurrent call: the core range-checks and converts the target, the transport writes the set-point frame and checks the reply with an anchor read of the status register, and the core then updates its copy." width="887" height="727" loading="lazy">
+<figcaption>One call through the layers</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Participants, left to right: Your code, TLE92466ED<Port>, detail::Transport and Your port. The steps run from top to bottom. Your code sends SetCurrent(Ch0, 400000) to TLE92466ED<Port>. A note over TLE92466ED<Port> says: range check, TARGET = 6553. TLE92466ED<Port> sends Access(write SETPOINT of CH0) to detail::Transport. detail::Transport sends Transfer(write frame) to Your port. Your port returns reply to the previous anchor to detail::Transport. A note over detail::Transport says: anchor check: CRC, width, ICVID or FB_STAT. detail::Transport sends Transfer(anchor read of FB_STAT) to Your port. Your port returns reply to the write to detail::Transport. A note over detail::Transport says: CRC, 16-bit, status 0, R/W echo 1. detail::Transport returns Ok to TLE92466ED<Port>. A note over TLE92466ED<Port> says: copy updated after the chip took it. TLE92466ED<Port> returns Result<uint32_t>{399976, Ok} to Your code.</p>
+<p>Drawn from: <a href="../model/one-call-through-the-layers.seq.yml"><code>docs/model/one-call-through-the-layers.seq.yml</code></a>.</p>
+</details>
 <h2 id="the-spi-pipeline">The SPI pipeline<a class="headerlink" href="#the-spi-pipeline" title="Permanent link">&para;</a></h2>
 <p>The chip answers each frame during the next one (section 5.2.1), and a reply carries no address, so the driver
 completes every access inside one call, in two frames: the request, then an <strong>anchor read</strong> whose reply arrives with
@@ -1317,19 +1310,19 @@ a dither clock of 0, section 4.4.2) is <code>NotReady</code>, never a current of
 <tbody>
 <tr>
 <td>The public API</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a></td>
 </tr>
 <tr>
 <td>How a call is implemented</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/src/tle92466ed.ipp"><code>src/tle92466ed.ipp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/src/tle92466ed.ipp"><code>src/tle92466ed.ipp</code></a></td>
 </tr>
 <tr>
 <td>Register addresses, bits and the CRC</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
 </tr>
 <tr>
 <td>The port contract, the frames and the pipeline</td>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
 </tr>
 </tbody>
 </table>

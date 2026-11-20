@@ -1209,7 +1209,7 @@ datasheet, Rev. 1.2.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The TLE92466ED seen from the top, in its PG-DSO-36 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-pins -->
 <p>PG-DSO-36, 36 pins and an exposed pad (2 Pin configuration, Figure 2, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=7">p. 7</a>).</p>
@@ -1581,7 +1581,7 @@ central logic; the PLL makes the system clock f_SYS.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The TLE92466ED's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <h2 id="control-pins">Control pins<a class="headerlink" href="#control-pins" title="Permanent link">&para;</a></h2>
 <p>The driver drives RESN, EN, DRV0 and DRV1 only through the optional <code>GpioSet()</code> hook of your port, with logical
@@ -1666,13 +1666,16 @@ t_POR instead of pulsing RESN and writes every register, since the chip may keep
 <p>Every frame carries a CRC-8 SAE J1850 (polynomial 0x1D, initial value 0xFF, final XOR 0xFF) in bits 31..24,
 computed over bits 7..0, 15..8 and 23..16 in that order (section 5.1.2). The chip answers each frame during the
 next one (section 5.2.1):</p>
-<pre class="mermaid"><code>sequenceDiagram
-    participant Host
-    participant TLE92466ED
-    Host-&gt;&gt;TLE92466ED: frame 1: read FB_DC of CH0 (0x0240)
-    TLE92466ED--&gt;&gt;Host: reply to the previous frame
-    Host-&gt;&gt;TLE92466ED: frame 2: anchor read of ICVID (0x0200)
-    TLE92466ED--&gt;&gt;Host: FB_DC, 22-bit reply</code></pre>
+<figure class="kb-figure">
+<img src="../diagrams/spi-two-frame-read.svg#only-light" alt="A register read on the TLE92466ED SPI bus takes two frames: the first sends the read and returns the reply to the previous frame, the second is an anchor read that returns the requested value as a 22-bit reply." width="486" height="343" loading="lazy"><img src="../diagrams/spi-two-frame-read.dark.svg#only-dark" alt="A register read on the TLE92466ED SPI bus takes two frames: the first sends the read and returns the reply to the previous frame, the second is an anchor read that returns the requested value as a 22-bit reply." width="486" height="343" loading="lazy">
+<figcaption>Two SPI frames per read</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Participants, left to right: Host and TLE92466ED. The steps run from top to bottom. Host sends frame 1: read FB_DC of CH0 (0x0240) to TLE92466ED. TLE92466ED returns reply to the previous frame to Host. Host sends frame 2: anchor read of ICVID (0x0200) to TLE92466ED. TLE92466ED returns FB_DC, 22-bit reply to Host.</p>
+<p>Drawn from: <a href="../model/spi-two-frame-read.seq.yml"><code>docs/model/spi-two-frame-read.seq.yml</code></a>.</p>
+</details>
 <table>
 <thead>
 <tr>
@@ -1815,7 +1818,7 @@ power-supply chip; here the MCU drives them through <code>GpioSet()</code>, as t
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-parts -->
 <table>
@@ -2113,11 +2116,11 @@ of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
 <td>The register map as the driver uses it, with datasheet section numbers</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/accb7895e668184df56c8bded182f024ac17a379/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
 <td>The bus requirements and the frame codec</td>
 </tr>
 </tbody>
