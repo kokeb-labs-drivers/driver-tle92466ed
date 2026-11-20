@@ -86,3 +86,39 @@ Drawn from:
 
 - `public calls` in [`inc/tle92466ed.hpp`](../../inc/tle92466ed.hpp)
 - `SpiInterface` in [`inc/tle92466ed_spi_interface.hpp`](../../inc/tle92466ed_spi_interface.hpp)
+
+## One call through the layers
+
+<!-- figure: one-call-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="one-call-through-the-layers.dark.svg">
+  <img src="one-call-through-the-layers.svg"
+    alt="One SetCurrent call: the core range-checks and converts the target, the transport writes the set-
+    point frame and checks the reply with an anchor read of the status register, and the core then
+    updates its copy.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/one-call-through-the-layers.seq.yml`](../model/one-call-through-the-layers.seq.yml)
+
+Drawn from:
+
+- [`docs/model/one-call-through-the-layers.seq.yml`](../model/one-call-through-the-layers.seq.yml)
+
+## Two SPI frames per read
+
+<!-- figure: spi-two-frame-read -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="spi-two-frame-read.dark.svg">
+  <img src="spi-two-frame-read.svg"
+    alt="A register read on the TLE92466ED SPI bus takes two frames: the first sends the read and returns the
+    reply to the previous frame, the second is an anchor read that returns the requested value as a
+    22-bit reply.">
+</picture>
+<!-- /figure -->
+
+Hardware description: [`docs/model/spi-two-frame-read.seq.yml`](../model/spi-two-frame-read.seq.yml)
+
+Drawn from:
+
+- [`docs/model/spi-two-frame-read.seq.yml`](../model/spi-two-frame-read.seq.yml)

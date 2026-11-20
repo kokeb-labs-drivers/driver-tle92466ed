@@ -1,0 +1,31 @@
+---
+# Model of the figure 'one-call-through-the-layers'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+kind: seq
+id: one-call-through-the-layers
+title: "One call through the layers"
+alt: >-
+  One SetCurrent call: the core range-checks and converts the target, the transport writes the set-point frame and
+  checks the reply with an anchor read of the status register, and the core then updates its copy.
+reads: >-
+  Participants, left to right: Your code, TLE92466ED<Port>, detail::Transport and Your port. The steps run from top to bottom. Your code sends SetCurrent(Ch0, 400000) to TLE92466ED<Port>. A note over TLE92466ED<Port> says: range check, TARGET = 6553. TLE92466ED<Port> sends Access(write SETPOINT of CH0) to detail::Transport. detail::Transport sends Transfer(write frame) to Your port. Your port returns reply to the previous anchor to detail::Transport. A note over detail::Transport says: anchor check: CRC, width, ICVID or FB_STAT. detail::Transport sends Transfer(anchor read of FB_STAT) to Your port. Your port returns reply to the write to detail::Transport. A note over detail::Transport says: CRC, 16-bit, status 0, R/W echo 1. detail::Transport returns Ok to TLE92466ED<Port>. A note over TLE92466ED<Port> says: copy updated after the chip took it. TLE92466ED<Port> returns Result<uint32_t>{399976, Ok} to Your code.
+print: landscape
+sources:
+  - docs/model/one-call-through-the-layers.seq.yml
+participants:
+  - {id: app, label: "Your code", tone: magenta}
+  - {id: core, label: "TLE92466ED<Port>", tone: green}
+  - {id: bus, label: "detail::Transport", tone: blue}
+  - {id: port, label: "Your port", tone: teal}
+steps:
+  - {from: app, to: core, label: "SetCurrent(Ch0, 400000)"}
+  - {note: "range check, TARGET = 6553", over: [core, bus]}
+  - {from: core, to: bus, label: "Access(write SETPOINT of CH0)"}
+  - {from: bus, to: port, label: "Transfer(write frame)"}
+  - {from: port, to: bus, label: "reply to the previous anchor", return: true}
+  - {note: "anchor check: CRC, width, ICVID or FB_STAT", over: [bus, port]}
+  - {from: bus, to: port, label: "Transfer(anchor read of FB_STAT)"}
+  - {from: port, to: bus, label: "reply to the write", return: true}
+  - {note: "CRC, 16-bit, status 0, R/W echo 1", over: [bus, port]}
+  - {from: bus, to: core, label: "Ok", return: true}
+  - {note: "copy updated after the chip took it", over: [core, bus]}
+  - {from: core, to: app, label: "Result<uint32_t>{399976, Ok}", return: true}

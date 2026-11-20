@@ -1,0 +1,21 @@
+---
+# Model of the figure 'spi-two-frame-read'. Edit this file; `kokeb-docs figures` draws it. Never edit the SVGs.
+kind: seq
+id: spi-two-frame-read
+title: "Two SPI frames per read"
+alt: >-
+  A register read on the TLE92466ED SPI bus takes two frames: the first sends the read and returns the reply to
+  the previous frame, the second is an anchor read that returns the requested value as a 22-bit reply.
+reads: >-
+  Participants, left to right: Host and TLE92466ED. The steps run from top to bottom. Host sends frame 1: read FB_DC of CH0 (0x0240) to TLE92466ED. TLE92466ED returns reply to the previous frame to Host. Host sends frame 2: anchor read of ICVID (0x0200) to TLE92466ED. TLE92466ED returns FB_DC, 22-bit reply to Host.
+print: landscape
+sources:
+  - docs/model/spi-two-frame-read.seq.yml
+participants:
+  - {id: host, label: "Host", tone: magenta}
+  - {id: tle92466ed, label: "TLE92466ED", tone: amber}
+steps:
+  - {from: host, to: tle92466ed, label: "frame 1: read FB_DC of CH0 (0x0240)"}
+  - {from: tle92466ed, to: host, label: "reply to the previous frame", return: true}
+  - {from: host, to: tle92466ed, label: "frame 2: anchor read of ICVID (0x0200)"}
+  - {from: tle92466ed, to: host, label: "FB_DC, 22-bit reply", return: true}

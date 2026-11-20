@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="486" height="343" viewBox="0 0 486 343" role="img" aria-labelledby="spi-two-frame-read-title spi-two-frame-read-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="spi-two-frame-read-title">Two SPI frames per read</title>
+<desc id="spi-two-frame-read-desc">A register read on the TLE92466ED SPI bus takes two frames: the first sends the read and returns the reply to the previous frame, the second is an anchor read that returns the requested value as a 22-bit reply.</desc>
+<defs><marker id="spi-two-frame-read-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7C8798"/></marker></defs>
+<rect x="0.5" y="0.5" width="485" height="342" rx="16" fill="#FFFFFF" stroke="#E2E7EE"/>
+<text x="32" y="54.8" font-size="26" font-weight="700" fill="#0E1726">Two SPI frames per read</text>
+<rect x="32" y="70.8" width="422" height="1" fill="#E2E7EE"/>
+<path d="M104.5 144.8 L104.5 346.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M374.4 144.8 L374.4 346.8" fill="none" stroke="#738093" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M108.5 180.8 L370.4 180.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-two-frame-read-arrow-rail)"/>
+<path d="M370.4 224.8 L108.5 224.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#spi-two-frame-read-arrow-rail)"/>
+<path d="M108.5 268.8 L370.4 268.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#spi-two-frame-read-arrow-rail)"/>
+<path d="M370.4 312.8 L108.5 312.8" fill="none" stroke="#7C8798" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#spi-two-frame-read-arrow-rail)"/>
+<rect x="39.5" y="88.8" width="130" height="52" rx="10" fill="#FDF0FF" stroke="#A21CAF" stroke-width="1.4"/>
+<rect x="39.5" y="96.8" width="4" height="36" rx="2" fill="#A21CAF"/>
+<rect x="302.3" y="88.8" width="144.1" height="52" rx="10" fill="#FFF5E3" stroke="#C26A05" stroke-width="1.4"/>
+<rect x="302.3" y="96.8" width="4" height="36" rx="2" fill="#C26A05"/>
+<text x="107.5" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#86198F">Host</text>
+<text x="377.4" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#8A3C0B">TLE92466ED</text>
+<rect x="118.6" y="156.8" width="241.7" height="20" rx="10" fill="#FFFFFF"/>
+<text x="239.5" y="171.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">frame 1: read FB_DC of CH0 (0x0240)</text>
+<rect x="151.2" y="200.8" width="176.5" height="20" rx="10" fill="#FFFFFF"/>
+<text x="239.5" y="215.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">reply to the previous frame</text>
+<rect x="112.5" y="244.8" width="253.8" height="20" rx="10" fill="#FFFFFF"/>
+<text x="239.5" y="259.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">frame 2: anchor read of ICVID (0x0200)</text>
+<rect x="174.2" y="288.8" width="130.6" height="20" rx="10" fill="#FFFFFF"/>
+<text x="239.5" y="303.1" font-size="12" font-weight="500" text-anchor="middle" fill="#566070">FB_DC, 22-bit reply</text>
+</svg>

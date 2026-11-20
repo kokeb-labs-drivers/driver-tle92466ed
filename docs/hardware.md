@@ -134,15 +134,15 @@ Every frame carries a CRC-8 SAE J1850 (polynomial 0x1D, initial value 0xFF, fina
 computed over bits 7..0, 15..8 and 23..16 in that order (section 5.1.2). The chip answers each frame during the
 next one (section 5.2.1):
 
-```mermaid
-sequenceDiagram
-    participant Host
-    participant TLE92466ED
-    Host->>TLE92466ED: frame 1: read FB_DC of CH0 (0x0240)
-    TLE92466ED-->>Host: reply to the previous frame
-    Host->>TLE92466ED: frame 2: anchor read of ICVID (0x0200)
-    TLE92466ED-->>Host: FB_DC, 22-bit reply
-```
+<!-- figure: spi-two-frame-read -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/spi-two-frame-read.dark.svg">
+  <img src="diagrams/spi-two-frame-read.svg"
+    alt="A register read on the TLE92466ED SPI bus takes two frames: the first sends the read and returns the
+    reply to the previous frame, the second is an anchor read that returns the requested value as a
+    22-bit reply.">
+</picture>
+<!-- /figure -->
 
 | Frame | Bits 31..24 | 23..17 | 16 | 15..0 |
 | --- | --- | --- | --- | --- |

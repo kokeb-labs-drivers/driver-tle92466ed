@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="887" height="727" viewBox="0 0 887 727" role="img" aria-labelledby="one-call-through-the-layers-title one-call-through-the-layers-desc" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title id="one-call-through-the-layers-title">One call through the layers</title>
+<desc id="one-call-through-the-layers-desc">One SetCurrent call: the core range-checks and converts the target, the transport writes the set-point frame and checks the reply with an anchor read of the status register, and the core then updates its copy.</desc>
+<defs><marker id="one-call-through-the-layers-arrow-rail" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6C7889"/></marker></defs>
+<rect x="0.5" y="0.5" width="886" height="726" rx="16" fill="#0E131A" stroke="#283241"/>
+<text x="32" y="54.8" font-size="26" font-weight="700" fill="#E8EDF3">One call through the layers</text>
+<rect x="32" y="70.8" width="823" height="1" fill="#252F3C"/>
+<path d="M104.6 144.8 L104.6 730.8" fill="none" stroke="#6C7889" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M318.8 144.8 L318.8 730.8" fill="none" stroke="#6C7889" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M544.7 144.8 L544.7 730.8" fill="none" stroke="#6C7889" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M782.4 144.8 L782.4 730.8" fill="none" stroke="#6C7889" stroke-width="1.2" stroke-dasharray="5 5"/>
+<path d="M108.6 180.8 L314.8 180.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M322.8 276.8 L540.7 276.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M548.7 320.8 L778.4 320.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M778.4 364.8 L548.7 364.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M548.7 460.8 L778.4 460.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M778.4 504.8 L548.7 504.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M540.7 600.8 L322.8 600.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<path d="M314.8 696.8 L108.6 696.8" fill="none" stroke="#6C7889" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 5" marker-end="url(#one-call-through-the-layers-arrow-rail)"/>
+<rect x="39.6" y="88.8" width="130" height="52" rx="10" fill="#2E1533" stroke="#F0ABFC" stroke-width="1.4"/>
+<rect x="39.6" y="96.8" width="4" height="36" rx="2" fill="#F0ABFC"/>
+<rect x="219.7" y="88.8" width="198.1" height="52" rx="10" fill="#11281A" stroke="#4ADE80" stroke-width="1.4"/>
+<rect x="219.7" y="96.8" width="4" height="36" rx="2" fill="#4ADE80"/>
+<rect x="458.2" y="88.8" width="173" height="52" rx="10" fill="#13233A" stroke="#60A5FA" stroke-width="1.4"/>
+<rect x="458.2" y="96.8" width="4" height="36" rx="2" fill="#60A5FA"/>
+<rect x="717.4" y="88.8" width="130" height="52" rx="10" fill="#0F2A28" stroke="#2BB3A3" stroke-width="1.4"/>
+<rect x="717.4" y="96.8" width="4" height="36" rx="2" fill="#2BB3A3"/>
+<rect x="248.8" y="208.8" width="365.9" height="41" rx="10" fill="#2C2310" stroke="#6A5220" stroke-width="1"/>
+<rect x="474.7" y="392.8" width="377.8" height="41" rx="10" fill="#2C2310" stroke="#6A5220" stroke-width="1"/>
+<rect x="474.7" y="532.8" width="377.8" height="41" rx="10" fill="#2C2310" stroke="#6A5220" stroke-width="1"/>
+<rect x="248.8" y="628.8" width="365.9" height="41" rx="10" fill="#2C2310" stroke="#6A5220" stroke-width="1"/>
+<text x="107.6" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#F5D0FE">Your code</text>
+<text x="321.8" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#BBF7D0">TLE92466ED&lt;Port&gt;</text>
+<text x="547.7" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#BFDBFE">detail::Transport</text>
+<text x="785.4" y="119.3" font-size="15" font-weight="700" text-anchor="middle" fill="#A7F3E6">Your port</text>
+<rect x="126.9" y="156.8" width="169.5" height="20" rx="10" fill="#0E131A"/>
+<text x="211.7" y="171.1" font-size="12" font-weight="500" text-anchor="middle" fill="#9AA6B5">SetCurrent(Ch0, 400000)</text>
+<text x="262.8" y="233.9" font-size="13" fill="#FDE68A">range check, TARGET = 6553</text>
+<rect x="326.8" y="252.8" width="209.9" height="20" rx="10" fill="#0E131A"/>
+<text x="431.7" y="267.1" font-size="12" font-weight="500" text-anchor="middle" fill="#9AA6B5">Access(write SETPOINT of CH0)</text>
+<rect x="592" y="296.8" width="143.1" height="20" rx="10" fill="#0E131A"/>
+<text x="663.6" y="311.1" font-size="12" font-weight="500" text-anchor="middle" fill="#9AA6B5">Transfer(write frame)</text>
+<rect x="571.9" y="340.8" width="183.2" height="20" rx="10" fill="#0E131A"/>
+<text x="663.6" y="355.1" font-size="12" font-weight="500" text-anchor="middle" fill="#9AA6B5">reply to the previous anchor</text>
+<text x="488.7" y="417.9" font-size="13" fill="#FDE68A">anchor check: CRC, width, ICVID or FB_STAT</text>
+<rect x="552.7" y="436.8" width="221.8" height="20" rx="10" fill="#0E131A"/>
+<text x="663.6" y="451.1" font-size="12" font-weight="500" text-anchor="middle" fill="#9AA6B5">Transfer(anchor read of FB_STAT)</text>
+<rect x="606.1" y="480.8" width="114.9" height="20" rx="10" fill="#0E131A"/>
+<text x="663.6" y="495.1" font-size="12" font-weight="500" text-anchor="middle" fill="#9AA6B5">reply to the write</text>
+<text x="488.7" y="557.9" font-size="13" fill="#FDE68A">CRC, 16-bit, status 0, R/W echo 1</text>
+<rect x="417.3" y="576.8" width="28.9" height="20" rx="10" fill="#0E131A"/>
+<text x="431.7" y="591.1" font-size="12" font-weight="500" text-anchor="middle" fill="#9AA6B5">Ok</text>
+<text x="262.8" y="653.8" font-size="13" fill="#FDE68A">copy updated after the chip took it</text>
+<rect x="112.6" y="672.8" width="198.2" height="20" rx="10" fill="#0E131A"/>
+<text x="211.7" y="687.1" font-size="12" font-weight="500" text-anchor="middle" fill="#9AA6B5">Result&lt;uint32_t&gt;{399976, Ok}</text>
+</svg>

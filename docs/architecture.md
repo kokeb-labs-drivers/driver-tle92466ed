@@ -41,25 +41,15 @@ reply is checked before it is used.
 
 ## One call through the layers
 
-```mermaid
-sequenceDiagram
-    participant App as Your code
-    participant Core as TLE92466ED<Port>
-    participant Bus as detail::Transport
-    participant Port as Your port
-    App->>Core: SetCurrent(Ch0, 400000)
-    Note over Core: range check, TARGET = 6553
-    Core->>Bus: Access(write SETPOINT of CH0)
-    Bus->>Port: Transfer(write frame)
-    Port-->>Bus: reply to the previous anchor
-    Note over Bus: anchor check: CRC, width, ICVID or FB_STAT
-    Bus->>Port: Transfer(anchor read of FB_STAT)
-    Port-->>Bus: reply to the write
-    Note over Bus: CRC, 16-bit, status 0, R/W echo 1
-    Bus-->>Core: Ok
-    Note over Core: copy updated after the chip took it
-    Core-->>App: Result<uint32_t>{399976, Ok}
-```
+<!-- figure: one-call-through-the-layers -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="diagrams/one-call-through-the-layers.dark.svg">
+  <img src="diagrams/one-call-through-the-layers.svg"
+    alt="One SetCurrent call: the core range-checks and converts the target, the transport writes the set-
+    point frame and checks the reply with an anchor read of the status register, and the core then
+    updates its copy.">
+</picture>
+<!-- /figure -->
 
 ## The SPI pipeline
 
