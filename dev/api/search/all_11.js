@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['setcurrent_0',['SetCurrent',['../classtle92466ed_1_1TLE92466ED.html#a13013b4ee7deafce4cc1fc9dbc548f9c',1,'tle92466ed::TLE92466ED']]],
+  ['setdither_1',['SetDither',['../classtle92466ed_1_1TLE92466ED.html#ae966a204d4882c3b6d78d98a0b080b8c',1,'tle92466ed::TLE92466ED']]],
+  ['setdrivepin_2',['SetDrivePin',['../classtle92466ed_1_1TLE92466ED.html#a12e9ef417a30eab2960eafb428e5fc45',1,'tle92466ed::TLE92466ED']]],
+  ['setenabledchannels_3',['SetEnabledChannels',['../classtle92466ed_1_1TLE92466ED.html#a850e293b1f8d088922555324592d99d1',1,'tle92466ed::TLE92466ED']]],
+  ['setparallel_4',['SetParallel',['../classtle92466ed_1_1TLE92466ED.html#ac907afbc7506f2dce96c2e63d3d439cf',1,'tle92466ed::TLE92466ED']]],
+  ['setpoint_5fsync_5',['setpoint_sync',['../structtle92466ed_1_1DitherConfig.html#a02219c4f7c16152222b621bdd5a1f4d5',1,'tle92466ed::DitherConfig']]],
+  ['short_5fto_5fground_6',['short_to_ground',['../structtle92466ed_1_1ChannelFaults.html#ab31d333c28df6bf3aa60d0015c7c68a7',1,'tle92466ed::ChannelFaults']]],
+  ['skip_5ffalling_5fdither_7',['skip_falling_dither',['../structtle92466ed_1_1IccConfig.html#aef467ae2859d9c19e7f03c381cd9d207',1,'tle92466ed::IccConfig']]],
+  ['slew_8',['slew',['../structtle92466ed_1_1ChannelConfig.html#a625fe59d392f876485adefc04414ec01',1,'tle92466ed::ChannelConfig']]],
+  ['slewrate_9',['slewrate',['../group__tle92466ed__registers.html#ga98e894b4244116aee90d428457805acb',1,'tle92466ed::reg::SlewRate'],['../group__tle92466ed__types.html#gae03b3b5991ee6faf1e97fed34ef2b78d',1,'tle92466ed::SlewRate']]],
+  ['spi_5fwatchdog_10',['spi_watchdog',['../structtle92466ed_1_1FaultPinMask.html#aa7fdd66f611c9e1363396a0350d5a5f0',1,'tle92466ed::FaultPinMask::spi_watchdog'],['../structtle92466ed_1_1Config.html#aac210eaf42d09c421b5e2b71d21fbc36',1,'tle92466ed::Config::spi_watchdog']]],
+  ['spi_5fwatchdog_5ferror_11',['spi_watchdog_error',['../structtle92466ed_1_1DeviceStatus.html#a0448b30bcf59bcebe18a42ba2575f21e',1,'tle92466ed::DeviceStatus']]],
+  ['spiinterface_12',['spiinterface',['../classtle92466ed_1_1SpiInterface.html',1,'tle92466ed::SpiInterface&lt; Derived &gt;'],['../classtle92466ed_1_1SpiInterface.html#ac59688007ae33db3b4a5b81203495fbc',1,'tle92466ed::SpiInterface::SpiInterface() noexcept=default'],['../classtle92466ed_1_1SpiInterface.html#a2482b560740049f6ecb95f09c92b6617',1,'tle92466ed::SpiInterface::SpiInterface(const SpiInterface &amp;)=delete']]],
+  ['spiwatchdog_13',['SpiWatchdog',['../group__tle92466ed__types.html#gga2cb9ee5268d88d8bf0016e03cc6442f3ab732c5f7f79ae3a906f1f5bcd610e8d1',1,'tle92466ed']]],
+  ['startovercurrentcheck_14',['StartOvercurrentCheck',['../classtle92466ed_1_1TLE92466ED.html#ace68b46eed32788b4ef78a13f541b22b',1,'tle92466ed::TLE92466ED']]],
+  ['step_5fsize_15',['step_size',['../structtle92466ed_1_1DitherConfig.html#a3aa7b18e7af88a2d4d795ef3e8f57d93',1,'tle92466ed::DitherConfig']]],
+  ['steps_16',['steps',['../structtle92466ed_1_1DitherConfig.html#acc06a889e5be44f390b7d5254d21ded8',1,'tle92466ed::DitherConfig']]],
+  ['success_17',['success',['../structtle92466ed_1_1Result.html#afd17389f6d42e2df67425b73782a3881',1,'tle92466ed::Result::Success()'],['../structtle92466ed_1_1Result_3_01void_01_4.html#a6c815ac7bd7347725d96e7e7653be725',1,'tle92466ed::Result&lt; void &gt;::Success()']]],
+  ['supply2v5high_18',['Supply2v5High',['../group__tle92466ed__types.html#gga2cb9ee5268d88d8bf0016e03cc6442f3afe2dd152ec222cf13306e692eb9cdefc',1,'tle92466ed']]],
+  ['supply2v5low_19',['Supply2v5Low',['../group__tle92466ed__types.html#gga2cb9ee5268d88d8bf0016e03cc6442f3acf4cee84b2d5a6cc34114ccc1e584267',1,'tle92466ed']]],
+  ['supply_5fexternal_20',['supply_external',['../structtle92466ed_1_1FaultPinMask.html#a380d6d1ec890fee2206ce83d29ccbdbb',1,'tle92466ed::FaultPinMask::supply_external'],['../structtle92466ed_1_1DeviceStatus.html#a72dd030708292fc423a3553af5bf4ec1',1,'tle92466ed::DeviceStatus::supply_external']]],
+  ['supply_5finternal_21',['supply_internal',['../structtle92466ed_1_1FaultPinMask.html#a40ebfc62d5c25851f773138ea70423ea',1,'tle92466ed::FaultPinMask::supply_internal'],['../structtle92466ed_1_1DeviceStatus.html#a76713b8f78830fec308915948dd5fbcc',1,'tle92466ed::DeviceStatus::supply_internal']]],
+  ['supplyreadings_22',['SupplyReadings',['../structtle92466ed_1_1SupplyReadings.html',1,'tle92466ed']]],
+  ['systemclockhz_23',['SystemClockHz',['../group__tle92466ed__types.html#gadc97881d25b0c414c0ff5de6294a14f9',1,'tle92466ed']]]
+];
