@@ -130,6 +130,8 @@ t_POR instead of pulsing RESN and writes every register, since the chip may keep
 | CSN high between frames | At least 600 ns (t_CSN_TD) | `kMinCsHighNs` |
 | CSN to SCK, SCK to CSN | At least 250 ns (t_CSN_LEAD, t_CSN_LAG) | `kCsSetupNs`, `kCsHoldNs` |
 
+The waveform with every interval of Table 18 is on [On the bus](bus.md).
+
 Every frame carries a CRC-8 SAE J1850 (polynomial 0x1D, initial value 0xFF, final XOR 0xFF) in bits 31..24,
 computed over bits 7..0, 15..8 and 23..16 in that order (section 5.1.2). The chip answers each frame during the
 next one (section 5.2.1):

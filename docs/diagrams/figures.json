@@ -112,6 +112,23 @@
     "twin": false,
     "font": ""
   },
+  "spi-timing": {
+    "title": "SPI bus timing",
+    "alt": "SPI timing of the TLE92466ED in mode 1: CSN low frames a 32-bit frame, SO changes on each rising SCK edge and SI is read on each falling edge, with the lead, lag, setup, hold and output times the datasheet gives.",
+    "description": "The four lanes are CSN, SCK, SI and SO, left to right in time. CSN goes low and SO leaves high impedance, SCK idles low and clocks the 32 bits, the chip shifts SO out on the rising edge and reads SI on the falling edge; bits 28 to 3 are left out. After CSN rises SO returns to high impedance until CSN falls for the next frame; the table gives each interval with its datasheet value.",
+    "profile": "phone",
+    "width": 640,
+    "source": "docs/model/spi-timing.timing.yml",
+    "sources": [
+      "docs/model/spi-timing.timing.yml"
+    ],
+    "kind": "timing",
+    "palette": 2,
+    "print": "landscape",
+    "adaptive": true,
+    "twin": true,
+    "font": ""
+  },
   "spi-two-frame-read": {
     "title": "Two SPI frames per read",
     "alt": "A register read on the TLE92466ED SPI bus takes two frames: the first sends the read and returns the reply to the previous frame, the second is an anchor read that returns the requested value as a 22-bit reply.",

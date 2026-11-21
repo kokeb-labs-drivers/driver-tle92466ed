@@ -165,13 +165,13 @@ topics:
     section: 5.1.1 TDS_General information; 5.1.2 TDS_Cyclic redundancy check (CRC)
     page: 47
     driver: "`kSpiMode`, `kMsbFirst`, `kFrameBytes`, `reg::FrameCrc()`, `Config::crc_check`, `Error::Crc`"
-    docs: [hardware, porting, architecture]
+    docs: [hardware, porting, architecture, bus]
   - topic: SPI timing
     doc: ds
     section: 5.1.4 Electrical characteristics SPI interface, Table 18
     page: 48
     driver: "`kMaxClockHz`, `kMinCsHighNs`, `kCsSetupNs`, `kCsHoldNs`"
-    docs: [hardware, porting]
+    docs: [hardware, porting, bus]
   - topic: The reply pipeline, frames and reply status
     doc: ds
     section: 5.2.1 TDS_Data flow; 5.2.3 SPI frame definition

@@ -1,0 +1,49 @@
+---
+kind: timing
+id: spi-timing
+title: SPI bus timing
+kicker: On the bus
+alt: >-
+  SPI timing of the TLE92466ED in mode 1: CSN low frames a 32-bit frame, SO changes on each rising SCK edge and SI is
+  read on each falling edge, with the lead, lag, setup, hold and output times the datasheet gives.
+reads: >-
+  The four lanes are CSN, SCK, SI and SO, left to right in time. CSN goes low and SO leaves high impedance, SCK idles
+  low and clocks the 32 bits, the chip shifts SO out on the rising edge and reads SI on the falling edge; bits 28 to 3
+  are left out. After CSN rises SO returns to high impedance until CSN falls for the next frame; the table gives each
+  interval with its datasheet value.
+bus: spi
+mode: {cpol: 0, cpha: 1}
+refs:
+  spi_general: {doc: ds, section: "5.1.1 TDS_General information", page: 47}
+signals:
+  - {id: csn, label: CSN, wave: "10........1.0"}
+  - {id: sck, label: SCK, wave: "0.ppp|ppp0...", clock: true}
+  - {id: si, label: SI, wave: "x.===|===x...", data: ["31", "30", "29", "2", "1", "0"]}
+  - {id: so, label: SO, wave: "z.===|===..z.", data: ["31", "30", "29", "2", "1", "0"], tone: teal}
+groups:
+  - {from: 2, to: 9, label: "bits 31 to 0, MSB first", ref: spi_general}
+params:
+  - {id: tlead, symbol: tCSN_LEAD, label: Falling CSN to the first rising SCK edge, min: 250, unit: ns, ref: spi}
+  - {id: tlag, symbol: tCSN_LAG, label: Last falling SCK edge to rising CSN, min: 250, unit: ns, ref: spi}
+  - {id: ttd, symbol: tCSN_TD, label: Rising CSN to the next falling CSN, min: 600, unit: ns, ref: spi}
+  - {id: tsckh, symbol: tSCKH, label: SCK high time, min: 50, unit: ns, ref: spi}
+  - {id: tsckl, symbol: tSCKL, label: SCK low time, min: 50, unit: ns, ref: spi}
+  - {id: tsu, symbol: tSI_SU, label: SI setup time before the falling SCK edge, min: 20, unit: ns, ref: spi}
+  - {id: th, symbol: tSI_H, label: SI hold time after the falling SCK edge, min: 20, unit: ns, ref: spi}
+  - {id: tsoen, symbol: tSO_EN, label: Falling CSN to SO valid (150 pF load), max: 200, unit: ns, ref: spi}
+  - {id: tsov, symbol: tSO_V, label: SO valid after the rising SCK edge (150 pF load), max: 100, unit: ns, ref: spi}
+  - {id: tsodis, symbol: tSO_DIS, label: Rising CSN to SO high impedance (150 pF load), max: 200, unit: ns, ref: spi}
+  - {id: fsck, symbol: fSCK, label: SCK frequency, max: 8, unit: MHz, ref: spi}
+marks:
+  - {param: tlead, signal: csn, from: 1, to: 2}
+  - {param: tlag, signal: sck, from: 8.5, to: 10}
+  - {param: ttd, signal: csn, from: 10, to: 12}
+  - {param: tsckh, signal: sck, from: 3, to: 3.5}
+  - {param: tsckl, signal: sck, from: 3.5, to: 4}
+  - {param: tsu, signal: si, from: 2, to: 2.5}
+  - {param: th, signal: si, from: 2.5, to: 3}
+  - {param: tsoen, signal: so, from: 1, to: 2}
+  - {param: tsodis, signal: so, from: 10, to: 11}
+notes:
+  - {text: "A frame of other than 32 bits is ignored; the reply to a frame comes in the next frame.", ref: spi_general}
+  - {text: "Table 18 holds for VIO from 3.0 V to 5.5 V and VDD from 4.5 V to 5.5 V.", ref: spi}
