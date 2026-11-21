@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the Infineon TLE92466ED six-channel low-side solenoid driver with integrated current control (SPI).">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-tle92466ed/latest/diagrams/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -505,6 +439,8 @@
   
     
     
+      
+        
       
         
       
@@ -955,6 +891,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-the-tle92466ed-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the TLE92466ED does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tle92466ed-simplified-application-circuit" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -966,10 +913,43 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tle92466ed-spi-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TLE92466ED: SPI frame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tle92466ed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TLE92466ED
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tle92466ed-pinout-pg-dso-36" class="md-nav__link">
     <span class="md-ellipsis">
       
         TLE92466ED pinout, PG-DSO-36
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wiring-simplified-application-circuit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wiring: Simplified application circuit
       
     </span>
   </a>
@@ -992,6 +972,17 @@
     <span class="md-ellipsis">
       
         One call through the layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spi-bus-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SPI bus timing
       
     </span>
   </a>
@@ -1049,13 +1040,30 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The TLE92466ED's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="what-the-tle92466ed-does">What the TLE92466ED does<a class="headerlink" href="#what-the-tle92466ed-does" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-capabilities.svg#only-light" alt="Capability map of the TLE92466ED: Integrating current controller (supported): Holds each coil at a current setpoint from 0 to 1.5 A, with the PWM frequency regulated to a target; Dither (supported): Adds a triangular or trapezoidal ripple to the setpoint to keep a valve spool moving freely; Parallel channels (supported): Joins channels 0/3, 1/2 or 4/5 into one output for a larger load current; Direct drive (supported): Switches a channel without current control: a fixed on-time set over SPI, or following DRV0 or DRV1; Current feedback (supported): Reports each channel&#x27;s average current, minimum and maximum, duty cycle and VBAT; Load diagnosis (supported): Detects open load, short to ground and overcurrent per channel, in the on and the off state; Supply and temperature monitoring (supported): Measures VBAT, VDD, VIO and the die temperature and flags under- and overvoltage and overtemperature; Operation states and watchdogs (supported): Config and Mission Mode, the SPI and clock watchdogs, CRC-checked frames and the built-in self-test; Monitor test modes (not covered): Test bits that fake a supply or overtemperature fault; two of them reset the chip, so they stay 0." width="1200" height="1070" loading="lazy"><img src="chip-capabilities.dark.svg#only-dark" alt="Capability map of the TLE92466ED: Integrating current controller (supported): Holds each coil at a current setpoint from 0 to 1.5 A, with the PWM frequency regulated to a target; Dither (supported): Adds a triangular or trapezoidal ripple to the setpoint to keep a valve spool moving freely; Parallel channels (supported): Joins channels 0/3, 1/2 or 4/5 into one output for a larger load current; Direct drive (supported): Switches a channel without current control: a fixed on-time set over SPI, or following DRV0 or DRV1; Current feedback (supported): Reports each channel&#x27;s average current, minimum and maximum, duty cycle and VBAT; Load diagnosis (supported): Detects open load, short to ground and overcurrent per channel, in the on and the off state; Supply and temperature monitoring (supported): Measures VBAT, VDD, VIO and the die temperature and flags under- and overvoltage and overtemperature; Operation states and watchdogs (supported): Config and Mission Mode, the SPI and clock watchdogs, CRC-checked frames and the built-in self-test; Monitor test modes (not covered): Test bits that fake a supply or overtemperature fault; two of them reset the chip, so they stay 0." width="1200" height="1070" loading="lazy">
+<figcaption>What the TLE92466ED does</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each card is one function of the TLE92466ED: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="tle92466ed-simplified-application-circuit">TLE92466ED: Simplified application circuit<a class="headerlink" href="#tle92466ed-simplified-application-circuit" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1066,13 +1074,47 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="tle92466ed-spi-frame">TLE92466ED: SPI frame<a class="headerlink" href="#tle92466ed-spi-frame" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-frame-spi.svg#only-light" alt="SPI frame of the TLE92466ED, 32 bits, most significant bit first. Write: CRC (bits 31 to 24), address (bits 23 to 17), R/W (bit 16), data (bits 15 to 0); Read: CRC (bits 31 to 24), don&#x27;t care (bits 23 to 17), R/W (bit 16), address (bits 15 to 0); Reply, 16 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), status (bits 21 to 17), R/W (bit 16), data (bits 15 to 0); Reply, 22 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), feedback data (bits 21 to 0); Critical fault: don&#x27;t care (bits 31 to 24), reply mode (bits 23 to 22), don&#x27;t care (bits 21 to 8), fault flags (bits 7 to 0). The fault flags field of the Critical fault row: bit 7 1V5 ok, bit 6 2V5 ok, bit 5 BG ok, bit 4 CLK_TOO_SLOW, bit 3 CLK_TOO_FAST, bit 2 DIG_CLK_TOO_SLOW, bit 1 DIG_CLK_TOO_FAST, bit 0 WD_REF_CLK. Below, the SPI mode 1 waveform of one transfer in the same bit grid." width="1200" height="1068" loading="lazy"><img src="chip-frame-spi.dark.svg#only-dark" alt="SPI frame of the TLE92466ED, 32 bits, most significant bit first. Write: CRC (bits 31 to 24), address (bits 23 to 17), R/W (bit 16), data (bits 15 to 0); Read: CRC (bits 31 to 24), don&#x27;t care (bits 23 to 17), R/W (bit 16), address (bits 15 to 0); Reply, 16 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), status (bits 21 to 17), R/W (bit 16), data (bits 15 to 0); Reply, 22 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), feedback data (bits 21 to 0); Critical fault: don&#x27;t care (bits 31 to 24), reply mode (bits 23 to 22), don&#x27;t care (bits 21 to 8), fault flags (bits 7 to 0). The fault flags field of the Critical fault row: bit 7 1V5 ok, bit 6 2V5 ok, bit 5 BG ok, bit 4 CLK_TOO_SLOW, bit 3 CLK_TOO_FAST, bit 2 DIG_CLK_TOO_SLOW, bit 1 DIG_CLK_TOO_FAST, bit 0 WD_REF_CLK. Below, the SPI mode 1 waveform of one transfer in the same bit grid." width="1200" height="1068" loading="lazy">
+<figcaption>TLE92466ED: SPI frame</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One SPI frame of the TLE92466ED, 32 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits. The table at the bottom names each bit of the fault flags field.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="tle92466ed">TLE92466ED<a class="headerlink" href="#tle92466ed" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-hero.svg#only-light" alt="Overview of the TLE92466ED, a six-channel low-side driver for solenoids and valves: each channel switches its load through an integrated MOSFET and regulates the coil current itself, with an optional dither on top. A MCU talks to it over SPI; it drives Solenoids or valves; it reads back Coil current, VBAT, VDD, VIO. Headline figures: 6 x 1.5 A regulated current setpoint per channel; 15 bit current setpoint resolution; &lt; 1 % current control accuracy; 6 to 18 V load supply VBAT, functional range; 8 MHz SPI clock, 32-bit frames with CRC-8." width="1200" height="819" loading="lazy"><img src="chip-hero.dark.svg#only-dark" alt="Overview of the TLE92466ED, a six-channel low-side driver for solenoids and valves: each channel switches its load through an integrated MOSFET and regulates the coil current itself, with an optional dither on top. A MCU talks to it over SPI; it drives Solenoids or valves; it reads back Coil current, VBAT, VDD, VIO. Headline figures: 6 x 1.5 A regulated current setpoint per channel; 15 bit current setpoint resolution; &lt; 1 % current control accuracy; 6 to 18 V load supply VBAT, functional range; 8 MHz SPI clock, 32-bit frames with CRC-8." width="1200" height="819" loading="lazy">
+<figcaption>TLE92466ED</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The TLE92466ED in the middle, drawn as its PG-DSO-36 package. On the left the MCU that runs the driver, joined to it by SPI. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="tle92466ed-pinout-pg-dso-36">TLE92466ED pinout, PG-DSO-36<a class="headerlink" href="#tle92466ed-pinout-pg-dso-36" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1083,13 +1125,30 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The TLE92466ED seen from the top, in its PG-DSO-36 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
 <p>Drawn from:</p>
 <ul>
 <li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
-<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
+</ul>
+<h2 id="wiring-simplified-application-circuit">Wiring: Simplified application circuit<a class="headerlink" href="#wiring-simplified-application-circuit" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="chip-wiring-typical.svg#only-light" alt="Wiring of the TLE92466ED for the Simplified application circuit: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SI (Transfer()); MCU SPI MISO to SO (Transfer()); MCU SPI CS to CSN (Transfer()); MCU GPIO to RESN (GpioSet(CtrlPin::Reset)); MCU GPIO to EN (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULTN (GpioRead(CtrlPin::Fault)); MCU GPIO to DRV0 (GpioSet(CtrlPin::Drv0)); MCU GPIO to DRV1 (GpioSet(CtrlPin::Drv1)); MCU clock out to CLK. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1398" loading="lazy"><img src="chip-wiring-typical.dark.svg#only-dark" alt="Wiring of the TLE92466ED for the Simplified application circuit: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SI (Transfer()); MCU SPI MISO to SO (Transfer()); MCU SPI CS to CSN (Transfer()); MCU GPIO to RESN (GpioSet(CtrlPin::Reset)); MCU GPIO to EN (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULTN (GpioRead(CtrlPin::Fault)); MCU GPIO to DRV0 (GpioSet(CtrlPin::Drv0)); MCU GPIO to DRV1 (GpioSet(CtrlPin::Drv1)); MCU clock out to CLK. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1398" loading="lazy">
+<figcaption>Wiring: Simplified application circuit</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the TLE92466ED in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../hardware.yml"><code>docs/hardware.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../hardware.yml"><code>docs/hardware.yml</code></a></li>
+<li><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="the-layers-one-of-them-yours">The layers, one of them yours<a class="headerlink" href="#the-layers-one-of-them-yours" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1100,13 +1159,13 @@ committed figure no longer matches the code. Each figure below lists the files i
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>Top to bottom, each arrow is a call. Your application calls one object, whose public calls are listed from the umbrella header in inc/. The core turns each call into register reads and writes and hands them to the port contract (the CRTP base in inc/*_interface.hpp), which forwards them, at compile time, to the hooks of the port class you write; your port moves the bytes on the bus. The notes on the right say which layers stay the same on every MCU and which one you write. A library without a port contract has only the first two layers.</p>
-<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
+<p>Drawn from: <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a> <code>public calls</code>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a> <code>SpiInterface</code>; figure module <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a>.</p>
 </details>
-<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a></p>
+<p>Figure module: <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/docs/diagrams/figures/driver-layers.py"><code>docs/diagrams/figures/driver-layers.py</code></a></p>
 <p>Drawn from:</p>
 <ul>
-<li><code>public calls</code> in <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a></li>
-<li><code>SpiInterface</code> in <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
+<li><code>public calls</code> in <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed.hpp"><code>inc/tle92466ed.hpp</code></a></li>
+<li><code>SpiInterface</code> in <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></li>
 </ul>
 <h2 id="one-call-through-the-layers">One call through the layers<a class="headerlink" href="#one-call-through-the-layers" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">
@@ -1123,6 +1182,22 @@ committed figure no longer matches the code. Each figure below lists the files i
 <p>Drawn from:</p>
 <ul>
 <li><a href="../model/one-call-through-the-layers.seq.yml"><code>docs/model/one-call-through-the-layers.seq.yml</code></a></li>
+</ul>
+<h2 id="spi-bus-timing">SPI bus timing<a class="headerlink" href="#spi-bus-timing" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="spi-timing.svg#only-light" alt="SPI timing of the TLE92466ED in mode 1: CSN low frames a 32-bit frame, SO changes on each rising SCK edge and SI is read on each falling edge, with the lead, lag, setup, hold and output times the datasheet gives." width="640" height="1586" loading="lazy"><img src="spi-timing.dark.svg#only-dark" alt="SPI timing of the TLE92466ED in mode 1: CSN low frames a 32-bit frame, SO changes on each rising SCK edge and SI is read on each falling edge, with the lead, lag, setup, hold and output times the datasheet gives." width="640" height="1586" loading="lazy">
+<figcaption>SPI bus timing</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The four lanes are CSN, SCK, SI and SO, left to right in time. CSN goes low and SO leaves high impedance, SCK idles low and clocks the 32 bits, the chip shifts SO out on the rising edge and reads SI on the falling edge; bits 28 to 3 are left out. After CSN rises SO returns to high impedance until CSN falls for the next frame; the table gives each interval with its datasheet value.</p>
+<p>Drawn from: <a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a>.</p>
+</details>
+<p>Hardware description: <a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a></p>
+<p>Drawn from:</p>
+<ul>
+<li><a href="../model/spi-timing.timing.yml"><code>docs/model/spi-timing.timing.yml</code></a></li>
 </ul>
 <h2 id="two-spi-frames-per-read">Two SPI frames per read<a class="headerlink" href="#two-spi-frames-per-read" title="Permanent link">&para;</a></h2>
 <figure class="kb-figure">

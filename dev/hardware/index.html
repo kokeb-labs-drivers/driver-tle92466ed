@@ -16,7 +16,7 @@
         <link rel="prev" href="../platforms/">
       
       
-        <link rel="next" href="../architecture/">
+        <link rel="next" href="../bus/">
       
       
         
@@ -102,72 +102,6 @@
   <meta property="og:description" content="C++20 driver for the Infineon TLE92466ED six-channel low-side solenoid driver with integrated current control (SPI).">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-tle92466ed/latest/hardware/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -516,6 +450,8 @@
       
         
       
+        
+      
     
     
     
@@ -819,6 +755,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    On the bus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1209,7 +1173,7 @@ datasheet, Rev. 1.2.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The TLE92466ED seen from the top, in its PG-DSO-36 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-pins -->
 <p>PG-DSO-36, 36 pins and an exposed pad (2 Pin configuration, Figure 2, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=7">p. 7</a>).</p>
@@ -1581,7 +1545,7 @@ central logic; the PLL makes the system clock f_SYS.</p>
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>The TLE92466ED's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <h2 id="control-pins">Control pins<a class="headerlink" href="#control-pins" title="Permanent link">&para;</a></h2>
 <p>The driver drives RESN, EN, DRV0 and DRV1 only through the optional <code>GpioSet()</code> hook of your port, with logical
@@ -1663,6 +1627,7 @@ t_POR instead of pulsing RESN and writes every register, since the chip may keep
 </tr>
 </tbody>
 </table>
+<p>The waveform with every interval of Table 18 is on <a href="../bus/">On the bus</a>.</p>
 <p>Every frame carries a CRC-8 SAE J1850 (polynomial 0x1D, initial value 0xFF, final XOR 0xFF) in bits 31..24,
 computed over bits 7..0, 15..8 and 23..16 in that order (section 5.1.2). The chip answers each frame during the
 next one (section 5.2.1):</p>
@@ -1801,6 +1766,9 @@ next one (section 5.2.1):</p>
 </tr>
 </tbody>
 </table>
+<p>The VBAT figure in the README's headline numbers is this functional range, 6 V to 18 V: Table 6 specifies the
+chip's parameters there. From 4 V to 38 V the chip keeps working but its parameters may deviate, so that wider range
+is not a headline figure, and neither are the absolute maximum ratings.</p>
 <p>A VDD or VIO fault ends Mission Mode and clears every EN_CH; a VBAT fault is reported only. With VIO_SEL on the
 wrong level (the reset value is 5 V), a 3.3 V VIO reads as undervoltage and <code>EnterMissionMode()</code> returns
 <code>MissionBlocked</code>. VDD draws up to 40 mA; VBAT up to 1 mA in normal mode and 10 µA with VDD and VIO off (Table 9).</p>
@@ -1818,7 +1786,7 @@ power-supply chip; here the MCU drives them through <code>GpioSet()</code>, as t
 <details class="kb-figure-desc">
 <summary>Figure description and sources</summary>
 <p>A schematic. The MCU is on the left, each of its pins level with the chip pin it connects to; above each wire is the hook of the driver's port that drives or reads it. Supply pins point up to their supply and decoupling, ground pins down. Pins on the right carry the loads and the pins tied to a supply or ground; a cross marks a pin left open. A dot is a junction; wires that cross without a dot are not connected.</p>
-<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+<p>Drawn from: <a href="../hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
 </details>
 <!-- generated: chip-parts -->
 <table>
@@ -2116,11 +2084,11 @@ of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_registers.hpp"><code>inc/tle92466ed_registers.hpp</code></a></td>
 <td>The register map as the driver uses it, with datasheet section numbers</td>
 </tr>
 <tr>
-<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/6e7fc33554f4067aedb4dfe2f246573dbfb53da9/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
+<td><a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a></td>
 <td>The bus requirements and the frame codec</td>
 </tr>
 </tbody>
@@ -2179,13 +2147,13 @@ of the driver is in the datasheet: <a href="../datasheet/">Datasheet map</a>.</p
         
         
           
-          <a href="../architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture">
+          <a href="../bus/" class="md-footer__link md-footer__link--next" aria-label="Next: On the bus">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Architecture
+                On the bus
               </div>
             </div>
             <div class="md-footer__button md-icon">

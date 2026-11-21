@@ -100,72 +100,6 @@
   <meta property="og:description" content="C++20 driver for the Infineon TLE92466ED six-channel low-side solenoid driver with integrated current control (SPI).">
   <meta property="og:url" content="https://kokeb-labs-drivers.github.io/driver-tle92466ed/latest/">
   <meta name="twitter:card" content="summary">
-  <script>
-(function () {
-  if (typeof mermaid != "undefined" && !(mermaid instanceof Element)) return;
-  var SRC = "https://unpkg.com/mermaid@11.17.2/dist/mermaid.min.js",
-      SRI = "sha384-EOXBFmc3gx5mb+vn0vPvvGqACToJD24hhacX5Yx+8NUUQrHIle/Qi5Bg9o3zKwW2", config = {}, real, loading;
-  var waiting = [], io = null, ahead = false, ENGAGE = ["scroll", "keydown", "pointerdown", "touchstart"];
-  var stub = {
-    initialize: function (c) { config = c || {}; if (real) real.initialize(config); },
-    render: function (id, text) {
-      var el = null, pres = document.querySelectorAll("pre.mermaid:not([data-kb-mermaid])");
-      for (var i = 0; i < pres.length && !el; i++) if (pres[i].textContent === text) el = pres[i];
-      if (el) el.setAttribute("data-kb-mermaid", "");
-      return near(el).then(load).then(function (m) { return m.render(id, text); });
-    }
-  };
-  function load() {
-    return loading || (loading = new Promise(function (resolve, reject) {
-      var s = document.createElement("script");
-      s.src = SRC;
-      s.integrity = SRI;
-      s.crossOrigin = "anonymous";
-      s.onload = function () {
-        real = window.mermaid;
-        window.mermaid = stub;
-        real.initialize(config);
-        resolve(real);
-      };
-      s.onerror = function () { loading = null; reject(new Error("Mermaid did not load")); };
-      document.head.appendChild(s);
-    }));
-  }
-  // One observer for the diagrams still waiting: on the screen only until the reader engages, then a screen ahead.
-  function watch() {
-    if (io) io.disconnect();
-    io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) release(function (w) { return w.el === e.target; });
-      });
-    }, { rootMargin: ahead ? "100% 0px" : "0px" });
-    waiting.forEach(function (w) { io.observe(w.el); });
-  }
-  function release(which) {
-    waiting = waiting.filter(function (w) {
-      if (!which(w)) return true;
-      io.unobserve(w.el);
-      w.go();
-      return false;
-    });
-  }
-  function near(el) {
-    if (real || !el || !("IntersectionObserver" in window)) return Promise.resolve();
-    return new Promise(function (resolve) {
-      waiting.push({ el: el, go: resolve });
-      if (io) io.observe(el); else watch();
-    });
-  }
-  function engaged() {
-    ENGAGE.forEach(function (t) { window.removeEventListener(t, engaged, true); });
-    ahead = true;
-    if (io) watch();
-  }
-  ENGAGE.forEach(function (t) { window.addEventListener(t, engaged, { capture: true, passive: true }); });
-  window.addEventListener("beforeprint", function () { if (io) release(function () { return true; }); });
-  window.mermaid = stub;
-})();
-</script>
 
   </head>
   
@@ -537,10 +471,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-you-get" class="md-nav__link">
+  <a href="#what-it-does" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you get
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
       
     </span>
   </a>
@@ -585,6 +574,8 @@
   
     
     
+      
+        
       
         
       
@@ -864,10 +855,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-you-get" class="md-nav__link">
+  <a href="#what-it-does" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What you get
+        What it does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-it-is-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where it is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-the-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside the chip
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pins-and-wiring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pins and wiring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driver coverage
       
     </span>
   </a>
@@ -924,7 +970,7 @@
 
 
 <div class="kb-hero">
-<p><span class="kb-kicker">Driver</span></p>
+<p><span class="kb-kicker">Six-channel low-side solenoid driver</span></p>
 <h1 id="tle92466ed-driver">TLE92466ED Driver<a class="headerlink" href="#tle92466ed-driver" title="Permanent link">&para;</a></h1>
 <p>A C++20 driver for the Infineon TLE92466ED six-channel low-side solenoid driver. It starts the chip, regulates
 each coil current with the chip's own controller and dither, reads the current feedback and the diagnosis, and
@@ -933,32 +979,210 @@ checks every SPI reply, on any MCU.</p>
 <a class="md-button" href="api-guide/">API guide</a>
 <a class="md-button" href="https://github.com/kokeb-labs-drivers/driver-tle92466ed">Source on GitHub</a></p>
 </div>
+<!-- generated: chip-summary -->
+<p>The <strong>TLE92466ED</strong> is a six-channel low-side driver for solenoids and valves: each channel switches its load through an
+integrated MOSFET and regulates the coil current itself, with an optional dither on top (Features, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=1">p.
+1</a>).</p>
+<!-- /generated -->
+
+<figure class="kb-figure">
+<img src="diagrams/chip-hero.svg#only-light" alt="Overview of the TLE92466ED, a six-channel low-side driver for solenoids and valves: each channel switches its load through an integrated MOSFET and regulates the coil current itself, with an optional dither on top. A MCU talks to it over SPI; it drives Solenoids or valves; it reads back Coil current, VBAT, VDD, VIO. Headline figures: 6 x 1.5 A regulated current setpoint per channel; 15 bit current setpoint resolution; &lt; 1 % current control accuracy; 6 to 18 V load supply VBAT, functional range; 8 MHz SPI clock, 32-bit frames with CRC-8." width="1200" height="819"><img src="diagrams/chip-hero.dark.svg#only-dark" alt="Overview of the TLE92466ED, a six-channel low-side driver for solenoids and valves: each channel switches its load through an integrated MOSFET and regulates the coil current itself, with an optional dither on top. A MCU talks to it over SPI; it drives Solenoids or valves; it reads back Coil current, VBAT, VDD, VIO. Headline figures: 6 x 1.5 A regulated current setpoint per channel; 15 bit current setpoint resolution; &lt; 1 % current control accuracy; 6 to 18 V load supply VBAT, functional range; 8 MHz SPI clock, 32-bit frames with CRC-8." width="1200" height="819">
+<figcaption>TLE92466ED</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The TLE92466ED in the middle, drawn as its PG-DSO-36 package. On the left the MCU that runs the driver, joined to it by SPI. To the right, what the chip drives, in the order the power flows. Below it, what the chip reads back. The tiles at the bottom are the headline numbers, each with the datasheet section and page it comes from.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="what-it-does">What it does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-capabilities.svg#only-light" alt="Capability map of the TLE92466ED: Integrating current controller (supported): Holds each coil at a current setpoint from 0 to 1.5 A, with the PWM frequency regulated to a target; Dither (supported): Adds a triangular or trapezoidal ripple to the setpoint to keep a valve spool moving freely; Parallel channels (supported): Joins channels 0/3, 1/2 or 4/5 into one output for a larger load current; Direct drive (supported): Switches a channel without current control: a fixed on-time set over SPI, or following DRV0 or DRV1; Current feedback (supported): Reports each channel&#x27;s average current, minimum and maximum, duty cycle and VBAT; Load diagnosis (supported): Detects open load, short to ground and overcurrent per channel, in the on and the off state; Supply and temperature monitoring (supported): Measures VBAT, VDD, VIO and the die temperature and flags under- and overvoltage and overtemperature; Operation states and watchdogs (supported): Config and Mission Mode, the SPI and clock watchdogs, CRC-checked frames and the built-in self-test; Monitor test modes (not covered): Test bits that fake a supply or overtemperature fault; two of them reset the chip, so they stay 0." width="1200" height="1070" loading="lazy"><img src="diagrams/chip-capabilities.dark.svg#only-dark" alt="Capability map of the TLE92466ED: Integrating current controller (supported): Holds each coil at a current setpoint from 0 to 1.5 A, with the PWM frequency regulated to a target; Dither (supported): Adds a triangular or trapezoidal ripple to the setpoint to keep a valve spool moving freely; Parallel channels (supported): Joins channels 0/3, 1/2 or 4/5 into one output for a larger load current; Direct drive (supported): Switches a channel without current control: a fixed on-time set over SPI, or following DRV0 or DRV1; Current feedback (supported): Reports each channel&#x27;s average current, minimum and maximum, duty cycle and VBAT; Load diagnosis (supported): Detects open load, short to ground and overcurrent per channel, in the on and the off state; Supply and temperature monitoring (supported): Measures VBAT, VDD, VIO and the die temperature and flags under- and overvoltage and overtemperature; Operation states and watchdogs (supported): Config and Mission Mode, the SPI and clock watchdogs, CRC-checked frames and the built-in self-test; Monitor test modes (not covered): Test bits that fake a supply or overtemperature fault; two of them reset the chip, so they stay 0." width="1200" height="1070" loading="lazy">
+<figcaption>What the TLE92466ED does</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>Each card is one function of the TLE92466ED: an icon, its name and what it does for the application. The filled pill says how this driver covers it (legend below); the outlined pills are the chip registers behind it. The coverage table in the README gives the driver calls and the datasheet section of each card.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="where-it-is-used">Where it is used<a class="headerlink" href="#where-it-is-used" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-uses -->
+<ul>
+<li>Variable force solenoids in automatic transmissions and e-axles</li>
+<li>Idle air control</li>
+<li>Exhaust gas recirculation</li>
+<li>Vapor management valves</li>
+<li>Suspension control</li>
+<li>Other constant-current solenoids</li>
+</ul>
+<p>Uses named by the datasheet (Features, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=1">p.
+1</a>).</p>
+<!-- /generated -->
+
+<h2 id="inside-the-chip">Inside the chip<a class="headerlink" href="#inside-the-chip" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-blocks.svg#only-light" alt="Block diagram of the TLE92466ED: its function blocks, how they connect and which package pins reach each block." width="1200" height="1247" loading="lazy"><img src="diagrams/chip-blocks.dark.svg#only-dark" alt="Block diagram of the TLE92466ED: its function blocks, how they connect and which package pins reach each block." width="1200" height="1247" loading="lazy">
+<figcaption>Inside the TLE92466ED</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The TLE92466ED's function blocks inside its outline. Arrows between blocks carry signals or data in the direction they point (both ways where they have two heads). The package pins stand on the left and right edges with their numbers, each wired to the block it reaches.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<h2 id="pins-and-wiring">Pins and wiring<a class="headerlink" href="#pins-and-wiring" title="Permanent link">&para;</a></h2>
+<figure class="kb-figure">
+<img src="diagrams/chip-pinout.svg#only-light" alt="Pinout of the TLE92466ED in PG-DSO-36, top view: 36 pins and an exposed pad, each with its name, its electrical type as a colour and the driver hook that uses it." width="990" height="897" loading="lazy"><img src="diagrams/chip-pinout.dark.svg#only-dark" alt="Pinout of the TLE92466ED in PG-DSO-36, top view: 36 pins and an exposed pad, each with its name, its electrical type as a colour and the driver hook that uses it." width="990" height="897" loading="lazy">
+<figcaption>TLE92466ED pinout, PG-DSO-36</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The TLE92466ED seen from the top, in its PG-DSO-36 package. Pin 1 is marked by the dot; the numbers run counter-clockwise from it. Each pad is coloured by the pin's electrical type (legend below). Next to it is the pin's name and, in mono, the hook of the driver's port that drives or reads it; a pin without a hook is not used by the driver. The dashed square is the exposed pad.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-wiring-typical.svg#only-light" alt="Wiring of the TLE92466ED for the Simplified application circuit: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SI (Transfer()); MCU SPI MISO to SO (Transfer()); MCU SPI CS to CSN (Transfer()); MCU GPIO to RESN (GpioSet(CtrlPin::Reset)); MCU GPIO to EN (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULTN (GpioRead(CtrlPin::Fault)); MCU GPIO to DRV0 (GpioSet(CtrlPin::Drv0)); MCU GPIO to DRV1 (GpioSet(CtrlPin::Drv1)); MCU clock out to CLK. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1398" loading="lazy"><img src="diagrams/chip-wiring-typical.dark.svg#only-dark" alt="Wiring of the TLE92466ED for the Simplified application circuit: MCU SPI SCK to SCK (Transfer()); MCU SPI MOSI to SI (Transfer()); MCU SPI MISO to SO (Transfer()); MCU SPI CS to CSN (Transfer()); MCU GPIO to RESN (GpioSet(CtrlPin::Reset)); MCU GPIO to EN (GpioSet(CtrlPin::Enable)); MCU GPIO (IRQ) to FAULTN (GpioRead(CtrlPin::Fault)); MCU GPIO to DRV0 (GpioSet(CtrlPin::Drv0)); MCU GPIO to DRV1 (GpioSet(CtrlPin::Drv1)); MCU clock out to CLK. Supplies, grounds and the support parts are listed under the drawing." width="1200" height="1398" loading="lazy">
+<figcaption>Wiring: Simplified application circuit</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>The MCU on the left, the TLE92466ED in the middle. Each wire to the chip is coloured by the chip pin's electrical type and carries the net name and the chip pin number above it and, under it, the driver hooks that use it (and any part on the net). The boxes underneath list the supplies, the support parts and the pins this circuit leaves unconnected.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<figure class="kb-figure">
+<img src="diagrams/chip-frame-spi.svg#only-light" alt="SPI frame of the TLE92466ED, 32 bits, most significant bit first. Write: CRC (bits 31 to 24), address (bits 23 to 17), R/W (bit 16), data (bits 15 to 0); Read: CRC (bits 31 to 24), don&#x27;t care (bits 23 to 17), R/W (bit 16), address (bits 15 to 0); Reply, 16 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), status (bits 21 to 17), R/W (bit 16), data (bits 15 to 0); Reply, 22 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), feedback data (bits 21 to 0); Critical fault: don&#x27;t care (bits 31 to 24), reply mode (bits 23 to 22), don&#x27;t care (bits 21 to 8), fault flags (bits 7 to 0). The fault flags field of the Critical fault row: bit 7 1V5 ok, bit 6 2V5 ok, bit 5 BG ok, bit 4 CLK_TOO_SLOW, bit 3 CLK_TOO_FAST, bit 2 DIG_CLK_TOO_SLOW, bit 1 DIG_CLK_TOO_FAST, bit 0 WD_REF_CLK. Below, the SPI mode 1 waveform of one transfer in the same bit grid." width="1200" height="1068" loading="lazy"><img src="diagrams/chip-frame-spi.dark.svg#only-dark" alt="SPI frame of the TLE92466ED, 32 bits, most significant bit first. Write: CRC (bits 31 to 24), address (bits 23 to 17), R/W (bit 16), data (bits 15 to 0); Read: CRC (bits 31 to 24), don&#x27;t care (bits 23 to 17), R/W (bit 16), address (bits 15 to 0); Reply, 16 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), status (bits 21 to 17), R/W (bit 16), data (bits 15 to 0); Reply, 22 bit: CRC (bits 31 to 24), reply mode (bits 23 to 22), feedback data (bits 21 to 0); Critical fault: don&#x27;t care (bits 31 to 24), reply mode (bits 23 to 22), don&#x27;t care (bits 21 to 8), fault flags (bits 7 to 0). The fault flags field of the Critical fault row: bit 7 1V5 ok, bit 6 2V5 ok, bit 5 BG ok, bit 4 CLK_TOO_SLOW, bit 3 CLK_TOO_FAST, bit 2 DIG_CLK_TOO_SLOW, bit 1 DIG_CLK_TOO_FAST, bit 0 WD_REF_CLK. Below, the SPI mode 1 waveform of one transfer in the same bit grid." width="1200" height="1068" loading="lazy">
+<figcaption>TLE92466ED: SPI frame</figcaption>
+</figure>
+
+<details class="kb-figure-desc">
+<summary>Figure description and sources</summary>
+<p>One SPI frame of the TLE92466ED, 32 bits in a row from the most significant (left, sent first) to the least significant (right). Each row is one kind of frame; each coloured box a field, with its first and last bit number under it. The waveform below draws the select, the clock and the data lines over the same bits. The table at the bottom names each bit of the fault flags field.</p>
+<p>Drawn from: <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <a href="https://github.com/kokeb-labs-drivers/driver-tle92466ed/blob/2962452e1061d5317dff56ce11496c7352485f21/inc/tle92466ed_spi_interface.hpp"><code>inc/tle92466ed_spi_interface.hpp</code></a>.</p>
+</details>
+<p>Every pin, the application circuit, the bus settings, the timing and the power: <a href="hardware/">Hardware</a>.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Wire the chip as above, write the port (<a href="porting/">Porting</a>), then drive a valve:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tle92466ed.hpp"</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">drive_one_valve</span><span class="p">(</span><span class="n">MyPort</span><span class="o">&amp;</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">Config</span><span class="w"> </span><span class="n">config</span><span class="p">{};</span><span class="w">                              </span><span class="c1">// reset values, no channel loaded</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="n">config</span><span class="p">.</span><span class="n">vio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">VioLevel</span><span class="o">::</span><span class="n">V3V3</span><span class="p">;</span><span class="w">                  </span><span class="c1">// the board's VIO</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="n">config</span><span class="p">.</span><span class="n">channels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">CurrentControlChannel</span><span class="p">();</span><span class="w"> </span><span class="c1">// CH0: a valve, ICC, 1 kHz PWM</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">TLE92466ED</span><span class="o">&lt;</span><span class="n">MyPort</span><span class="o">&gt;</span><span class="w"> </span><span class="n">driver</span><span class="p">(</span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">);</span><span class="w">      </span><span class="c1">// no I/O yet</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">EnsureInitialized</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 1. reset, INIT_DONE, ICVID, every register</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">);</span><span class="w">            </span><span class="c1">//    Bus, NoDevice, Timeout: check the wiring</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">EnterMissionMode</span><span class="p">();</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 2. EN high, OP_MODE = 1</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">);</span><span class="w">           </span><span class="c1">//    MissionBlocked: read the faults</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">driver</span><span class="p">.</span><span class="n">SetCurrent</span><span class="p">(</span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">Channel</span><span class="o">::</span><span class="n">Ch0</span><span class="p">,</span><span class="w"> </span><span class="mi">400'000</span><span class="p">);</span><span class="w"> </span><span class="o">!</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 3. 400 mA</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">error</span><span class="p">);</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">EnableChannel</span><span class="p">(</span><span class="n">tle92466ed</span><span class="o">::</span><span class="n">Channel</span><span class="o">::</span><span class="n">Ch0</span><span class="p">).</span><span class="n">error</span><span class="p">);</span><span class="w"> </span><span class="c1">// 4. on</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>The steps explained: <a href="quickstart/">Quickstart</a>.</p>
+<h2 id="driver-coverage">Driver coverage<a class="headerlink" href="#driver-coverage" title="Permanent link">&para;</a></h2>
+<!-- generated: chip-coverage -->
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>What the chip does</th>
+<th>Driver API</th>
+<th>Registers</th>
+<th>Status</th>
+<th>Datasheet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="api-guide/">Integrating current controller</a></td>
+<td>Holds each coil at a current setpoint from 0 to 1.5 A, with the PWM frequency regulated to a target</td>
+<td><code>SetCurrent</code>, <code>ConfigureChannel</code>, <code>EnableChannel</code>, <code>DisableChannel</code></td>
+<td><code>SETPOINT</code>, <code>CTRL</code>, <code>PERIOD</code>, <code>INTEGRATOR_LIMIT</code>, <code>CTRL_INT_THRESH</code>, <code>CH_CTRL</code></td>
+<td>Supported</td>
+<td>4.6.2, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=24">p. 24</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Dither</a></td>
+<td>Adds a triangular or trapezoidal ripple to the setpoint to keep a valve spool moving freely</td>
+<td><code>SetDither</code></td>
+<td><code>DITHER_CLK_DIV</code>, <code>DITHER_STEP</code>, <code>DITHER_CTRL</code></td>
+<td>Supported</td>
+<td>4.7.1, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=29">p. 29</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Parallel channels</a></td>
+<td>Joins channels 0/3, &frac12; or &#8536; into one output for a larger load current</td>
+<td><code>SetParallel</code></td>
+<td><code>CH_CTRL</code></td>
+<td>Supported</td>
+<td>4.5.2, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=22">p. 22</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Direct drive</a></td>
+<td>Switches a channel without current control: a fixed on-time set over SPI, or following DRV0 or DRV1</td>
+<td><code>ChannelMode::DirectDriveSpi</code>, <code>SetDrivePin</code></td>
+<td><code>MODE</code>, <code>TON</code></td>
+<td>Supported</td>
+<td>4.8.1, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=32">p. 32</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Current feedback</a></td>
+<td>Reports each channel's average current, minimum and maximum, duty cycle and VBAT (FB_I_AVG_s16 and FB_INT_THRESH only through ReadRegister)</td>
+<td><code>ReadChannelFeedback</code></td>
+<td><code>FB_I_AVG</code>, <code>FB_IMIN_IMAX</code>, <code>FB_DC</code>, <code>FB_VBAT</code>, <code>FB_FRZ</code>, <code>FB_UPD</code></td>
+<td>Supported</td>
+<td>4.10.2, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=41">p. 41</a></td>
+</tr>
+<tr>
+<td><a href="troubleshooting/">Load diagnosis</a></td>
+<td>Detects open load, short to ground and overcurrent per channel, in the on and the off state</td>
+<td><code>ReadFaults</code>, <code>ClearChannelFaults</code>, <code>StartOvercurrentCheck</code></td>
+<td><code>CH_CONFIG</code>, <code>DIAG_ERR_CHGR</code>, <code>DIAG_WARN_CHGR</code></td>
+<td>Supported</td>
+<td>4.9.1, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=32">p. 32</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Supply and temperature monitoring</a></td>
+<td>Measures VBAT, VDD, VIO and the die temperature and flags under- and overvoltage and overtemperature</td>
+<td><code>ReadSupply</code>, <code>ReadFaults</code>, <code>ClearFaults</code></td>
+<td><code>FB_VOLTAGE1</code>, <code>FB_VOLTAGE2</code>, <code>VBAT_TH</code>, <code>GLOBAL_DIAG0</code>, <code>GLOBAL_DIAG1</code>, <code>GLOBAL_DIAG2</code></td>
+<td>Supported</td>
+<td>4.1.2, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=14">p. 14</a></td>
+</tr>
+<tr>
+<td><a href="api-guide/">Operation states and watchdogs</a></td>
+<td>Config and Mission Mode, the SPI and clock watchdogs, CRC-checked frames and the built-in self-test</td>
+<td><code>EnterMissionMode</code>, <code>EnterConfigMode</code>, <code>ReloadWatchdog</code>, <code>RunBist</code></td>
+<td><code>CH_CTRL</code>, <code>GLOBAL_CONFIG</code>, <code>WD_RELOAD</code>, <code>SFF_BIST</code>, <code>FB_STAT</code></td>
+<td>Supported</td>
+<td>4.3.1, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=19">p. 19</a></td>
+</tr>
+<tr>
+<td><a href="limitations/">Monitor test modes</a></td>
+<td>Test bits that fake a supply or overtemperature fault; two of them reset the chip, so they stay 0</td>
+<td>-</td>
+<td><code>GLOBAL_CONFIG</code></td>
+<td>Not covered</td>
+<td>5.3.2.4, <a href="https://www.infineon.com/assets/row/public/documents/10/49/infineon-tle92466ed-datasheet-en.pdf#page=58">p. 58</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Supported</strong>: the driver covers it and a host test checks it; <strong>Not covered</strong>: the chip has it and the driver leaves it
+alone.</p>
+<p>From <a href="hardware.yml"><code>docs/hardware.yml</code></a>; <code>kokeb-docs hardware --check</code> confirms that every API name is in
+<code>inc/tle92466ed.hpp</code>, <code>inc/tle92466ed_types.hpp</code> and every register in <code>inc/tle92466ed_registers.hpp</code>.</p>
+<!-- /generated -->
+
 <p>The driver has no platform code. You give it a small class that brings the bus up and moves 32-bit frames; it does
 the rest: the reset and start-up sequence, the operation states, the frame CRC, the one-frame reply pipeline, unit
 conversion, fault latching and bounded waits.</p>
-<div class="kb-chip">
-<div class="kb-chip__head">
-<span class="kb-chip__kicker">Six-channel low-side solenoid driver</span>
-<span class="kb-chip__name">TLE92466ED</span>
-<span class="kb-chip__vendor">Infineon</span>
-</div>
-<dl>
-<dt>Function</dt>
-<dd>Six low-side channels with integrated MOSFETs and shunts; each regulates its average coil current</dd>
-<dt>Current</dt>
-<dd>0 to 1.5 A per channel, 15-bit setpoint, 1 % accuracy; 1.8 A with dither; 2.43 A from a parallel pair (2.7 A range)</dd>
-<dt>Control</dt>
-<dd>Integrating current controller with a PWM frequency controller (110 Hz to 4 kHz), dither generator,
-direct drive from SPI or the DRV0/DRV1 pins</dd>
-<dt>Diagnosis</dt>
-<dd>Open load, short to ground and overcurrent in ON and OFF state, overtemperature, supply and clock monitors</dd>
-<dt>Interface</dt>
-<dd>SPI mode 1, up to 8 MHz; 32-bit frames with CRC-8 SAE J1850; SPI watchdog</dd>
-<dt>Supply</dt>
-<dd>VDD 4.5 V to 5.5 V, VIO 3.3 V or 5 V, VBAT 6 V to 18 V</dd>
-</dl>
-</div>
-<h2 id="what-you-get">What you get<a class="headerlink" href="#what-you-get" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>One object per chip.</strong> <code>TLE92466ED&lt;YourPort&gt;</code> takes a reference to your port and does no I/O until
   <code>EnsureInitialized()</code>. See <a href="api-guide/">API guide</a>.</li>
