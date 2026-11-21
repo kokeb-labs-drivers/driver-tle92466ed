@@ -130,6 +130,8 @@ t_POR instead of pulsing RESN and writes every register, since the chip may keep
 | CSN high between frames | At least 600 ns (t_CSN_TD) | `kMinCsHighNs` |
 | CSN to SCK, SCK to CSN | At least 250 ns (t_CSN_LEAD, t_CSN_LAG) | `kCsSetupNs`, `kCsHoldNs` |
 
+The waveform with every interval of Table 18 is on [On the bus](bus.md).
+
 Every frame carries a CRC-8 SAE J1850 (polynomial 0x1D, initial value 0xFF, final XOR 0xFF) in bits 31..24,
 computed over bits 7..0, 15..8 and 23..16 in that order (section 5.1.2). The chip answers each frame during the
 next one (section 5.2.1):
@@ -172,6 +174,10 @@ next one (section 5.2.1):
 | VDD | 4.5 V to 5.5 V; SPI works from 3.5 V | UV 3.7 V to 4.5 V, OV 5.5 V to 6.4 V |
 | VIO | 3.0 V to 5.5 V | Against the 3.3 V or the 5 V thresholds that VIO_SEL selects |
 | VBAT | 6 V to 18 V (4 V to 38 V with deviations) | `Config::vbat_uv_code` and `vbat_ov_code`, 162 mV per count |
+
+The VBAT figure in the README's headline numbers is this functional range, 6 V to 18 V: Table 6 specifies the
+chip's parameters there. From 4 V to 38 V the chip keeps working but its parameters may deviate, so that wider range
+is not a headline figure, and neither are the absolute maximum ratings.
 
 A VDD or VIO fault ends Mission Mode and clears every EN_CH; a VBAT fault is reported only. With VIO_SEL on the
 wrong level (the reset value is 5 V), a 3.3 V VIO reads as undervoltage and `EnterMissionMode()` returns
